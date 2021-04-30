@@ -10,5 +10,8 @@
 </head>
 <body>
 tnwjd
+<%
+String s=(String)session.getAttribute("dkgk");
+%>
 </body>
 </html>
