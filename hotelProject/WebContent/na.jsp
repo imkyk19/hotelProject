@@ -13,5 +13,6 @@ tnwjd
 <%
 String s=(String)session.getAttribute("dkgk");
 %>
+ㄴㅇㅇㄴ
 </body>
 </html>
