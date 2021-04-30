@@ -10,9 +10,13 @@
 </head>
 <body>
 tnwjd
+<<<<<<< HEAD
 <%
 String s=(String)session.getAttribute("dkgk");
 %>
 ㄴㅇㅇㄴ
+=======
+수정
+>>>>>>> branch 'master' of https://github.com/imkyk19/hotelProject.git
 </body>
 </html>
