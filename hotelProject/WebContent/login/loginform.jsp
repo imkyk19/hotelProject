@@ -14,11 +14,9 @@
 		font-family: 'Noto Serif KR';
 	}
 	div.loginform{
-		width: 800px;
 		height: 700px;
 		position: absolute;
 		left: 600px;
-		margin-top: 200px;
 	}
 	
 	div.loginform div.joinform{
