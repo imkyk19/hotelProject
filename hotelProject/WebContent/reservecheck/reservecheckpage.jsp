@@ -8,7 +8,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
+<style>
+div.reservechange{
 
+	margin-left: 600px;
+
+}
+</style>
 <body>
 <div class="reservechange">
 <table style="width:600px;">
@@ -48,15 +54,15 @@
 	   </td>
 	 </tr>	
 	 <tr>  
-	 	<td>
+	 	<td style="font-size: 1.2em;">
 	 	Total:
 	 	</td>
 	 </tr>
-	 <tr style="float:left;background-color: #F5F6CE;">
-	 	<td>예약번호</td>   <td>객실/패키지</td>   <br><td>객실수</td><br>	<td>체크인/체크아웃</td>""<br><td>예약상태</td>
+	 <tr style="background-color: #F5F6CE;font-size: 1.2em;">
+	 	<td>예약번호</td> <td>객실/패키지</td> <td>객실수</td>  <td>체크인/체크아웃</td>  <td>예약상태</td>
 	 </tr>
 	 <tr>
-	 	<td>
+	 	<td style="font-size: 1.2em;">
 	 		자료가 없습니다
 	 	</td>
 	 </tr>
