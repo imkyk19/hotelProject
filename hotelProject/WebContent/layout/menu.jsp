@@ -14,11 +14,19 @@
 		width: 100%;
 		height: 100px;
 		line-height: 100px;
+		background-color: #BFA87E;
+		
+	}
+	
+	table.menu a{
+		color: #8C4C27;
+		text-decoration: none;
+		cursor: pointer;
 	}
 </style>
 </head>
 <body>
-<table class="table table-bordered tableform">
+<table class="tableform">
 	<tr>
 		<td style="width: 300px; font-size: 2em;text-align: center;">
 			<span onclick="location.href='main.jsp?go=reservation/bookingform.jsp'" style="line-height: 80px;">예약<span class="glyphicon glyphicon-calendar"></span></span>
