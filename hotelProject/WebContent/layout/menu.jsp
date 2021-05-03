@@ -37,7 +37,7 @@
 				<tr style="text-align: left;">
 					<td><a href="main.jsp?go=login/loginform.jsp">로그인</a></td>
 					<td><a href="main.jsp?go=member/memberform.jsp">회원가입</a></td>
-					<td><a href="main.jsp?go=reservecheck/reservecheckpage.jsp">예약확인ㅇ</a></td>
+					<td><a href="main.jsp?go=reservecheck/reservecheckpage.jsp">예약확인</a></td>
 				</tr>
 				<tr style="text-align: left;">
 					<td><a href="main.jsp?go=information/information.jsp">소개</a></td>
