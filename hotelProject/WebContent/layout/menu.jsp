@@ -29,17 +29,13 @@
 <table class="tableform">
 	<tr>
 		<td style="width: 300px; font-size: 2em;text-align: center;">
-<<<<<<< HEAD
-			<span onclick="location.href='main.jsp?go=reservation/bookingform.jsp'" style="line-height: 80px; cursor: pointer;">예약<span class="glyphicon glyphicon-calendar"></span></span>
-=======
+
 			<span onclick="location.href='main.jsp?go=reservation/bookingform.jsp'" style="line-height: 80px; cursor: pointer;color: #594C3C;">예약<span class="glyphicon glyphicon-calendar"></span></span>
->>>>>>> branch 'master' of https://github.com/imkyk19/hotelProject.git
+
 		</td>
-<<<<<<< HEAD
-		<td style="width: 800px; font-size: 3em; text-align: center; cursor: pointer;"><span onclick="location.href='main.jsp'">Hotel</span></td>
-=======
+
 		<td style="width: 800px; font-size: 3em; text-align: center; cursor:pointer;color: #594C3C;"><span onclick="location.href='main.jsp'">Hotel GRACE</span></td>
->>>>>>> branch 'master' of https://github.com/imkyk19/hotelProject.git
+
 		<td style="width: 300px;">
 			<table class="menu" style="float: right; text-align: left;line-height: 40px;">
 				<tr style="text-align: left;">
