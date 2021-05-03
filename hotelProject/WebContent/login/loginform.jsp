@@ -10,30 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
-	body *{
-		font-family: 'Noto Serif KR';
-	}
-	div.loginform{
-		height: 700px;
-		position: absolute;
-		left: 600px;
-	}
-	
-	div.loginform div.joinform{
-		border: 1px solid black;
-		position: absolute;
-		width: 500px;
-		height: 300px;
-		left: 150px;
-	}
-	div.loginform table.joinform{
-		position: absolute;
-		border-collapse: collapse;
-		width: 500px;
-		height: 300px;
-		left: 150px;
-		
-	}
+div.loginform{
+	width: 30%;
+	margin-left: 35%;
+}
 	
 </style>
 </head>
@@ -47,22 +27,22 @@
 	<h5 style="text-align: center;">번호와 비밀번호를 입력해 주시기 바랍니다.</h5>
 	<h6 style="text-align: center; color: #aaa;">※회원이 되시면 회원만을 위한 다양한 서비스와 혜택을 받으실 수 있습니다</h6>
 	<br> <br>
-	
-	
-	<table class="joinform table talbe-bordered">
+	<form action="login/loginaction.jsp">
+	<table class="joinform table table-bordered">
 		<tr style="height: 30px; text-align: center; ">
-			<th style="text-align: center;">회원 <hr style="background: #BF8975;height: 7px;"></th><th style="text-align: center;">비회원</th>
+			<th style="text-align: center; width: 140px;">회원 <hr style="background: #BF8975;height: 7px;"></th>
+			<th style="text-align: center; width: 100px;">비회원</th>
 		</tr>
 		<tr style="height: 30px;" bgcolor="#F2DAC4">
-			<td><input type="text"  placeholder="번호 또는 아이디 입력" style="text-align: left;"></td>
-			<td rowspan="2" align="center"><button type="button" style="width: 120px; height: 50px;background-color: #402A22;color: white;">로그인</button></td>
+			<td style="text-align: right;"><input type="text"  placeholder="번호 또는 아이디 입력"></td>
+			<td rowspan="2" align="left"><button type="button" style="width: 120px; height: 50px;background-color: #402A22;color: white;">로그인</button></td>
 			
 		</tr>
 		<tr style="height: 30px;" bgcolor="#F2DAC4">
-			<td><input type="password"  placeholder="비밀번호"></td>
+			<td style="text-align: right;"><input type="password"  placeholder="비밀번호"></td>
 		</tr>
 		<tr>
-			<td colspan="2" bgcolor="#F2DAC4">
+			<td colspan="2" bgcolor="#F2DAC4" style="text-align: center;">
 				<input type="checkbox">번호 또는 아이디 저장
 			</td>
 		</tr>
@@ -75,12 +55,11 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-				<img src="../image/구글로그인.JPG">
+				<img src="image/구글로그인.JPG">
 			</td>
 		</tr>
 	</table>
-		
-	
+	</form>	
 </div>
 </body>
 </html>

@@ -38,6 +38,7 @@
 	//info위치 정하는 함수
 	function stickyFooter(){
 		var height=$("div.body").height();
+		console.log(height);
 		$("div.info").css("top",height+100);
 	}
 </script>
