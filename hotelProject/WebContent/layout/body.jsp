@@ -81,7 +81,7 @@
 	 <div class="item active">
 	 	<img alt="호텔" src="image/호텔.jpg" id="img">
 	 	<div class="carousel-caption">
-	 		<h3>Hotel GRACE</h3>
+	 		<h3>Hotel GRACE♡</h3>
 	 		<p>사랑하는 사람들과 행복한 추억을 만들어보세요</p>
 	 	</div>
 	 </div>
