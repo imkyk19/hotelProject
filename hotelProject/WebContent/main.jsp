@@ -9,8 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-test
 
-수정입니다
 </body>
 </html>
