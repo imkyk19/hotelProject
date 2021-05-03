@@ -22,7 +22,7 @@ div.loginform{
 	<h2 style="color: #8C4C27;">로그인</h2>
 	<hr style="background: #260F01;height: 5px;">
 	<br> <br>
-	<h2 style="text-align: center; color:#8C4C27; ">어쩌구호텔에 오신 것을 환영합니다.</h2>
+	<h2 style="text-align: center; color:#8C4C27; ">Hotel GRACE에 오신 것을 환영합니다.</h2>
 	<br>
 	<h5 style="text-align: center;">번호와 비밀번호를 입력해 주시기 바랍니다.</h5>
 	<h6 style="text-align: center; color: #aaa;">※회원이 되시면 회원만을 위한 다양한 서비스와 혜택을 받으실 수 있습니다</h6>
