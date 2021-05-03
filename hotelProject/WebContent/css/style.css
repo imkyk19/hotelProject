@@ -4,7 +4,7 @@ body *{
 
 div.main>div{
 	position: absolute;
-	border:  1px solid black;
+	border:  0px solid black;
 }
 
 div.main div.menu{
@@ -23,6 +23,7 @@ div.main div.info{
 	top: 1000px;
 	height: 200px;
 	width: 100%;
+	background-color: #BFA87E;
 	
 }
 

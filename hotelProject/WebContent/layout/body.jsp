@@ -97,7 +97,7 @@
 	 <div class="item">
 	 	<img alt="객실" src="image/객실.jpg" id="img">
 	 	<div class="carousel-caption">
-	 		 <h3>Room</h3>
+	 		 <h3>Rooms</h3>
 	 		<p>Deluxe | Business Deluxe | Superior Suite | Corner Suite</p>
 	 	</div>
 	 </div>	
@@ -171,18 +171,16 @@
 						%>
 						</select>
 					</td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr style="margin-top: 10px;">
-					<td  colspan="5" align="center">
-						<button style="margin-top: 10px; margin-bottom:10px; width: 100px;" type="button" id = "btnsearch" class="btn btn-default btn">검색</button>
+					<td>
+					<button style="margin-top: 10px; margin-bottom:10px; width: 100px;" type="button" id = "btnsearch" class="btn btn-default btn">검색</button>
 					</td>
 				</tr>
-			</tfoot>
+			</tbody>
+			<br>
 		</table>
 	</form>
 </div>
+<br><br>
 
 </body>
 </html>
