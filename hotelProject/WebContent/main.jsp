@@ -4,19 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<title>Insert title here</title>
 </head>
 <body>
-tnwjd
-<<<<<<< HEAD
-<%
-String s=(String)session.getAttribute("dkgk");
-%>
-ㄴㅇㅇㄴ
-=======
-수정
->>>>>>> branch 'master' of https://github.com/imkyk19/hotelProject.git
+
 </body>
 </html>
