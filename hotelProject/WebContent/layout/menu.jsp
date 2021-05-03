@@ -9,17 +9,23 @@
 	table.menu td{
 		width: 100px;
 	}
+	
+	table.tableform{
+		width: 100%;
+		height: 100px;
+		line-height: 100px;
+	}
 </style>
 </head>
 <body>
-<table class="table table-bordered">
+<table class="table table-bordered tableform">
 	<tr>
-		<td style="width: 300px; font-size: 1.4em;text-align: center;">
+		<td style="width: 300px; font-size: 2em;text-align: center;">
 			<span onclick="location.href='main.jsp?go=reservation/bookingform.jsp'">예약<span class="glyphicon glyphicon-calendar"></span></span>
 		</td>
-		<td style="width: 800px; font-size: 1.8em; text-align: center;"><span onclick="location.href='main.jsp'">Hotel</span></td>
+		<td style="width: 800px; font-size: 3em; text-align: center;"><span onclick="location.href='main.jsp'">Hotel</span></td>
 		<td>
-			<table class="menu" style="float: right; width: 400px;">
+			<table class="menu" style="float: right; width: 300px;">
 				<tr style="text-align: center;">
 					<td><a href="main.jsp?go=login/loginform.jsp">로그인</a></td>
 					<td><a href="main.jsp?go=member/memberform.jsp">회원가입</a></td>
