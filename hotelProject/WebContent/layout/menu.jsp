@@ -32,12 +32,13 @@
 			<span onclick="location.href='main.jsp?go=reservation/bookingform.jsp'" style="line-height: 80px; cursor: pointer;color: #594C3C;">예약<span class="glyphicon glyphicon-calendar"></span></span>
 		</td>
 		<td style="width: 800px; font-size: 3em; text-align: center; cursor:pointer;color: #594C3C;"><span onclick="location.href='main.jsp'">Hotel GRACE</span></td>
+
 		<td style="width: 300px;">
 			<table class="menu" style="float: right; text-align: left;line-height: 40px;">
 				<tr style="text-align: left;">
 					<td><a href="main.jsp?go=login/loginform.jsp">로그인</a></td>
 					<td><a href="main.jsp?go=member/memberform.jsp">회원가입</a></td>
-					<td><a href="main.jsp?go=reservecheck/reservecheckpage.jsp">예약확인ㅇ</a></td>
+					<td><a href="main.jsp?go=reservecheck/reservecheckpage.jsp">예약확인</a></td>
 				</tr>
 				<tr style="text-align: left;">
 					<td><a href="main.jsp?go=information/information.jsp">소개</a></td>
