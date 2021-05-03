@@ -25,7 +25,7 @@
   
   #img{
   	width: 100%;
-  	height: 1000px;
+  	height: 650px;
   }
   
   	table.booking {
