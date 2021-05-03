@@ -21,17 +21,17 @@
 <table class="table table-bordered tableform">
 	<tr>
 		<td style="width: 300px; font-size: 2em;text-align: center;">
-			<span onclick="location.href='main.jsp?go=reservation/bookingform.jsp'">예약<span class="glyphicon glyphicon-calendar"></span></span>
+			<span onclick="location.href='main.jsp?go=reservation/bookingform.jsp'" style="line-height: 80px;">예약<span class="glyphicon glyphicon-calendar"></span></span>
 		</td>
 		<td style="width: 800px; font-size: 3em; text-align: center;"><span onclick="location.href='main.jsp'">Hotel</span></td>
-		<td>
-			<table class="menu" style="float: right; width: 300px;">
-				<tr style="text-align: center;">
+		<td style="width: 300px;">
+			<table class="menu" style="float: right; text-align: left;line-height: 40px;">
+				<tr style="text-align: left;">
 					<td><a href="main.jsp?go=login/loginform.jsp">로그인</a></td>
 					<td><a href="main.jsp?go=member/memberform.jsp">회원가입</a></td>
 					<td><a href="main.jsp?go=reservecheck/reservecheckpage.jsp">예약확인</a></td>
 				</tr>
-				<tr style="text-align: center;">
+				<tr style="text-align: left;">
 					<td><a href="main.jsp?go=information/information.jsp">소개</a></td>
 					<td><a href="main.jsp?go=customer/info.jsp">고객센터</a></td>
 					<td><a href="main.jsp?go=review/review.jsp">후기</a></td>
