@@ -53,8 +53,8 @@ public class RoomDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from room a, reservation b where status = 'vacant' and b.checkout_date >= ? and b.checkin_date <= ? and a.room_num != b.room_num";
-		
+		//checkout_date 옆에는 체크인 날짜, checkin_date 옆에는 체크아웃 날짜를 넣어라
+		String sql = "SELECT * FROM room r WHERE r.room_num NOT IN (SELECT b.room_num FROM reservation b WHERE NOT (b.CHECKOUT_DATE <= ? OR b.CHECKIN_DATE >= ?))ORDER BY r.ROOM_NUM";		
 		conn = db.getCommonConnection();
 		try {
 			pstmt = conn.prepareStatement(sql);
