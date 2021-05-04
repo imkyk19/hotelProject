@@ -5,10 +5,16 @@ public class RoomDto {
 	private int roomNum;
 	private String status;
 	private int capacity;
-	private int initialQty;
-	private int availableQty;
 	private int price;
+	private String photo;
 	
+	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -33,18 +39,7 @@ public class RoomDto {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	public int getInitialQty() {
-		return initialQty;
-	}
-	public void setInitialQty(int initialQty) {
-		this.initialQty = initialQty;
-	}
-	public int getAvailableQty() {
-		return availableQty;
-	}
-	public void setAvailableQty(int availableQty) {
-		this.availableQty = availableQty;
-	}
+	
 	public int getPrice() {
 		return price;
 	}

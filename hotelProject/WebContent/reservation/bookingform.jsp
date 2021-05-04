@@ -114,10 +114,8 @@
 		</table>
 	</form>
 </div>
-<div class="vacantrooms" >
-	<table>
+<div class="roomlist" >
 	
-	</table>
 </div>
 </body>
 </html>
