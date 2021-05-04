@@ -16,50 +16,46 @@ public class DbConnect {
 	public DbConnect() {
 		
 		try {
-			Class.forName(oracleDriver);// ÇÁ·ÎÁ§Æ®¾È¿¡ ÀÚ·áÆÄÀÏÀÌ ¾ø°Å³ª ÆÐÅ°ÁöÀÌ¸§ÀÌ Æ²¸° °æ¿ì ¿À·ù°¡ ³²//Å¬·¡½º¸¦ ¸¸µé¾îÁÖ´Â ¸Þ¼­µå//µå¶óÀÌ¹ö Å¬·¡½º »ðÀÔ
-			// System.out.println("¿À¶óÅ¬ µå¶óÀÌ¹ö °Ë»ö ¼º°ø");
+			Class.forName(oracleDriver);
 		} catch (ClassNotFoundException e) {
-			System.out.println("¿À¶óÅ¬ µå¶óÀÌ¹ö °Ë»ö ½ÇÆÐ:" + e.getMessage());
+			System.out.println("ì˜¤ë¼í´ ë“œë¼ì´ë²„ ê²€ìƒ‰ ì‹¤íŒ¨:" + e.getMessage());
 		}
 	}
 	
-	// db server ¿¬°áÇÏ´Â ¸Þ¼­µå
-	public Connection getConnection() {// static¸Þ¼­µå
-		// ConnectionÀº java.sql°Í ¼±ÅÃÇØ¾ßÇÔ,¼º°øÇßÀ»¶§¸¸ connectionÀÌ »ý±â´Â °Í
+
+	public Connection getConnection() {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(oracleUrl, "angel", "a1234");
-			// conn = µ¥ÀÌÅÍÀÇ url,id,password
+			
 
-			// System.out.println("¿À¶óÅ¬ ¼­¹ö ¿¬°á ¼º°ø");
+			
 		} catch (SQLException e) {
-			System.out.println("¿À¶óÅ¬ ¼­¹ö ¿¬°á ½ÇÆÐ:" + e.getMessage());
-			// ¿À¶óÅ¬ ¼­¹ö ¿¬°á ½ÇÆÐ:ORA-01017: invalid username/password; logon denied->id³ª
-			// password°¡ Àß¸øµÆÀ» ¶§ ¿À·ù
+			System.out.println("ì˜¤ë¼í´ ì—°ê²° ì‹¤íŒ¨:" + e.getMessage());
+		
 		}
 
 		return conn;
 	}
 	
-	// db °øµ¿ server ¿¬°áÇÏ´Â ¸Þ¼­µå
-	public Connection getCommonConnection() {// static¸Þ¼­µå
-		// ConnectionÀº java.sql°Í ¼±ÅÃÇØ¾ßÇÔ,¼º°øÇßÀ»¶§¸¸ connectionÀÌ »ý±â´Â °Í
+
+	public Connection getCommonConnection() {
+		
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(susuUrl, "hotel", "a1234");
-			// conn = µ¥ÀÌÅÍÀÇ url,id,password
+			
 
-			// System.out.println("¿À¶óÅ¬ ¼­¹ö ¿¬°á ¼º°ø");
+			
 		} catch (SQLException e) {
-			System.out.println("°­»çpc¿À¶óÅ¬ ¼­¹ö ¿¬°á ½ÇÆÐ:" + e.getMessage());
-			// ¿À¶óÅ¬ ¼­¹ö ¿¬°á ½ÇÆÐ:ORA-01017: invalid username/password; logon denied->id³ª
-			// password°¡ Àß¸øµÆÀ» ¶§ ¿À·ù°¡ ³­´Ù
+			System.out.println("susuUrl ì—°ê²° ì‹¤íŒ¨:" + e.getMessage());
+			
 		}
 
 		return conn;
 	}
 	
-	//db close
+
 	public void dbColse(Statement stmt,Connection conn) {
 		try {
 			if(stmt!=null)stmt.close();

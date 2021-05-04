@@ -48,7 +48,7 @@ div.loginform{
 		</tr>
 		<tr align="center" bgcolor="#F2DAC4">
 			<td colspan="2">
-			<button style="background-color: #402A22; color: white; width: 50px;">가입</button>
+			<button type="button" style="background-color: #402A22; color: white; width: 50px;" onclick="location.href='main.jsp?go=member/memberform.jsp'">가입</button>
 			<button style="background-color: #BF8975; color: white; width: 100px;">아이디찾기</button>
 			<button style="background-color: #BF8975; color: white; width: 110px;">비밀번호 찾기</button>
 			</td>
