@@ -36,8 +36,17 @@
 		<td style="width: 300px;">
 			<table class="menu" style="float: right; text-align: left;line-height: 40px;">
 				<tr style="text-align: left;">
-					<td><a href="main.jsp?go=login/loginform.jsp">로그인</a></td>
-					<td><a href="main.jsp?go=member/memberform.jsp">회원가입</a></td>
+					<%
+						String id=(String)session.getAttribute("id");
+						if(id==null){%>
+							<td><a href="main.jsp?go=login/loginform.jsp">로그인</a></td>
+							<td><a href="main.jsp?go=member/memberform.jsp">회원가입</a></td>
+						<%}else{%>
+							<td><a href="login/logoutaction.jsp">로그아웃</a></td>
+							<td><a href="main.jsp?go=mypage/mypagemain.jsp">마이페이지</a></td>
+						<%}
+					%>
+					
 					<td><a href="main.jsp?go=reservecheck/reservecheckpage.jsp">예약확인</a></td>
 				</tr>
 				<tr style="text-align: left;">
