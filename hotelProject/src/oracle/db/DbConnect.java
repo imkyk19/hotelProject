@@ -53,7 +53,7 @@ public class DbConnect {
 		} catch (SQLException e) {
 			System.out.println("강사pc오라클 서버 연결 실패:" + e.getMessage());
 			// 오라클 서버 연결 실패:ORA-01017: invalid username/password; logon denied->id나
-			// password가 잘못됐을 때 오류
+			// password가 잘못됐을 때 오류가 난다
 		}
 
 		return conn;
