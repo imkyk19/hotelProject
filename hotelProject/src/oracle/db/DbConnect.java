@@ -28,7 +28,7 @@ public class DbConnect {
 		// Connection은 java.sql것 선택해야함,성공했을때만 connection이 생기는 것
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection(oracleUrl, "hotel", "a1234");
+			conn = DriverManager.getConnection(oracleUrl, "angel", "a1234");
 			// conn = 데이터의 url,id,password
 
 			// System.out.println("오라클 서버 연결 성공");
@@ -46,7 +46,7 @@ public class DbConnect {
 		// Connection은 java.sql것 선택해야함,성공했을때만 connection이 생기는 것
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection(susuUrl, "angel", "a1234");
+			conn = DriverManager.getConnection(susuUrl, "hotel", "a1234");
 			// conn = 데이터의 url,id,password
 
 			// System.out.println("오라클 서버 연결 성공");
