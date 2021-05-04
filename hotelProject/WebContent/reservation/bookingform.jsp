@@ -62,7 +62,7 @@
 						<label for = "room">Rooms: </label>
 						<select name = "room" id = "room">
 						<%
-							for(int i = 0; i <= 20; i++){
+							for(int i = 0; i <= 3; i++){
 								%>
 								<option><%=i%></option>
 								<%
@@ -82,7 +82,7 @@
 						<label for = "adult">Adults: </label>
 						<select name = "adult" id = "adult">
 						<%
-							for(int i = 0; i <= 50; i++){
+							for(int i = 0; i <= 5; i++){
 								%>
 								<option><%=i%></option>
 								<%
@@ -94,7 +94,7 @@
 						<label for = "children">Children: </label>
 						<select name = "children" id = "children">
 						<%
-							for(int i = 0; i <= 50; i++){
+							for(int i = 0; i <= 2; i++){
 								%>
 								<option><%=i%></option>
 								<%
