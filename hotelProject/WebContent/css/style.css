@@ -27,4 +27,26 @@ div.main div.info{
 	
 }
 
-
+.input{
+		border: 1px solid #BFBCBA;
+		height: 30px;
+	}
+	.input:hover{
+		cursor: text;
+	}
+	.input:focus{
+		outline: 1px solid #808080;
+		
+	}
+	button{
+		cursor: pointer;
+		border: 0px solid;
+		background-color: #735236;
+		color: white;
+		font-style: bold;
+		border-radius: 2px;
+		height: 30px;
+	}
+	button:active{
+		outline: none;
+	}
