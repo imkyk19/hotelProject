@@ -12,7 +12,6 @@
 		position: absolute;
 		width: 300px;
 		height: 250px;
-		border: 1px solid gray;
 		margin-top: 50px;
 		margin-left: 300px;
 		font-size: 1.3em;
@@ -23,7 +22,6 @@
 	
 	table.qtable{
 		width: 900px;
-		border: 1px solid gray;
 		margin-top: 50px;
 		margin-left: 700px;
 	}
@@ -60,11 +58,10 @@
 	<table class="table table-bordered qtable" style="width: 800px;">
 		<caption><b style="font-size: 2em; color: #524630; font-weight: bold;'">문의하기</b></caption>
 		<input type="hidden" name="writeday" id="writeday">
-		<hr>
 		<tr>
-			<td bgcolor="#fff7e8" style="height: 30px;">질문유형</td>
+			<td bgcolor="#fff7e8" style="height: 20px;">질문유형</td>
 			<td>
-				<input type="text" name="type" id="type">
+				<input type="hidden" name="type" id="type">
 					<select name="qtype" id="qtpye" class="form-control" style="width: 200px;">
 						<option disabled hidden selected>선택</option>
 						<option value="회원가입문의">회원가입문의</option>
