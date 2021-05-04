@@ -29,11 +29,8 @@
 <table class="tableform">
 	<tr>
 		<td style="width: 300px; font-size: 2em;text-align: center;">
-
 			<span onclick="location.href='main.jsp?go=reservation/bookingform.jsp'" style="line-height: 80px; cursor: pointer;color: #594C3C;">예약<span class="glyphicon glyphicon-calendar"></span></span>
-
 		</td>
-
 		<td style="width: 800px; font-size: 3em; text-align: center; cursor:pointer;color: #594C3C;"><span onclick="location.href='main.jsp'">Hotel GRACE</span></td>
 
 		<td style="width: 300px;">
