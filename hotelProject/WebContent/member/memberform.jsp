@@ -35,17 +35,17 @@
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*성명</th>
-			<td>&nbsp;&nbsp;<input type="text" name="name" class="input"></td>
+			<td>&nbsp;&nbsp;<input type="text" name="name" class="input" required></td>
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*생년월일</th>
-			<td>&nbsp;&nbsp;<input type="date" name="brith" style="width: 300px;" class="input"></td>
+			<td>&nbsp;&nbsp;<input type="date" name="brith" style="width: 300px;" class="input" required></td>
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*이메일</th>
 			<td>
-			&nbsp;&nbsp;<input type="text" name="email1" style="width: 100px;" class="input">
-			@&nbsp;<input type="text" name=email2 class="email2 input">&nbsp;
+			&nbsp;&nbsp;<input type="text" name="email1" style="width: 100px;" class="input" required>
+			@&nbsp;<input type="text" name=email2 class="email2 input" required>&nbsp;
 			<select name="email" class="input">
 				<option selected>직접 입력</option>
 				<option value="naver.com">naver.com</option>
@@ -56,9 +56,10 @@
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*휴대전화</th>
-			<td>&nbsp;&nbsp;<input type="text" name="hp1" style="width: 80px;" class="input">-
-			<input type="text" name="hp2" style="width: 80px;" class="input">-
-			<input type="text" name="hp3" style="width: 80px;" class="input">
+			<td>&nbsp;
+			<input type="text" name="hp1" style="width: 80px;" class="input" required>-
+			<input type="text" name="hp2" style="width: 80px;" class="input" required>-
+			<input type="text" name="hp3" style="width: 80px;" class="input" required>
 			</td>
 		</tr>
 		<tr>
@@ -77,19 +78,19 @@
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*아이디</th>
-			<td>&nbsp;&nbsp;<input type="text" name="id" class="input">
+			<td>&nbsp;&nbsp;<input type="text" name="id" class="input" required>
 				<button type="button" class="button" style="color: white;">아이디 중복확인</button>
 			</td>
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*비밀번호</th>
-			<td>&nbsp;&nbsp;<input type="password" name="pass" class="input">
+			<td>&nbsp;&nbsp;<input type="password" name="pass" class="input" required>
 				
 			</td>
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*비밀번호 확인</th>
-			<td>&nbsp;&nbsp;<input type="password" name="passchec" class="input">
+			<td>&nbsp;&nbsp;<input type="password" name="passchec" class="input" required>
 				
 			</td>
 		</tr>

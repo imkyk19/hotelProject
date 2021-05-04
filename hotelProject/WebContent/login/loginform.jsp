@@ -34,12 +34,12 @@ div.loginform{
 			<th style="text-align: center; width: 100px;">비회원</th>
 		</tr>
 		<tr style="height: 30px;" bgcolor="#F2DAC4">
-			<td style="text-align: right;"><input type="text"  placeholder="번호 또는 아이디 입력"></td>
-			<td rowspan="2" align="left"><button type="button" style="width: 120px; height: 50px;background-color: #402A22;color: white;">로그인</button></td>
+			<td style="text-align: right;"><input type="text"  placeholder="번호 또는 아이디 입력" class="input" name="id"></td>
+			<td rowspan="2" align="left"><button type="submit" class="button" style="width: 120px; height: 50px;color: white;">로그인</button></td>
 			
 		</tr>
 		<tr style="height: 30px;" bgcolor="#F2DAC4">
-			<td style="text-align: right;"><input type="password"  placeholder="비밀번호"></td>
+			<td style="text-align: right;"><input type="password"  placeholder="비밀번호" class="input" name="pass"></td>
 		</tr>
 		<tr>
 			<td colspan="2" bgcolor="#F2DAC4" style="text-align: center;">
