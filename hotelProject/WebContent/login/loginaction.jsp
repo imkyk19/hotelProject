@@ -1,13 +1,12 @@
-<%@page import="jdk.internal.org.jline.reader.History"%>
-<%@page import="Guest.db.GuestDto"%>
-<%@page import="Guest.db.GuestDao"%>
+<%@page import="guest.db.GuestDto"%>
+<%@page import="guest.db.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String id=request.getParameter("id");
 	String pass=request.getParameter("pass");
-	GuestDao dao= new GuestDao();
+	GuestDao dao=new GuestDao();   
 	GuestDto dto=new GuestDto();
 	
 	boolean t= dao.isIdCheck(id);

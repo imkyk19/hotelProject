@@ -3,27 +3,19 @@ package guest.db;
 import java.sql.Timestamp;
 
 public class GuestDto {
-	private int g_num;
-	private String name;
+	private String g_num;
 	private Timestamp birth;
-	private String email;    
+	private String email;
 	private String hp;
 	private String addr;
-	private String g_id;
-	private String pass;   
-	private int mana;
-	
-	public int getG_num() {     
+	private String id;
+	private String pass;
+	private String mana;
+	public String getG_num() {
 		return g_num;
 	}
-	public void setG_num(int g_num) {
+	public void setG_num(String g_num) {
 		this.g_num = g_num;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public Timestamp getBirth() {
 		return birth;
@@ -49,11 +41,11 @@ public class GuestDto {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	public String getG_id() {
-		return g_id;
+	public String getId() {
+		return id;
 	}
-	public void setG_id(String g_id) {
-		this.g_id = g_id;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getPass() {
 		return pass;
@@ -61,13 +53,12 @@ public class GuestDto {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
-	public int getMana() {
+	public String getMana() {
 		return mana;
 	}
-	public void setMana(int mana) {
+	public void setMana(String mana) {
 		this.mana = mana;
 	}
 	
 	
-
 }
