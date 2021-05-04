@@ -62,6 +62,13 @@
 		font-size: 3em;
 	}
   
+  div.rewards{
+  	width: 100%;
+  	background-color: #eee;
+  	height: 400px;
+  	text-align: center;
+  }
+  
   </style>
 
 </head>
@@ -181,6 +188,23 @@
 	</form>
 </div>
 <br><br>
-
+<!-- 호텔 리워즈 -->
+<div class="rewards">
+<br>
+	<h2 style="text-align: center;">그레이스 리워즈</h2>
+	<hr style="text-align: center;border: 1px solid #A68863;width: 300px;">
+	<h4 style="text-align: center;color:#A68863;">M E M B E R S H I P</h4>
+	<br>
+	<span><img src="image/reward1.png" style="width: 350px;text-align: center;margin-left: 100px;"></span>
+	<span><img src="image/reward2.png" style="width: 350px;text-align: center;margin-left: 100px;"></span>
+	<span><img src="image/reward3.png" style="width: 350px;text-align: center;margin-left: 100px;"></span>
+	<span>
+	<button type="button" style="width: 100px;background-color:#260B01;color: white;height: 60px;">가입하기</button>
+	</span>
+	
+	<h4 style="color: #260B01;">그레이스리워즈는 포인트 혜택 및 특전을 제공하는 통합멤버쉽 서비스입니다.</h4>
+	<h4 style="color: #260B01;">지금 가입하시고 회원만을 위한 특별한 서비스와 다양한 혜택을 받으십시오.</h4>
+	
+</div>
 </body>
 </html>
