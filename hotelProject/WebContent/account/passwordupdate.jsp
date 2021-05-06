@@ -73,11 +73,6 @@ div.passwordupdate{
 		</a></li>
 	</ul>	
 	<ul>
-		<li><a style="text-decoration: none;"href="main.jsp?go=mypage/questionhistory.jsp">
-				문의 내역 확인
-		</a></li>
-	</ul>	
-	<ul>
 		<li><a style="text-decoration: none;"href="main.jsp?go=account/accountdeletepage.jsp">
 				회원 탈퇴
 		</a></li>

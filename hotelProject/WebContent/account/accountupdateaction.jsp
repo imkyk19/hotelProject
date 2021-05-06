@@ -1,4 +1,4 @@
-<%@page import="java.sql.Timestamp"%>
+
 <%@page import="guest.db.GuestDto"%>
 <%@page import="guest.db.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -43,9 +43,13 @@
 	
 	dao.updateGuest(dto);
 	
+	dto.setName(name);
+	dto.setBirth(birth);
+	dto.setEmail(email);
+	dto.setHp(hp);
+	dto.setAddr(addr);
+	
 
-	
-	
 
 		String go="../main.jsp?go=mypage/mypagemain.jsp";
 

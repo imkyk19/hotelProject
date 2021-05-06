@@ -88,11 +88,7 @@ System.out.println("id:"+id);
 				비밀번호 변경
 		</a></li>
 	</ul>	
-	<ul>
-		<li><a style="text-decoration: none;"href="main.jsp?go=mypage/questionhistory.jsp">
-				문의 내역 확인
-		</a></li>
-	</ul>	
+	
 	<ul>
 		<li><a style="text-decoration: none;"href="main.jsp?go=account/accountdeletepage.jsp">
 				회원 탈퇴
@@ -144,8 +140,8 @@ System.out.println("id:"+id);
 
 		<tr>
 			<td>생년월일</td>
-			<td><input type="date" name="brith" style="width: 150px;" class="form-control input-sm"
-			 required="required" readonly="readonly" value="<%=dto.getBirth()%>">
+			<td><input type="text" name="brith" style="width: 150px;" class="form-control input-sm"
+			 required="required" readonly="readonly" value="<%=dto.getBirth().substring(0,10)%>">
            </td>
 			<tr>
 
@@ -153,21 +149,9 @@ System.out.println("id:"+id);
 
 			<td>
 
-			<input type="text" name="email1" style="width: 100px;" class="input" readonly="readonly"value="<%=dto.getEmail() %>">
+			<input type="text" name="email" style="width: 150px;" class="input" readonly="readonly"value="<%=dto.getEmail() %>">
 
-			<input type="text" name=email2 class="email2 input" readonly="readonly" value="<%=dto.getEmail() %>">
-
-			<select name="email" class="input">
-
-				<option selected>직접 입력</option>
-
-				<option value="naver.com">naver.com</option>
-
-				<option value="hanmail.net">hanmail.net</option>
-
-				<option value="nate.com">nate.com</option>
-
-			</select>
+			
 
 			</td>
 
@@ -179,21 +163,11 @@ System.out.println("id:"+id);
 
 			<td>
 
-	 		<input type="text" id="hp1" maxlength="3"
+	 		<input type="text" id="hp" maxlength="10"
 
-	 			style="width: 70px;" readonly="readonly" value="<%=dto.getHp() %>" >
+	 			style="width: 100px;" readonly="readonly" value="<%=dto.getHp() %>" >
 
-	 	
 
-	 		<input type="text" id="hp2" maxlength="4"
-
-	 			style="width: 70px;" readonly="readonly"value="<%=dto.getHp() %>" >
-
-	 	
-
-	 		<input type="text" id="hp3" maxlength="4"
-
-	 			style="width: 70px;" readonly="readonly"value="<%=dto.getHp() %>" >
 
 	 	</td>  
 
