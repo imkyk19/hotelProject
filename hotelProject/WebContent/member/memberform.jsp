@@ -1,3 +1,4 @@
+<%@page import="guest.db.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,7 +25,7 @@
 </style>
 </head>
 <body>
-<form action="member/memberaction.jsp">
+<form action="member/memberaction.jsp" name="memberfrm">
 <div class="memberform">
 	<h3 style="color: #8C4C27;">회원가입</h3>
 	<br> <br>
@@ -39,8 +40,50 @@
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*생년월일</th>
-			<td>&nbsp;&nbsp;<input type="date" name="brith" style="width: 300px;" class="input" required></td>
-		</tr>
+			<td>&nbsp;&nbsp;
+			<select id="year" style="width: 100px;" class="input" name="year">
+			
+			<script type="text/javascript">
+			var date=new Date();
+			var year=date.getFullYear();
+			for(var y=year;y>=1950;y--){
+			var op="<option>"+y+"</option>";
+			document.write(op);
+			}
+			</script>
+			</select>
+			년  
+			<select id="month" style="width: 100px;" class="input" name="month">
+			<script type="text/javascript">
+			//console.log(date.getMonth());
+			var curm=date.getMonth()+1;
+			for(var m=1;m<=12;m++){
+			var op="";
+			if(m==curm)
+			op="<option selected>"+m+"</option>";
+			else
+			op="<option>"+m+"</option>";
+			document.write(op);
+			} 	
+			</script>
+			</select>
+			월  
+			<select id="day" style="width: 100px;" class="input" name="day">
+			<script type="text/javascript">
+			var curd=date.getDate();
+			for(var d=1;d<=31;d++){
+			var op="";
+			if(d==curd)
+			op="<option selected>"+d+"</option>";
+			else
+			op="<option>"+d+"</option>";
+			document.write(op);
+			} 	
+			</script>
+			</select>
+			일<br>	
+			</td>
+</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*이메일</th>
 			<td>
@@ -57,9 +100,9 @@
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*휴대전화</th>
 			<td>&nbsp;
-			<input type="text" name="hp1" style="width: 80px;" class="input" required>-
-			<input type="text" name="hp2" style="width: 80px;" class="input" required>-
-			<input type="text" name="hp3" style="width: 80px;" class="input" required>
+			<input type="text" name="hp1" style="width: 80px;" class="input hp1" required>-
+			<input type="text" name="hp2" style="width: 80px;" class="input hp2" required>-
+			<input type="text" name="hp3" style="width: 80px;" class="input hp3" required>
 			</td>
 		</tr>
 		<tr>
@@ -78,25 +121,25 @@
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*아이디</th>
-			<td>&nbsp;&nbsp;<input type="text" name="id" class="input" required>
-				<button type="button" class="button" style="color: white;">아이디 중복확인</button>
+			<td>&nbsp;&nbsp;<input type="text" name="idsel" class="input id" required readonly  style="background-color: #ccc;">
+				<button type="button" class="button" style="color: white;" onclick="openId()">아이디 중복확인</button>
 			</td>
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*비밀번호</th>
-			<td>&nbsp;&nbsp;<input type="password" name="pass" class="input" required>
+			<td>&nbsp;&nbsp;<input type="password" name="pass" class="input pass1" required>
 				
 			</td>
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*비밀번호 확인</th>
-			<td>&nbsp;&nbsp;<input type="password" name="passchec" class="input" required>
+			<td>&nbsp;&nbsp;<input type="password" class="input pass2" required>
 				
 			</td>
 		</tr>
 		<tr>
 			<td style="text-align: right;" colspan="2">
-				<br><button type="submit" class="button" style="color: white;width: 100px;height: 50px;">가입 신청</button>
+				<br><button type="submit" class="button btnsub" style="color: white;width: 100px;height: 50px;">가입 신청</button>
 			</td>
 		</tr>
 	</table>
@@ -150,6 +193,40 @@
             }
         }).open();
     }
+    
+	//아이디 입력창 열기
+	 function openId(){
+	 	window.open("member/idcheck.jsp","","left=100px,top=100px,width=300px,height=150px");
+	 }
+	
+	//비밀번호 확인 이벤트
+	$("button.btnsub").click(function(){
+		var pass1= $("input.pass1").val();
+		var pass2= $("input.pass2").val();
+		 if(pass1!=pass2){
+			alert("비밀번호가 일치하지 않습니다.");
+			return false;//action호출 안 됨 
+		} 
+	});
+	
+	//아이디 확인 이벤트
+	$("button.btnsub").click(function(){
+		 if($("input.id").val().length==0){
+			alert("아이디 중복확인을 눌러주세요.");
+			return false;//action호출 안 됨 
+		} 
+	});
+	
+	//핸드폰 번호 유효성 검사
+	$("button.btnsub").click(function(){
+		var hp1= $("input.hp1").val();
+		var hp2= $("input.hp2").val();
+		var hp3= $("input.hp3").val();
+		 if(isNaN(hp1) || isNaN(hp2) || isNaN(hp3)){
+			alert("올바른 핸드폰 번호를 입력해주세요.");
+			return false;//action호출 안 됨 
+		} 
+	});
 </script>
 </body>
 </html>

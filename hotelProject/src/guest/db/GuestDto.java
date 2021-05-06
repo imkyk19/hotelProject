@@ -1,26 +1,29 @@
 package guest.db;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+
 
 public class GuestDto {
 	private String g_num;
-	private Timestamp birth;
+	private String birth;
 	private String email;
 	private String hp;
 	private String addr;
 	private String id;
 	private String pass;
 	private String mana;
+	private String name;
+	
 	public String getG_num() {
 		return g_num;
 	}
 	public void setG_num(String g_num) {
 		this.g_num = g_num;
 	}
-	public Timestamp getBirth() {
+	public String getBirth() {
 		return birth;
 	}
-	public void setBirth(Timestamp birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 	public String getEmail() {
@@ -59,6 +62,14 @@ public class GuestDto {
 	public void setMana(String mana) {
 		this.mana = mana;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 	
 	
 }

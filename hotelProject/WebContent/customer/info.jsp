@@ -14,7 +14,6 @@
 		position: absolute;
 		width: 300px;
 		height: 250px;
-		margin-top: 50px;
 		margin-left: 300px;
 		font-size: 1.3em;
 		cursor: pointer;
