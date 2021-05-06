@@ -1,4 +1,4 @@
-package Guest.db;
+package guest.db;
 
 import java.sql.Timestamp;
 

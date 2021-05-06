@@ -1,4 +1,4 @@
-package Guest.db;
+package guest.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,9 +9,9 @@ import oracle.db.DbConnect;
 
 public class GuestDao {
 DbConnect db=new DbConnect();
-	//¾ÆÀÌµð°¡ Á¸ÀçÇÏ¸é true¸®ÅÏ
+	//ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ trueï¿½ï¿½ï¿½ï¿½
 		public boolean isIdCheck(String id) {
-			boolean t=false;//ÀÖÀ» °æ¿ì¿¡¸¸ true·Î º¯°æ
+			boolean t=false;//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½         
 			Connection conn=null;
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
@@ -34,12 +34,12 @@ DbConnect db=new DbConnect();
 			return t;
 		}
 		
-		//ºñ¹ø ¾ò´Â ¸Þ¼­µå
+		//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 		public String getPass(String id) {
 			Connection conn=null;
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
-			String pass="¾øÀ½";
+			String pass="ï¿½ï¿½ï¿½ï¿½";
 			
 			String sql="select pass from guest where id=?";
 			conn=db.getCommonConnection();
