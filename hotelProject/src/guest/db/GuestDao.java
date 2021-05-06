@@ -9,9 +9,9 @@ import oracle.db.DbConnect;
 
 public class GuestDao {
 DbConnect db=new DbConnect();
-	//ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ trueï¿½ï¿½ï¿½ï¿½
+	//¾ÆÀÌµð°¡ ÀÖ´ÂÁö Ã¼Å©
 		public boolean isIdCheck(String id) {
-			boolean t=false;//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½         
+			boolean t=false;     
 			Connection conn=null;
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
@@ -34,12 +34,12 @@ DbConnect db=new DbConnect();
 			return t;
 		}
 		
-		//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
+		//¾ÆÀÌµð¿¡ ¸Â´Â ºñ¹ø ¾ò±â
 		public String getPass(String id) {
 			Connection conn=null;
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
-			String pass="ï¿½ï¿½ï¿½ï¿½";
+			String pass="¾øÀ½";
 			
 			String sql="select pass from guest where id=?";
 			conn=db.getCommonConnection();
@@ -59,5 +59,32 @@ DbConnect db=new DbConnect();
 			}
 			return pass;
 		}
+		
+		//È¸¿ø°¡ÀÔ insert
+				public void insertGuest(GuestDto dto) {
+					Connection conn=null;
+					PreparedStatement pstmt=null;
+					
+					String sql="insert into guest values (seq_q.nextval,?,TO_DATE(?,'yyyy-MM-dd'),?,?,?,?,?,0)";
+					conn=db.getCommonConnection();
+					try {
+						pstmt=conn.prepareStatement(sql);
+						pstmt.setString(1, dto.getName());
+						pstmt.setString(2, dto.getBirth());
+						pstmt.setString(3, dto.getEmail());
+						pstmt.setString(4, dto.getHp());
+						pstmt.setString(5, dto.getAddr());
+						pstmt.setString(6, dto.getId());
+						pstmt.setString(7, dto.getPass());
+						
+						pstmt.execute();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}finally {
+						db.dbColse(pstmt, conn);
+					}
+					
+				}
 		
 }
