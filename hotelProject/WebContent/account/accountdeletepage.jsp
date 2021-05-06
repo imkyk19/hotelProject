@@ -1,3 +1,5 @@
+<%@page import="guest.db.GuestDto"%>
+<%@page import="guest.db.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -45,6 +47,16 @@ div.accountdelete{
 
 </style>
 </head>
+<%
+
+
+String id=session.getAttribute("id").toString();
+
+	GuestDao dao=new GuestDao();
+
+	GuestDto dto=dao.getData(id);
+
+%>
 <body>
 <div class="mymain">
 	<h3 style="margin-left: 20px;">마이 페이지</h3>
@@ -90,7 +102,7 @@ div.accountdelete{
 			<td>
 			<input type="text" name="mid" style="width: 150px;"
 			class="form-control input-sm"
-			 required="required">
+			 required="required" readonly="readonly" value="<%=dto.getId()%>">
 			 </td>
 		</tr>	
 		<tr>
@@ -104,8 +116,8 @@ div.accountdelete{
 		</tr>	
 		
 	</table>		
-	<button type="submit" style="width: 120px;"
-	  		id="btnsubmit">
+	<button type="button" style="color:white; width: 120px;"
+	  		id="btnmdel">
 	  	확인</button>
 	
 		

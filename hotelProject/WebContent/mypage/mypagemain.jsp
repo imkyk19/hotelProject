@@ -179,7 +179,7 @@ System.out.println("id:"+id);
 
 			<td><input type="text" name="zip" id="zip" class="input" >
 
-				<button type="button" class="button" onclick="openaddr()">주소 찾기</button>
+				<button style="color:white;"type="button" class="button" onclick="openaddr()">주소 찾기</button>
 
 				<br><br><input type="text" name="addr1" id="addr1" class="input" style="width: 400px;"
 				readonly="readonly" value="<%=dto.getAddr() %>">
@@ -221,7 +221,8 @@ System.out.println("id:"+id);
 		}
 
 	});
-
+	
+	
 	
 
 	//주소창 띄우기 사용자 함수

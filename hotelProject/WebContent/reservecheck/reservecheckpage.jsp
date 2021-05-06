@@ -110,11 +110,12 @@ div.reservechange{
 	 		<option>투숙일기준</option>
 	 	</select>
 
-	 	<button style="button">3개월</button>	
-	 	<button style="button">6개월</button>	
-	 	<button style="button">12개월</button>
+	 	<button style="color:white;"type="button">3개월</button>	
+	 	<button style="color:white;"type="button">6개월</button>	
+	 	<button style="color:white;"type="button">12개월</button>
 
-	 	<input type="date" id="date1" value="sysdate">~<input type="date" id="date2" value="sysdate"><button>조회</button>
+	 	<input type="date" id="date1" value="sysdate">~<input type="date" id="date2" value="sysdate">
+	 	<button  style="color:white;">조회</button>
 	 	</td>
 	 </tr>	
 	 </table>

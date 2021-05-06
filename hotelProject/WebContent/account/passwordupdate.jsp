@@ -117,10 +117,10 @@ div.passwordupdate{
 	
 	</table>
 	
-	<button type="submit" style="width: 120px;"
+	<button type="submit"  style="color:white; width: 140px;"
 	  		id="btnsubmit">
 	  	변경</button>
-	 <button type="button" style="width: 120px;"
+	 <button type="button" style="color:white; width: 140px;"
 	  		id="btncancel">
 	  	취소</button> 	
 	  	

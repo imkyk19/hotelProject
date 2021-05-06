@@ -197,7 +197,7 @@ String id=session.getAttribute("id").toString();
 
 			<td><input type="text" name="zip" id="zip" class="input" >
 
-				<button type="button" class="button" onclick="openaddr()">주소 찾기</button>
+				<button  style="color:white;type="button" class="button" onclick="openaddr()">주소 찾기</button>
 
 				<br><br><input type="text" name="addr1" id="addr1" class="input" style="width: 400px;"value="<%=dto.getAddr() %>">
 
@@ -213,17 +213,12 @@ String id=session.getAttribute("id").toString();
 
 	
 
-	<button type="submit" style="width: 120px;"
+	<button type="submit" style="color:white; width: 120px;"
 
-	  		id="btnsubmit">
+	  		  id="btnsubmit">변경</button>
 
-	  	변경</button>
-
-	 <button type="button" style="width: 120px;"
-
-	  		  onclick="history.back()" id="btncancel">
-
-	  	취소</button> 	
+	 <button type="button" style="color:white; width: 120px;"
+			onclick="history.back()" id="btncancel">취소</button> 	
 
 	</div>
 
@@ -250,6 +245,7 @@ String id=session.getAttribute("id").toString();
 		}
 
 	});
+	
 
 	
 
