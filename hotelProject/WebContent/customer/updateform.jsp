@@ -54,20 +54,17 @@
 	<span class="question" onclick="location.href='main.jsp?go=customer/question.jsp'">문의하기</span><br><br>
 	<span class="question" onclick="location.href='main.jsp?go=customer/questioncheck.jsp'">문의확인</span>
 	</div>
-	
+<form action="customer/updateaction.jsp" method="post">
+		<input type="hidden" name="num" value="<%=num%>">
+		<input type="hidden" name="pageNum" value="<%=pageNum%>">
+		
 <table class="table table-bordered content" >
-	<caption><b style="font-size: 2em; color: #524630; font-weight: bold;'">문의글</b></caption>
-	<tr>
-		<td align="right" style="height: 10px; border:1px solid white;">
-	<button type="button" style="width: 120px; color: white;" class="btnupdate"
-	onclick="location.href='main.jsp?go=customer/updateform.jsp?num=<%=num%>&pageNum=<%=pageNum%>'">수정</button>
-	<button type="button" style="width: 120px; color: white;" class="btndel"
-	onclick="location.href='customer/delete.jsp?num=<%=num%>&pageNum=<%=pageNum%>'">삭제</button>
-		</td>
-	</tr>
+	<caption><b style="font-size: 2em; color: #524630; font-weight: bold;'">문의글 수정하기</b></caption>
+	<caption><b style="color: gray;">※제목과 내용만 수정가능합니다.</b></caption>
+	
 	<tr>
 		<td style="height: 30px;">
-			<b style="font-size:1.3em; color: #524630;">"<%=dto.getName() %>" 고객님</b>
+			<b style="font-size:1.3em; color: #524630;">성함: <%=dto.getName() %></b>
 			<span style="color: gray; float: right;">
 			<%=sdf.format(dto.getWriteday())%>
 			</span>
@@ -75,18 +72,23 @@
 	</tr>
 	<tr>
 		<td style="height: 50px;">
-			<b style="font-size:2em; font-weight: bold; color: #524630;"><%=dto.getSubject() %></b>
+			제목: <input type="text" name="subject" class="form-control"
+			style="font-size:1.3em; font-weight: bold; color: #524630;" value="<%=dto.getSubject() %>">
 		</td> 
 	</tr>
 	<tr>
-		<td style="height: 200px; color: #524630;">
-			<%=dto.getContent().replace("\n", "<br>")%>
+		<td style="color: #524630;">
+		내용: <textarea name="content" class="form-control" 
+		style="height: 300px; font-size:1.3em;"><%=dto.getContent() %></textarea>
+
 		</td>
 	</tr>
 </table>
 <br>
-<button type="button" style="width: 120px; margin-left: 1000px; color: white;" class="btnlist"
+<button type="button" style="width: 120px; margin-left: 900px; color: white;" class="btnlist"
 onclick="location.href='main.jsp?go=customer/questioncheck.jsp?pageNum=<%=pageNum%>'">목록</button>
+<button type="submit" style="width: 120px; color: white;" class="btnupdate">수정</button>
+</form>	
 <br><br><br><br><br>
 </body>
 </html>

@@ -87,51 +87,6 @@ public class QuestionDao {
 			return list;
 		}
 	
-//		//출력 메서드
-//		public List<QuestionDto> getQuestionlist(){
-//		//list생성
-//		List<QuestionDto> list=new Vector<QuestionDto>();
-//		
-//		//변수선언
-//		Connection conn=null;
-//		PreparedStatement pstmt=null;
-//		ResultSet rs=null;
-//		
-//		//sql문 선언
-//		String sql="select * from question order by num";
-//		
-//		//db연결
-//		conn=db.getCommonConnection();
-//		
-//		try {
-//			pstmt=conn.prepareStatement(sql);
-//			//rs얻기
-//			rs=pstmt.executeQuery();
-//			//while문에서 db위 데이터를 읽어서 dto에 넣은 후 다시 list에 추가
-//			while(rs.next()) {
-//				QuestionDto dto=new QuestionDto();
-//				//dto에 넣기
-//				dto.setNum(rs.getString("num"));
-//				dto.setType(rs.getString("type"));
-//				dto.setSubject(rs.getString("subject"));
-//				dto.setContent(rs.getString("content"));
-//				dto.setName(rs.getString("name"));
-//				dto.setPass(rs.getString("pass"));
-//				dto.setEmail(rs.getString("email"));
-//				dto.setHp(rs.getString("hp"));
-//				dto.setWriteday(rs.getTimestamp("writeday"));
-//				//list에 추가
-//				list.add(dto);
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally {
-//			db.dbColse(rs, pstmt, conn);
-//		}
-//		return list;
-//	}
-	
 	
 	//글의 전체개수 구하는 메서드
 	public int getTotalCount() {
@@ -193,4 +148,43 @@ public class QuestionDao {
 		}
 		return dto;
 	}
+	
+	//수정메서드
+	public void updateContent(String num, String subject, String content){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		conn = db.getCommonConnection();
+		String sql = "update question set subject=?,content=? where num=?";
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, subject);
+			pstmt.setString(2, content);
+			pstmt.setString(3, num);
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbColse(pstmt, conn);
+		}
+	}
+	
+	//삭제메서드
+	public void deleteContent(String num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		conn = db.getCommonConnection();
+		String sql = "delete from question where num=?";
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, num);
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbColse(pstmt, conn);
+		}
+	}
+	
 }

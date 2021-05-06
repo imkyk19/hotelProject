@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="jdk.internal.util.xml.impl.Input"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="question.db.QuestionDto"%>
@@ -131,17 +132,17 @@
 		<%
 	}
 %>
-<button class="btnquestion" style="width: 50px; margin-right: 30px; 
+<button class="button" style="width: 50px; margin-right: 30px; 
 	float: right; border: 0px; border-radius: 70px; background-color: #524630; color: white;"
 	onclick="location.href='main.jsp?go=customer/question.jsp'">
 	<span class="glyphicon glyphicon-pencil"></span><br>
 </button>
 <table class="table table-bordered" style="width: 900px;">
-	<tr bgcolor="#FAEBD0" style="text-align: center;" >
-		<th width="60">번호</th>
+	<tr bgcolor="#fff7e8"  >
+		<th width="60" style="text-align: center;" >번호</th>
 		<th width="300">제목</th>
-		<th width="70">작성자</th>
-		<th width="100">작성일</th>
+		<th width="70" style="text-align: center;" >작성자</th>
+		<th width="100" style="text-align: center;" >작성일</th>
 	</tr>
 	<%
 		if(totalCount==0){
@@ -165,12 +166,23 @@
 							//제목 클릭시 content.jsp 내용보이게 href에 넣기
 							String path="main.jsp?go=customer/passcheckex.jsp?num="
 										+dto.getNum()+"&pageNum="+currentPage+"&pass="+dto.getPass(); 
-							//key: 목록에서 클릭한 경우에만 조회수를 증가하기 위한 값
-							//(key값이 있을때만 readcount 증가) null일땐 증가NO
+							//현재날짜 게시글만 new 띄우기
+							Date day=new Date();
+							String today=sdf.format(day);
+							if(today.equals(sdf.format(dto.getWriteday()))){
+								%>
+								<a href="<%=path %>" style="color: black; cursor: pointer;" num="<%=dto.getNum()%>" pass="<%=dto.getPass()%>">
+								<%=dto.getSubject() %></a>&nbsp;<img src="image/new.png" style="width: 15px;" height="15px;">
+								<%
+							}else{
+								%>
+								<a href="<%=path %>" style="color: black; cursor: pointer;" num="<%=dto.getNum()%>" pass="<%=dto.getPass()%>">
+								<%=dto.getSubject() %>
+								</a>
+								<% 
+							}
 						%>
-							<a href="<%=path %>" style="color: black; cursor: pointer;" num="<%=dto.getNum()%>" pass="<%=dto.getPass()%>">
-							<%=dto.getSubject() %>
-							</a>
+
 						</td>
 						<td>
 						<%=dto.getName() %>
