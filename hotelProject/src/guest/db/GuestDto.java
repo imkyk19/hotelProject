@@ -1,23 +1,36 @@
 package guest.db;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+
 
 public class GuestDto {
+<<<<<<< HEAD
 	private int g_num;
 	private String Name;
 	private Timestamp birth;
+=======
+	private String g_num;
+	private String birth;
+>>>>>>> branch 'master' of https://github.com/imkyk19/hotelProject.git
 	private String email;
 	private String hp;
 	private String addr;
 	private String id;
 	private String pass;
 	private String mana;
+<<<<<<< HEAD
 	public int getG_num() {
+=======
+	private String name;
+	
+	public String getG_num() {
+>>>>>>> branch 'master' of https://github.com/imkyk19/hotelProject.git
 		return g_num;
 	}
 	public void setG_num(int g_num) {
 		this.g_num = g_num;
 	}
+<<<<<<< HEAD
 	public String getName() {
 		return Name;
 	}
@@ -25,9 +38,12 @@ public class GuestDto {
 		Name = name;
 	}
 	public Timestamp getBirth() {
+=======
+	public String getBirth() {
+>>>>>>> branch 'master' of https://github.com/imkyk19/hotelProject.git
 		return birth;
 	}
-	public void setBirth(Timestamp birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 	public String getEmail() {
@@ -66,6 +82,14 @@ public class GuestDto {
 	public void setMana(String mana) {
 		this.mana = mana;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 	
 	
 }
