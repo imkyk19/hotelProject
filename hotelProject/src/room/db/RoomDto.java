@@ -7,8 +7,16 @@ public class RoomDto {
 	private int capacity;
 	private int price;
 	private String photo;
+	private String text;
 	
 	
+	
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
 	public String getPhoto() {
 		return photo;
 	}

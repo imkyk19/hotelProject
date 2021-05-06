@@ -6,8 +6,8 @@ public class ReservationDto {
 	private int num;
 	private int guestNum;
 	private String guestName;
-	private Timestamp checkInDate;
-	private Timestamp checkOutDate;
+	private String checkInDate;
+	private String checkOutDate;
 	private int guestQty;
 	private int bookingQty;
 	private int totalPrice;
@@ -37,16 +37,17 @@ public class ReservationDto {
 	public void setGuestName(String guestName) {
 		this.guestName = guestName;
 	}
-	public Timestamp getCheckInDate() {
+	
+	public String getCheckInDate() {
 		return checkInDate;
 	}
-	public void setCheckInDate(Timestamp checkInDate) {
+	public void setCheckInDate(String checkInDate) {
 		this.checkInDate = checkInDate;
 	}
-	public Timestamp getCheckOutDate() {
+	public String getCheckOutDate() {
 		return checkOutDate;
 	}
-	public void setCheckOutDate(Timestamp checkOutDate) {
+	public void setCheckOutDate(String checkOutDate) {
 		this.checkOutDate = checkOutDate;
 	}
 	public int getGuestQty() {

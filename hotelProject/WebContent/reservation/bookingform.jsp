@@ -34,7 +34,7 @@
 		height: 50px;
 	}
 	
-	div.vacantrooms {
+	div.roomlist {
 		width: 1200px; 
 		border: 2px solid gray;
 		margin-left: 15%; 
@@ -43,10 +43,50 @@
 		font-size: 3em;
 	}
 </style>
+<%!
+	String checkin_date;
+	String checkout_date;
+	int capacity, adult, children;
+%> 
+<script type="text/javascript">
+	function list(){
+		$.ajax({
+			type: "get",
+			dataType: "xml",
+			url: "reservation/orderlist.jsp",
+			data: {"capacity":capacity, "checkin_date":checkin_date, "checkout_date":checkout_date},
+			success: function(data){
+				var s = "";
+				$(data).find("room").each(function(i, element) {
+					var r = $(this);
+					var num = r.attr("num");
+					var roomNum = r.find("room_num").text();
+					var capacity = r.find("capacity").text();
+					var price = r.find("price").text();
+					var photo = r.find("photo").text();
+					var text = r.find("text").text();
+					
+					s += "<table class = 'table table-bordered'>";
+					s += "<tr><td rowspan = '4'><img style = 'width:300px;' src = '" +photo+"'></td>";
+					s += "<td>"+roomNum+"</td><td>"+price+"</td></tr>";
+					s += "<tr><td>"+capacity+"인용</td><td><button type = 'button' class = 'roomselect btn btn-info'>Select</button></td></tr>";
+					s += "<tr><td colspan = '2' rowspan = '2'>" + text+ "</td></tr>";
+					s += "</table>";
+					
+					$("div.roomlist").html(s);
+				})
+			}
+		});
+	};
+	
+	$(function(){
+		list();
+	});
+</script>
 </head>
 <body>
 <div>
-	<form action="reservation/orderlist.jsp" method = "post">
+	<form action="main.jsp?go=reservation/bookingform.jsp" method = "post">
 		<table class="booking">
 			<thead class="title">
 				<tr>
@@ -73,10 +113,15 @@
 					<td>
 						<label for = "checkin_date">Check In: </label>
 						<input type="date" id = "checkin_date" name = "checkin_date">
+						
+						
 					</td>
 					<td>
 						<label for = "checkout_date">Check Out: </label>
 						<input type="date" id = "checkout_date" name = "checkout_date">
+						<script type="text/javascript">
+							
+						</script>
 					</td>
 					<td >
 						<label for = "adult">Adults: </label>
@@ -89,6 +134,10 @@
 							}
 						%>
 						</select>
+						<script type="text/javascript">
+							
+							
+						</script>
 					</td>
 					<td >
 						<label for = "children">Children: </label>
@@ -101,13 +150,24 @@
 							}
 						%>
 						</select>
+						<script type="text/javascript">
+							
+						</script>
 					</td>
 				</tr>
 			</tbody>
 			<tfoot>
 				<tr style="margin-top: 10px;">
 					<td  colspan="5" align="center">
-						<button style="margin-top: 10px; margin-bottom:10px; width: 200px;" type="button" id = "btnsearch" class="btn btn-success btn-lg">Search</button>
+					
+					<input type="hidden" name = "ckin_date" id = "ckin_date" value = "">
+					<input type="hidden" name = "ckout_date" id = "ckout_date" value = "">
+					<input type="hidden" name = "capacity" id = "capacity" value = "">
+					
+						<button style="margin-top: 10px; margin-bottom:10px; width: 200px;" type="submit" id = "btnsearch" class="btn btn-success btn-lg">Search</button>
+						<script type="text/javascript">
+							
+						</script>
 					</td>
 				</tr>
 			</tfoot>
@@ -117,5 +177,35 @@
 <div class="roomlist" >
 	
 </div>
+<script type="text/javascript">
+
+
+		$("#checkin_date").change(function() {
+		var checkin_date = $(this).val();
+		$("#ckin_date").attr("value",checkin_date);
+		});
+		
+		$("#checkout_date").change(function() {
+			var checkout_date = $(this).val();
+			$("#ckout_date").attr("value",checkout_date);
+		});
+		
+		$("#adult").change(function() {
+			adult = ($(this).val());
+			
+			console.log(adult);
+		})
+		
+		$("#children").change(function() {
+		 	children = ($(this).val());
+			
+			console.log(children);
+			capacity = parseInt(adult) + parseInt(children)
+			console.log(capacity);
+			
+		})
+		
+		$("#capacity").attr("value",capacity);
+</script>
 </body>
 </html>

@@ -1,14 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<?xml version="1.0" encoding="UTF-8"?>
+<%@page import="room.db.RoomDto"%>
+<%@page import="java.util.List"%>
+<%@page import="room.db.RoomDao"%>
+<%@ page language="java" contentType="text/xml; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-</head>
-<body>
-오더 리스트
-</body>
-</html>
+<data>
+<%
+	
+	int capacity = Integer.parseInt(request.getParameter("capacity"));
+	String checkin_date = request.getParameter("checkin_date");
+	String checkout_date = request.getParameter("checkout_date");
+	
+	RoomDao dao = new RoomDao();
+	List<RoomDto> list = dao.getVacantRoom(capacity, checkin_date, checkout_date);
+	
+	for(RoomDto dto : list){
+		%>
+		<room num = "<%=dto.getNum()%>">
+			<room_num><%=dto.getRoomNum()%></room_num>
+			<capacity><%=dto.getCapacity() %></capacity>
+			<price><%=dto.getPrice() %></price>
+			<photo><%=dto.getPhoto() %></photo>
+			<text><%=dto.getText() %></text>
+		</room>
+		<%
+	}
+
+%>
+</data>
