@@ -45,6 +45,7 @@
 	
 	
 	dto.setName(name);
+	dto.setBirth(birth);
 	dto.setEmail(email);
 	dto.setHp(hp);
 	dto.setAddr(addr);

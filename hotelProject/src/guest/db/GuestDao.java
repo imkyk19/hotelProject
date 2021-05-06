@@ -135,9 +135,9 @@ DbConnect db=new DbConnect();
 
 					dto.setBirth(rs.getTimestamp("birth"));
 
-					dto.setEmail(rs.getString("email1")+"@"+rs.getString("email2"));
+					dto.setEmail(rs.getString("email1")+rs.getString("email2"));
 
-					dto.setHp(rs.getString("hp1")+"-"+rs.getString("hp2")+"-"+rs.getString("hp3"));
+					dto.setHp(rs.getString("hp1")+rs.getString("hp2")+rs.getString("hp3"));
 
 					dto.setAddr(rs.getString("addr1")+rs.getString("addr2"));
 
@@ -233,15 +233,8 @@ DbConnect db=new DbConnect();
 		}
 		
 		
-		
 
-		
 
-			
-			
-		}
-=======
-		//ȸ������ insert
 				public void insertGuest(GuestDto dto) {
 					Connection conn=null;
 					PreparedStatement pstmt=null;
@@ -269,4 +262,4 @@ DbConnect db=new DbConnect();
 				}
 		
 }
->>>>>>> branch 'master' of https://github.com/imkyk19/hotelProject.git
+
