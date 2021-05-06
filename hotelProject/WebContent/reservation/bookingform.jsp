@@ -40,15 +40,15 @@
 		margin-left: 15%; 
 		margin-right: 15%;
 		text-align: center;
-		font-size: 3em;
+		font-size: 1em;
 	}
 </style>
-<%!
-	String checkin_date;
-	String checkout_date;
-	int capacity, adult, children;
-%> 
+
 <script type="text/javascript">
+var checkin_date;
+var checkout_date;
+var capacity, adult, children;
+
 	function list(){
 		$.ajax({
 			type: "get",
@@ -80,13 +80,15 @@
 	};
 	
 	$(function(){
-		list();
+		$("#btnsearch").click(function() {
+			list();
+		});
 	});
 </script>
 </head>
 <body>
 <div>
-	<form action="main.jsp?go=reservation/bookingform.jsp" method = "post">
+	<form action="#" id = "reservefrm">
 		<table class="booking">
 			<thead class="title">
 				<tr>
@@ -162,12 +164,10 @@
 					
 					<input type="hidden" name = "ckin_date" id = "ckin_date" value = "">
 					<input type="hidden" name = "ckout_date" id = "ckout_date" value = "">
-					<input type="hidden" name = "capacity" id = "capacity" value = "">
+					<input type="text" name = "capacity" id = "capacity" value = "">
 					
 						<button style="margin-top: 10px; margin-bottom:10px; width: 200px;" type="submit" id = "btnsearch" class="btn btn-success btn-lg">Search</button>
-						<script type="text/javascript">
-							
-						</script>
+						
 					</td>
 				</tr>
 			</tfoot>
@@ -202,10 +202,11 @@
 			console.log(children);
 			capacity = parseInt(adult) + parseInt(children)
 			console.log(capacity);
+			$("#capacity").val(capacity);
 			
 		})
 		
-		$("#capacity").attr("value",capacity);
+		
 </script>
 </body>
 </html>

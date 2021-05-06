@@ -87,10 +87,6 @@ public class RoomDao {
 			db.dbColse(rs, pstmt, conn);
 		}
 		
-		System.out.println(list.size());
-		System.out.println(capacity);
-		System.out.println(checkin_date);
-		System.out.println(checkout_date);
 		return list;
 	}
 	
