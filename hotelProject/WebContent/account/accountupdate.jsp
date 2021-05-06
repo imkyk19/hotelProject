@@ -66,17 +66,14 @@ div.accountupdate{
 
 <%
 
-	
 
-	String num=request.getParameter("g_num");
-
+String id=session.getAttribute("id").toString();
 
 	GuestDao dao=new GuestDao();
 
-	GuestDto dto=dao.getData(num);
+	GuestDto dto=dao.getData(id);
 
 %>
-
 <body>
 <div class="mymain">
 	<h3 style="margin-left: 20px;">마이 페이지</h3>
@@ -122,7 +119,7 @@ div.accountupdate{
 <div class="accountupdate">
 
 
-	<h2 style="font-size: 1.8em;color:#8C4C27;">프로필 수정</h2>
+	<h2 style="font-size: 1.8em;color:#8C4C27;">회원정보 수정</h2>
 
 	<hr style="border:2px solid black;width:600px;margin-left:0px;">
 
@@ -165,8 +162,8 @@ div.accountupdate{
 		<tr>
 
 			<td>생년월일</td>
-			<td><input type="date" name="brith" style="width: 150px;" class="form-control input-sm"
-			 required="required" value="<%=dto.getBirth()%>">
+			<td><input type="text" name="brith" style="width: 150px;" class="form-control input-sm"
+			 required="required" value="<%=dto.getBirth().substring(0,10)%>">
            </td>
 			<tr>
 
@@ -174,21 +171,9 @@ div.accountupdate{
 
 			<td>
 
-			<input type="text" name="email1" style="width: 100px;" class="input" value="<%=dto.getEmail() %>">
+			<input type="text" name="email" style="width: 140px;" class="input" value="<%=dto.getEmail() %>">
 
-			<input type="text" name=email2 class="email2 input" value="<%=dto.getEmail() %>">
-
-			<select name="email" class="input">
-
-				<option selected>직접 입력</option>
-
-				<option value="naver.com">naver.com</option>
-
-				<option value="hanmail.net">hanmail.net</option>
-
-				<option value="nate.com">nate.com</option>
-
-			</select>
+		
 
 			</td>
 
@@ -200,21 +185,11 @@ div.accountupdate{
 
 			<td>
 
-	 		<input type="text" id="hp1" maxlength="3"
+	 		<input type="text" id="hp" maxlength="10"
 
-	 			style="width: 70px;" value="<%=dto.getHp() %>" >
+	 			style="width: 150px;" value="<%=dto.getHp() %>" >
 
-	 	
-
-	 		<input type="text" id="hp2" maxlength="4"
-
-	 			style="width: 70px;"value="<%=dto.getHp() %>" >
-
-	 	
-
-	 		<input type="text" id="hp3" maxlength="4"
-
-	 			style="width: 70px;"value="<%=dto.getHp() %>" >
+	
 
 	 	</td>  
 

@@ -43,16 +43,11 @@
 	
 	dao.updateGuest(dto);
 	
-	
-	dto.setName(name);
-	dto.setBirth(birth);
-	dto.setEmail(email);
-	dto.setHp(hp);
-	dto.setAddr(addr);
+
 	
 	
 
-		String go="../main.jsp?go=account/accountupdate.jsp";
+		String go="../main.jsp?go=mypage/mypagemain.jsp";
 
 		response.sendRedirect(go);
 
