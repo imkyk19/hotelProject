@@ -63,7 +63,7 @@ DbConnect db=new DbConnect();
       }
       
 
-      //명단출력
+  
             public List<GuestDto> getGuestList()
             {
                List<GuestDto> list=new Vector<GuestDto>();
@@ -159,16 +159,14 @@ DbConnect db=new DbConnect();
 
             PreparedStatement pstmt=null;
 
-            String sql="update member set name=?,birth=?,email=?,hp=?,photo=?,addr=?,"
-
-                  +"id=?,pass=?, where g_num=?";
+            String sql="update guest set name=?,birth=?,email=?,hp=?,addr=? where id=?";
             
             conn=db.getCommonConnection();
 
             try {
 
                pstmt=conn.prepareStatement(sql);
-               //바인딩
+               
                pstmt.setString(1, dto.getName());
                
                pstmt.setString(2, dto.getBirth());
@@ -180,12 +178,7 @@ DbConnect db=new DbConnect();
                pstmt.setString(5, dto.getAddr());
 
                pstmt.setString(6, dto.getId());
-
-               pstmt.setString(7, dto.getPass());
-
-               pstmt.setString(8, dto.getG_num());
-
-               //실행
+          
 
                pstmt.execute();
 
@@ -203,16 +196,16 @@ DbConnect db=new DbConnect();
 
          }
       
-      public void deleteGuest(String g_num) {
+      public void deleteGuest(String id) {
          Connection conn = null;
          PreparedStatement pstmt = null;
-         String sql = "delete from guest where g_num=?";
+         String sql = "delete from guest where id=?";
          conn = db.getConnection();
          try {
             pstmt = conn.prepareStatement(sql);
-            //바인딩
-            pstmt.setString(1, g_num);
-            //실행
+            
+            pstmt.setString(1, id);
+            
             pstmt.execute();
          } catch (SQLException e) {
             // TODO Auto-generated catch block
