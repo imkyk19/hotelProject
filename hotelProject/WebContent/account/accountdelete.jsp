@@ -4,15 +4,16 @@
 <%
 
 	String id=request.getParameter("id");
+	String pass=request.getParameter("pass");
 
 	GuestDao dao=new GuestDao();
 	
-	
+	boolean b=dao.isPassCheck(id, pass);
+	if(b){
 	dao.deleteGuest(id);
-
-	String go="../main.jsp";
-
-	response.sendRedirect(go);
+	}
+	%>
+	<result><%=b?"success":"fail"%></result>
 	
-
-%>
+	
+	

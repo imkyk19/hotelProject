@@ -32,11 +32,7 @@
 	GuestDao dao=new GuestDao();
 	
 	String name=request.getParameter("name");
-	
-	String year=request.getParameter("year");
-	String month=request.getParameter("month");
-	String day=request.getParameter("day");
-	String birth=year+month+day;
+	String birth=request.getParameter("birth");
 	String email=request.getParameter("email");
 	String hp=request.getParameter("hp");
 	String addr=request.getParameter("addr");
@@ -51,18 +47,21 @@
 	System.out.println("hp:"+hp);
 	System.out.println("addr:"+addr);
 	
-	
-	dao.updateGuest(dto);
-	
-	
+	dto.setId(id);
 	dto.setName(name);
 	dto.setBirth(birth);
 	dto.setEmail(email);
 	dto.setHp(hp);
 	dto.setAddr(addr);
-	dto.setId(id);
 	
-
+	
+	
+	dao.updateGuest(dto);
+	
+	
+	
+	
+	
 		String go="../main.jsp?go=mypage/mypagemain.jsp";
 
 		response.sendRedirect(go);

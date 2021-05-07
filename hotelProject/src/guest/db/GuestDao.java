@@ -230,7 +230,7 @@ DbConnect db=new DbConnect();
                pstmt.setString(5, dto.getAddr());
 
                pstmt.setString(6, dto.getId());
-           	System.out.println("name : " + dto.getName());
+          System.out.println("name : " + dto.getName());
 			System.out.println("birth : " +  dto.getBirth());
 			System.out.println("email : " + dto.getEmail());
 			System.out.println("hp : " + dto.getHp());
@@ -272,8 +272,6 @@ DbConnect db=new DbConnect();
          }
       }
       
-      
-
 
             public void insertGuest(GuestDto dto) {
                Connection conn=null;
@@ -300,5 +298,31 @@ DbConnect db=new DbConnect();
                }
                
             }
+            
+            public boolean isPassCheck(String id,String pass) {
+    			Connection conn=null;
+    			PreparedStatement pstmt=null;
+    			ResultSet rs=null;
+    			
+    			conn=db.getCommonConnection();
+    			String sql="select count(*) from guest where id=? and pass=?";
+    			
+    			int r=0;
+    			
+    			try {
+    				pstmt=conn.prepareStatement(sql);
+    				pstmt.setString(1,id);
+    				pstmt.setString(2,pass);
+    				rs=pstmt.executeQuery();
+    				if(rs.next())
+    					r=rs.getInt(1);
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}finally {
+    				db.dbColse(rs,pstmt,conn);
+    			}
+    			return r==1?true:false;
+    		}
       
 }

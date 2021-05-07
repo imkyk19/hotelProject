@@ -109,7 +109,7 @@ String id=session.getAttribute("id").toString();
 		
 </div>
 
-<form action="account/accountupdateaction.jsp">
+<form action="account/accountupdateaction.jsp" method="post">
 
 
 <div class="accountupdate">
@@ -148,7 +148,7 @@ String id=session.getAttribute("id").toString();
 			<td>생년월일</td>
 			<td>
 			<input type="text" id="birth" name="birth" style="width: 150px;"
-			value="<%=dto.getBirth().substring(0, 10)%>">
+			value="<%=dto.getBirth().substring(0, 10)%>" >
 			</td>
 		</tr>
            
@@ -164,7 +164,6 @@ String id=session.getAttribute("id").toString();
 			<td>
 
 	 		<input type="text" id="hp" name="hp" maxlength="13"
-
 	 			style="width: 150px;" required="required" value="<%=dto.getHp()%>" >
 	 		</td>  
 		</tr>
@@ -191,7 +190,8 @@ onclick="history.back()" id="btncancel">취소</button>
   </form>
 
 	<script type="text/javascript">
-	  	
+	 
+	
 	 
 	//이메일 선택 이벤트
 
@@ -200,13 +200,11 @@ onclick="history.back()" id="btncancel">취소</button>
 		var sel =$(this).val();
 
 		if(sel!="직접 입력"){
-
 			$("input.email2").val(sel);
 
 		}
 
 		if(sel=="직접 입력"){
-
 			$("input.email2").val("");
 
 		}
