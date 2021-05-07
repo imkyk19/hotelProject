@@ -253,15 +253,16 @@ DbConnect db=new DbConnect();
 
          }
       
-      public void deleteGuest(String id) {
+      public void deleteGuest(String g_num) {
          Connection conn = null;
          PreparedStatement pstmt = null;
-         String sql = "delete from guest where id=?";
+         String sql = "delete from guest where g_num=?";
+         
          conn = db.getCommonConnection();
          try {
             pstmt = conn.prepareStatement(sql);
-            
-            pstmt.setString(1, id);
+            System.out.println("a");
+            pstmt.setString(1, g_num);
             
             pstmt.execute();
          } catch (SQLException e) {
@@ -299,6 +300,8 @@ DbConnect db=new DbConnect();
                
             }
             
+            
+            
             public boolean isPassCheck(String id,String pass) {
     			Connection conn=null;
     			PreparedStatement pstmt=null;
@@ -324,5 +327,35 @@ DbConnect db=new DbConnect();
     			}
     			return r==1?true:false;
     		}
-      
-}
+            
+            
+            
+            public String getName(String id)
+            {
+            	String name="";
+            	Connection conn=null;
+            	PreparedStatement pstmt=null;
+            	ResultSet rs=null;
+            	String sql="select name from guest where id=?";
+            	conn=db.getConnection();
+            	try {
+            		pstmt=conn.prepareStatement(sql);
+            		pstmt.setString(1, id);
+            		rs=pstmt.executeQuery();
+            		if(rs.next())
+            			name=rs.getString("name");
+            	} catch (SQLException e) {
+            		// TODO Auto-generated catch block
+            		e.printStackTrace();
+            	}finally {
+            		db.dbColse(rs,pstmt, conn);
+            	}
+            	
+            	
+            	return name;
+            }
+            }
+            
+            
+     
+

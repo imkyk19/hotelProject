@@ -18,7 +18,7 @@ div.mymain{
 	margin-top: 50px;
 	margin-left: 200px;
 	margin-bottom: 100px;
-	background-color: #F5ECCE;
+	background-color: #FAEBD0;
 	
 
 }
@@ -52,9 +52,11 @@ div.accountdelete{
 
 String id=session.getAttribute("id").toString();
 
+
 	GuestDao dao=new GuestDao();
 
 	GuestDto dto=dao.getData(id);
+	
 
 %>
 <body>
@@ -91,7 +93,7 @@ String id=session.getAttribute("id").toString();
 	</ul>	
 		
 </div>
-<form action="account/accountdelete.jsp">
+<form action="account/accountdelete.jsp" method="post">
 <div class="accountdelete">
 <h2 style="font-size: 1.8em;color:#8C4C27;">회원 탈퇴</h2>
 	<hr style="border:2px solid black;width:600px;margin-left:0px;">

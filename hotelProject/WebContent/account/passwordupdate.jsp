@@ -15,7 +15,7 @@ div.mymain{
 	margin-top: 50px;
 	margin-left: 200px;
 	margin-bottom: 100px;
-	background-color: #F5ECCE;
+	background-color: #FAEBD0;
 	
 
 }

@@ -1,3 +1,5 @@
+<%@page import="guest.db.GuestDto"%>
+<%@page import="guest.db.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 
     pageEncoding="UTF-8"%>
@@ -26,7 +28,7 @@ div.mymain{
 	margin-top: 50px;
 	margin-left: 200px;
 	margin-bottom: 100px;
-	background-color: #F5ECCE;
+	background-color: #FAEBD0;
 	
 
 }
@@ -53,8 +55,24 @@ div.reservechange{
 }
 
 </style>
-<body>
 
+<body>
+<%
+GuestDao dao=new GuestDao();
+
+//String id=(String)session.getAttribute("id");
+//String name=dao.getName(id);
+
+//로그인된 아이디 세션 값 얻기
+String id=(String)session.getAttribute("id");
+System.out.print("id:"+id);
+
+//아이디를 통해 해당 개인정보 가져오기
+GuestDto dto=dao.getId(id);
+
+//미로그인시 로그인폼 이동
+if(id!=null){
+	%>
 <div class="mymain">
 	<h3 style="margin-left: 20px;">마이 페이지</h3>
 	<hr style="border:2px solid black;width:200px;margin-left:0px;">
@@ -100,6 +118,7 @@ div.reservechange{
 	<table style="width:700px;">
 	<tr>
 		<td style="font-size: 1.2em;">
+		
 		객실및 패키지 예약 내역을 확인하실수있습니다.
 		</td>    
 	</tr>
@@ -146,7 +165,19 @@ div.reservechange{
 </table>	
 
 </div>	
+<script type="text/javascript">
+	
+	<%
+}else{
+	%>
+	<script type="text/javascript">
+		alert("로그인이 필요합니다.");
+		location.href="main.jsp?go=login/loginform.jsp";
+	</script>
+	<%
+}
 
+%>
 </body>
 
 </html>

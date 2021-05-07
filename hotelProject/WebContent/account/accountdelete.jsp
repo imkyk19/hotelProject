@@ -2,18 +2,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+request.setCharacterEncoding("utf-8");
 
-	String id=request.getParameter("id");
+String id=session.getAttribute("id").toString();
+
+
+
 	String pass=request.getParameter("pass");
-
+	String g_num=request.getParameter("g_num");
 	GuestDao dao=new GuestDao();
 	
 	boolean b=dao.isPassCheck(id, pass);
 	if(b){
-	dao.deleteGuest(id);
+	dao.deleteGuest(g_num);
 	}
+	
+	session.removeAttribute("id");
+	response.sendRedirect("../main.jsp");
 	%>
-	<result><%=b?"success":"fail"%></result>
+	
 	
 	
 	
