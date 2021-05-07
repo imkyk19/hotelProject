@@ -19,7 +19,7 @@ DbConnect db=new DbConnect();
          ResultSet rs=null;
          
          String sql="select * from guest where id=?";
-         conn=db.getCommonConnection();
+         conn=db.getConnection();
          try {
             pstmt=conn.prepareStatement(sql);
             pstmt.setString(1, id);
@@ -44,7 +44,7 @@ DbConnect db=new DbConnect();
          String pass="    ";
          
          String sql="select pass from guest where id=?";
-         conn=db.getCommonConnection();
+         conn=db.getConnection();
          try {
             pstmt=conn.prepareStatement(sql);
             pstmt.setString(1, id);
@@ -71,7 +71,7 @@ DbConnect db=new DbConnect();
                PreparedStatement pstmt=null;
                ResultSet rs=null;
                String sql="select * from guest order by g_num";
-               conn=db.getCommonConnection();
+               conn=db.getConnection();
                
                try {
                   pstmt=conn.prepareStatement(sql);
@@ -114,7 +114,7 @@ DbConnect db=new DbConnect();
 
          String sql="select * from guest where id=?";
 
-         conn=db.getCommonConnection();
+         conn=db.getConnection();
 
    
 
@@ -164,7 +164,7 @@ DbConnect db=new DbConnect();
 
          String sql="select * from guest where g_num=?";
 
-         conn=db.getCommonConnection();
+         conn=db.getConnection();
 
    
 
@@ -213,7 +213,7 @@ DbConnect db=new DbConnect();
 
             String sql="update guest set name=?,birth=TO_DATE(?,'yyyy-MM-dd'),email=?,hp=?,addr=? where id=?";
             
-            conn=db.getCommonConnection();
+            conn=db.getConnection();
 
             try {
 
@@ -258,7 +258,7 @@ DbConnect db=new DbConnect();
          PreparedStatement pstmt = null;
          String sql = "delete from guest where g_num=?";
          
-         conn = db.getCommonConnection();
+         conn = db.getConnection();
          try {
             pstmt = conn.prepareStatement(sql);
             System.out.println("a");
@@ -279,7 +279,7 @@ DbConnect db=new DbConnect();
                PreparedStatement pstmt=null;
                
                String sql="insert into guest values (seq_q.nextval,?,TO_DATE(?,'yyyy-MM-dd'),?,?,?,?,?,0)";
-               conn=db.getCommonConnection();
+               conn=db.getConnection();
                try {
                   pstmt=conn.prepareStatement(sql);
                   pstmt.setString(1, dto.getName());
@@ -307,7 +307,7 @@ DbConnect db=new DbConnect();
     			PreparedStatement pstmt=null;
     			ResultSet rs=null;
     			
-    			conn=db.getCommonConnection();
+    			conn=db.getConnection();
     			String sql="select count(*) from guest where id=? and pass=?";
     			
     			int r=0;
@@ -369,7 +369,7 @@ DbConnect db=new DbConnect();
 
                   String sql="update guest set pass=? where g_num=?";
                   
-                  conn=db.getCommonConnection();
+                  conn=db.getConnection();
 
                   try {
 
@@ -400,7 +400,7 @@ DbConnect db=new DbConnect();
                 String id="¾øÀ½";
                 
                 String sql="select id from guest where name=? and email=?";
-                conn=db.getCommonConnection();
+                conn=db.getConnection();
                 try {
                    pstmt=conn.prepareStatement(sql);
                    pstmt.setString(1, name);
@@ -427,7 +427,7 @@ DbConnect db=new DbConnect();
 				ResultSet rs=null;
 				
 				String sql="select * from guest where email=?";
-				conn=db.getCommonConnection();
+				conn=db.getConnection();
 				try {
 					pstmt=conn.prepareStatement(sql);
 					pstmt.setString(1, email);

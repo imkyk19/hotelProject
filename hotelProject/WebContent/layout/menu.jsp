@@ -38,7 +38,8 @@
 				<tr style="text-align: left;">
 					<%
 						String id=(String)session.getAttribute("id");
-						if(id==null){%>
+						String loginok=(String)session.getAttribute("loginok");
+						if(loginok==null){%>
 							<td><a href="main.jsp?go=login/loginform.jsp">로그인</a></td>
 							<td><a href="main.jsp?go=member/memberform.jsp">회원가입</a></td>
 						<%}else{%>
