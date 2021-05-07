@@ -1,2 +1,15 @@
 eclipse.preferences.version=1
+encoding//WebContent/login/idsearchform.jsp=MS949
+encoding//WebContent/login/loginaction.jsp=MS949
+encoding//WebContent/login/loginform.jsp=MS949
+encoding//WebContent/login/logoutaction.jsp=MS949
+encoding//WebContent/login/passsearchform.jsp=MS949
+encoding//WebContent/login/sendemail.jsp=MS949
+encoding//WebContent/member/emailSendAction.jsp=MS949
+encoding//WebContent/member/emailcheck.jsp=MS949
+encoding//WebContent/member/emailcheckaction.jsp=MS949
+encoding//WebContent/member/idcheck.jsp=MS949
+encoding//WebContent/member/join.jsp=MS949
+encoding//WebContent/member/memberaction.jsp=MS949
+encoding//WebContent/member/memberform.jsp=UTF-8
 encoding//src/guest/db/GuestDao.java=MS949

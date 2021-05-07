@@ -4,62 +4,135 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name = "google-signin-client_id"content = "849640206590-4vnb51rrj4f1qauq29dhecmp8bpaoqu1.apps.googleusercontent.com">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
 <style type="text/css">
 div.loginform{
 	width: 30%;
 	margin-left: 35%;
+	z-index: 1;
 }
-	
+
+
+table{
+	border-collapse: collapse;
+}
 </style>
+<script type="text/javascript">
+$(function(){
+	//$("div.searchpass").hide();
+});
+
+</script>
 </head>
 <body>
+<%
+String id=(String)session.getAttribute("id");
+String savecheck=(String)session.getAttribute("savecheck");
+//¾ÆÀÌµğÀúÀåÀ» Ã¼Å©ÇßÀ» °Ü¿ì true, Ã¼Å© ¾È ÇßÀ» °æ¿ìfalse
+boolean b;
+if(savecheck==null || savecheck.equals("no"))
+	b=false;
+else
+	b=true;
+%>
+
 <div class="loginform">
-	<h2 style="color: #8C4C27;">ë¡œê·¸ì¸</h2>
+	<h2 style="color: #8C4C27;">·Î±×ÀÎ</h2>
 	<hr style="background: #260F01;height: 5px;">
 	<br> <br>
-	<h2 style="text-align: center; color:#8C4C27; ">Hotel GRACEì— ì˜¤ì‹  ê²ƒì„ í™˜ì˜í•©ë‹ˆë‹¤.</h2>
+	<h2 style="text-align: center; color:#8C4C27; ">Hotel GRACE¿¡ ¿À½Å °ÍÀ» È¯¿µÇÕ´Ï´Ù.</h2>
 	<br>
-	<h5 style="text-align: center;">ë²ˆí˜¸ì™€ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.</h5>
-	<h6 style="text-align: center; color: #aaa;">â€»íšŒì›ì´ ë˜ì‹œë©´ íšŒì›ë§Œì„ ìœ„í•œ ë‹¤ì–‘í•œ ì„œë¹„ìŠ¤ì™€ í˜œíƒì„ ë°›ìœ¼ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤</h6>
+	<h5 style="text-align: center;">¹øÈ£¿Í ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.</h5>
+	<h6 style="text-align: center; color: #aaa;">¡ØÈ¸¿øÀÌ µÇ½Ã¸é È¸¿ø¸¸À» À§ÇÑ ´Ù¾çÇÑ ¼­ºñ½º¿Í ÇıÅÃÀ» ¹ŞÀ¸½Ç ¼ö ÀÖ½À´Ï´Ù</h6>
 	<br> <br>
-	<form action="login/loginaction.jsp">
+	<form action="login/loginaction.jsp" name="lfrm">
 	<table class="joinform table table-bordered">
 		<tr style="height: 30px; text-align: center; ">
-			<th style="text-align: center; width: 140px;">íšŒì› <hr style="background: #BF8975;height: 7px;"></th>
-			<th style="text-align: center; width: 100px;">ë¹„íšŒì›</th>
+			<th style="text-align: center; width: 140px;">È¸¿ø <hr style="background: #BF8975;height: 7px;"></th>
+			<th style="text-align: center; width: 100px;">ºñÈ¸¿ø</th>
 		</tr>
 		<tr style="height: 30px;" bgcolor="#F2DAC4">
-			<td style="text-align: right;"><input type="text"  placeholder="ë²ˆí˜¸ ë˜ëŠ” ì•„ì´ë”” ì…ë ¥" class="input" name="id"></td>
-			<td rowspan="2" align="left"><button type="submit" class="button" style="width: 120px; height: 50px;color: white;">ë¡œê·¸ì¸</button></td>
+			<td style="text-align: right;"><input type="text"  placeholder="¾ÆÀÌµğ ÀÔ·Â" class="input" name="id" 
+			value="<%= b?id:"" %>"></td>
+			<td rowspan="2" align="left"><button type="submit" class="button" style="width: 120px; height: 50px;color: white;">·Î±×ÀÎ</button></td>
 			
 		</tr>
 		<tr style="height: 30px;" bgcolor="#F2DAC4">
-			<td style="text-align: right;"><input type="password"  placeholder="ë¹„ë°€ë²ˆí˜¸" class="input" name="pass"></td>
+			<td style="text-align: right;"><input type="password"  placeholder="ºñ¹Ğ¹øÈ£" class="input" name="pass"></td>
 		</tr>
 		<tr>
 			<td colspan="2" bgcolor="#F2DAC4" style="text-align: center;">
-				<input type="checkbox">ë²ˆí˜¸ ë˜ëŠ” ì•„ì´ë”” ì €ì¥
+				<input type="checkbox" id="savecheck" <%= b?"checked":"" %> name="savecheck">¾ÆÀÌµğ ÀúÀå
 			</td>
 		</tr>
 		<tr align="center" bgcolor="#F2DAC4">
 			<td colspan="2">
-			<button type="button" style="background-color: #402A22; color: white; width: 50px;" onclick="location.href='main.jsp?go=member/memberform.jsp'">ê°€ì…</button>
-			<button style="background-color: #BF8975; color: white; width: 100px;">ì•„ì´ë””ì°¾ê¸°</button>
-			<button style="background-color: #BF8975; color: white; width: 110px;">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</button>
+			<button type="button" style="background-color: #402A22; color: white; width: 50px;" onclick="location.href='main.jsp?go=member/memberform.jsp'">°¡ÀÔ</button>
+			<button type="button" style="background-color: #BF8975; color: white; width: 100px;" onclick="openidsearch()">¾ÆÀÌµğÃ£±â</button>
+			<button type="button" style="background-color: #BF8975; color: white; width: 110px;" onclick="openpasssearch()">ºñ¹Ğ¹øÈ£ Ã£±â</button>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center">
-				<img src="image/êµ¬ê¸€ë¡œê·¸ì¸.JPG">
+			<td colspan="2" >
+				<br>
+				<div class="g-signin2" data-onsuccess="onSignIn" style="margin-left: 250px;"></div>
+				<br>
 			</td>
 		</tr>
 	</table>
 	</form>	
 </div>
+<script type="text/javascript">
+	//¾ÆÀÌµğ Ã£±â ÀÌº¥Æ®
+		 function openidsearch(){
+			 	window.open("login/idsearchform.jsp","","left=100px,top=100px,width=400px,height=200px");
+			 }
+	
+	//ºñ¹Ğ¹øÈ£ Ã£±â ÀÌº¥Æ®
+		function openpasssearch(){
+			 	window.open("login/passsearchform.jsp","","left=100px,top=100px,width=400px,height=240px");
+			 	
+
+			 }
+	
+	/* 	Kakao.init('01888666f60f258d702fb52e5eb58bb0'); //¹ß±Ş¹ŞÀº Å° Áß javascriptÅ°¸¦ »ç¿ëÇØÁØ´Ù.
+		console.log(Kakao.isInitialized());
+		function kakaoLogin() {
+		    Kakao.Auth.login({
+		      success: function (response) {
+		        Kakao.API.request({
+		          url: '/v2/user/me',
+		          success: function (response) {
+		        	  console.log(response)
+		          },
+		          fail: function (error) {
+		            console.log(error)
+		          },
+		        })
+		      },
+		      fail: function (error) {
+		        console.log(error)
+		      },
+		    })
+		  }
+ */
+
+		//±¸±Û ÇÁ·ÎÇÊ Á¤º¸ ¾ò±â
+		function onSignIn(googleUser) {
+		  var profile = googleUser.getBasicProfile();
+		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		  console.log('Name: ' + profile.getName());
+		  console.log('Image URL: ' + profile.getImageUrl());
+		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+</script>
 </body>
 </html>

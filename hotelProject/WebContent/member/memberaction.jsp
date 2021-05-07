@@ -1,6 +1,5 @@
 <%@page import="guest.db.GuestDao"%>
 <%@page import="java.sql.Date"%>
-<%@page import="com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="guest.db.GuestDto"%>
@@ -9,11 +8,11 @@
 <%
 	
 	String name=request.getParameter("name");	
-	//ë‚ ì§œ ì €ìž¥
+	//³¯Â¥ ÀúÀå
 	String birth=request.getParameter("year")+"-"+request.getParameter("month")+"-"+request.getParameter("day");	
 	System.out.println(birth);
 	
-    //ì£¼ì†Œì €ìž¥(nullê°’ì¼ ì‹œ noë¡œ ì €ìž¥)
+    //ÁÖ¼ÒÀúÀå(null°ªÀÏ ½Ã no·Î ÀúÀå)
 	String addr1=request.getParameter("addr1");
 	String addr2=request.getParameter("addr2");
 	String addr="";
