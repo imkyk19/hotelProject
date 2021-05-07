@@ -324,5 +324,90 @@ DbConnect db=new DbConnect();
     			}
     			return r==1?true:false;
     		}
+            
+            //비밀 번호 수정
+            public void updatePass(GuestDto dto)
+
+            {
+                  Connection conn=null;
+
+                  PreparedStatement pstmt=null;
+
+                  String sql="update guest set pass=? where g_num=?";
+                  
+                  conn=db.getCommonConnection();
+
+                  try {
+
+                     pstmt=conn.prepareStatement(sql);
+                     pstmt.setString(1, dto.getPass());
+                     pstmt.setString(2, dto.getG_num());
+                     pstmt.execute();
+
+                  } catch (SQLException e) {
+
+                     // TODO Auto-generated catch block
+
+                     e.printStackTrace();
+
+                  }finally {
+
+                     db.dbColse(pstmt, conn);
+
+                  }
+
+               }
+            
+            //아이디 얻기
+            public String getId(String name, String email) {
+                Connection conn=null;
+                PreparedStatement pstmt=null;
+                ResultSet rs=null;
+                String id="없음";
+                
+                String sql="select id from guest where name=? and email=?";
+                conn=db.getCommonConnection();
+                try {
+                   pstmt=conn.prepareStatement(sql);
+                   pstmt.setString(1, name);
+                   pstmt.setString(2, email);
+                   rs=pstmt.executeQuery();
+                   
+                   if(rs.next()) {
+                      id=rs.getString(1);
+                   }
+                } catch (SQLException e) {
+                   // TODO Auto-generated catch block
+                   e.printStackTrace();
+                }finally {
+                   db.dbColse(rs, pstmt, conn);
+                }
+                return id;
+             }
+            
+          //비번이 있는지 체크
+			public boolean isEmailCheck(String email) {
+				boolean t=false;     
+				Connection conn=null;
+				PreparedStatement pstmt=null;
+				ResultSet rs=null;
+				
+				String sql="select * from guest where email=?";
+				conn=db.getCommonConnection();
+				try {
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, email);
+					rs=pstmt.executeQuery();
+					if(rs.next()) {
+						t=true;
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					db.dbColse(rs, pstmt, conn);
+				}
+				return t;
+			}
       
 }

@@ -1,4 +1,4 @@
-<%@page import="guest.db.GuestDao"%>
+x<%@page import="guest.db.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,6 +23,28 @@
 		
 	}
 </style>
+<%
+	//이메일 링크를 타고 왔을 경우
+	String ech=request.getParameter("ech");
+	
+	//링크를 타고 왔을 경우 성명과 생년월일 저장된 상태로 두기
+	if(ech!=null){%>
+		<script type="text/javascript">
+		$(function(){
+			$("#name").val(localStorage.getItem("name"));
+			$("#year").val(localStorage.getItem("year"));
+			$("#month").val(localStorage.getItem("month"));
+			$("#day").val(localStorage.getItem("day"));
+			$("#email1").val(localStorage.getItem("email1"));
+			$("#email2").val(localStorage.getItem("email2"));
+			$("select.selemail").attr("disabled","true");
+		});
+			
+		</script>
+		
+	<%}
+
+%>
 </head>
 <body>
 <form action="member/memberaction.jsp" name="memberfrm">
@@ -36,7 +58,7 @@
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*성명</th>
-			<td>&nbsp;&nbsp;<input type="text" name="name" class="input" required></td>
+			<td>&nbsp;&nbsp;<input type="text" name="name" class="input" required id="name"></td>
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*생년월일</th>
@@ -87,15 +109,16 @@
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*이메일</th>
 			<td>
-			&nbsp;&nbsp;<input type="text" name="email1" style="width: 100px;" class="input" required>
-			@&nbsp;<input type="text" name=email2 class="email2 input" required>&nbsp;
-			<select name="email" class="input">
+			&nbsp;&nbsp;<input type="text" name="email1" style="width: 100px;" class="input" required id="email1" <%=ech==null?"":"readonly"  %>>
+			@&nbsp;<input type="text" name=email2 class="email2 input" required id="email2"  <%=ech==null?"":"readonly"  %> >&nbsp;
+			<select name="email" class="input selemail">
 				<option selected>직접 입력</option>
 				<option value="naver.com">naver.com</option>
 				<option value="hanmail.net">hanmail.net</option>
 				<option value="nate.com">nate.com</option>
 			</select>
 			</td>
+			<td><button class="button emailchbtn" style="color: white;">이메일 인증</button></td>
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*휴대전화</th>
@@ -193,6 +216,7 @@
             }
         }).open();
     }
+	
     
 	//아이디 입력창 열기
 	 function openId(){
@@ -209,7 +233,7 @@
 		} 
 	});
 	
-	//아이디 확인 이벤트
+	//아이디 중복 확인 이벤트
 	$("button.btnsub").click(function(){
 		 if($("input.id").val().length==0){
 			alert("아이디 중복확인을 눌러주세요.");
@@ -227,6 +251,34 @@
 			return false;//action호출 안 됨 
 		} 
 	});
+	
+	//이메일 인증시 보내기 값들 로컬에 저장하기
+	 $("button.emailchbtn").click(function(){
+			var emailch=$("#email1").val()+"@"+$("#email2").val();
+			var year=$("#year").val();
+			var name=$("#name").val();
+			var day=$("#day").val();
+			var month=$("#month").val();
+			localStorage.year=year
+			localStorage.month=month
+			localStorage.day=day
+			localStorage.name=name
+			localStorage.email1=$("#email1").val();
+			localStorage.email2=$("#email2").val();
+			
+			location.href="member/emailcheckaction.jsp?email="+emailch; 
+			
+		});
+	
+	//이메일 인증했는 지 체크하기
+	$("button.btnsub").click(function(){
+		<%if(ech==null){%>
+			alert("이메일을 인증해주세요.");
+			return false;//action호출 안 됨 
+		<%}
+		%>
+	});
+	
 </script>
 </body>
 </html>
