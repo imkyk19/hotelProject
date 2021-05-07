@@ -90,5 +90,36 @@ public class RoomDao {
 		return list;
 	}
 	
+	public RoomDto getRoomInfo(int roomNum) {
+		RoomDto dto = new RoomDto();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from room where room_num = ?";
+		
+		conn = db.getCommonConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+			dto.setNum(rs.getInt("num"));
+			dto.setRoomNum(rs.getInt("room_num"));
+			dto.setStatus(rs.getString("status"));
+			dto.setCapacity(rs.getInt("capacity"));
+			dto.setPrice(rs.getInt("price"));
+			dto.setPhoto(rs.getString("photo"));
+			dto.setText(rs.getString("text"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbColse(rs, pstmt, conn);
+		}
+		
+		return dto;
+	}
 	
 }

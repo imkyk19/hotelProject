@@ -10,8 +10,7 @@
 <style type="text/css">
 	table.booking {
 		width: 1200px;
-		margin-left: 15%; 
-		margin-right: 15%;
+
 	}
 	
 	thead.title tr td {
@@ -36,25 +35,32 @@
 	
 	div.roomlist {
 		width: 1200px; 
-		border: 2px solid gray;
-		margin-left: 15%; 
-		margin-right: 15%;
+		border: 2px solid pink;
+		margin-bottom: 50px;
 		text-align: center;
 		font-size: 1em;
+	}
+	
+	div.reserve {
+		margin-left: 300px;
+		width: 1200px;
+	}
+	
+	div.body {
+		margin-bottom: 50px;
 	}
 </style>
 
 <script type="text/javascript">
-var checkin_date;
-var checkout_date;
-var capacity, adult, children;
 
 	function list(){
+		
 		$.ajax({
 			type: "get",
 			dataType: "xml",
 			url: "reservation/orderlist.jsp",
-			data: {"capacity":capacity, "checkin_date":checkin_date, "checkout_date":checkout_date},
+			//data: {"capacity":capacity, "checkin_date":checkin_date, "checkout_date":checkout_date},
+			data:data,
 			success: function(data){
 				var s = "";
 				$(data).find("room").each(function(i, element) {
@@ -66,10 +72,11 @@ var capacity, adult, children;
 					var photo = r.find("photo").text();
 					var text = r.find("text").text();
 					
+					
 					s += "<table class = 'table table-bordered'>";
 					s += "<tr><td rowspan = '4'><img style = 'width:300px;' src = '" +photo+"'></td>";
 					s += "<td>"+roomNum+"</td><td>"+price+"</td></tr>";
-					s += "<tr><td>"+capacity+"인용</td><td><button type = 'button' class = 'roomselect btn btn-info'>Select</button></td></tr>";
+					s += "<tr><td>"+capacity+"인용</td><td><a class = 'pay' href = 'main.jsp?go=reservation/payform.jsp?roomNum="+roomNum+"&checkin_date="+$("#checkin_date").val()+"&checkout_date="+$("#checkout_date").val()+"'>결제</a></td></tr>";
 					s += "<tr><td colspan = '2' rowspan = '2'>" + text+ "</td></tr>";
 					s += "</table>";
 					
@@ -80,15 +87,21 @@ var capacity, adult, children;
 	};
 	
 	$(function(){
-		$("#btnsearch").click(function() {
+		$("#btnsearch").click(function(e) {
+			e.preventDefault();
+			data=$("#reservefrm").serialize();
+			//alert(data);
 			list();
 		});
+		
+		
 	});
 </script>
 </head>
 <body>
-<div>
-	<form action="#" id = "reservefrm">
+<div class = "reserve">
+<form action="#" id = "reservefrm">
+
 		<table class="booking">
 			<thead class="title">
 				<tr>
@@ -121,40 +134,24 @@ var capacity, adult, children;
 					<td>
 						<label for = "checkout_date">Check Out: </label>
 						<input type="date" id = "checkout_date" name = "checkout_date">
-						<script type="text/javascript">
-							
-						</script>
+						
 					</td>
 					<td >
 						<label for = "adult">Adults: </label>
-						<select name = "adult" id = "adult">
-						<%
-							for(int i = 0; i <= 5; i++){
-								%>
-								<option><%=i%></option>
-								<%
-							}
-						%>
+						<select name = "adult" id = "adult" required="required">
+							<option value = "">Select</option>
+							<option value = 1>1</option>
+							<option value = 2>2</option>
+							<option value = 3>3</option>
 						</select>
-						<script type="text/javascript">
-							
-							
-						</script>
 					</td>
 					<td >
 						<label for = "children">Children: </label>
-						<select name = "children" id = "children">
-						<%
-							for(int i = 0; i <= 2; i++){
-								%>
-								<option><%=i%></option>
-								<%
-							}
-						%>
+						<select name = "children" id = "children" required="required">
+							<option value = "">Select</option>
+							<option value = 0>0</option>
+							<option value = 1>1</option>
 						</select>
-						<script type="text/javascript">
-							
-						</script>
 					</td>
 				</tr>
 			</tbody>
@@ -164,18 +161,16 @@ var capacity, adult, children;
 					
 					<input type="hidden" name = "ckin_date" id = "ckin_date" value = "">
 					<input type="hidden" name = "ckout_date" id = "ckout_date" value = "">
-					<input type="text" name = "capacity" id = "capacity" value = "">
+					<input type="hidden" name = "capacity" id = "capacity" value = "">
 					
-						<button style="margin-top: 10px; margin-bottom:10px; width: 200px;" type="submit" id = "btnsearch" class="btn btn-success btn-lg">Search</button>
+						<button style="margin-top: 10px; margin-bottom:10px; width: 200px; height: 50px;" type="submit" id = "btnsearch" class="btn btn-success btn-lg">Search</button>
 						
 					</td>
 				</tr>
 			</tfoot>
 		</table>
-	</form>
-</div>
-<div class="roomlist" >
-	
+</form>
+<div class="roomlist"></div>
 </div>
 <script type="text/javascript">
 
@@ -186,11 +181,11 @@ var capacity, adult, children;
 		});
 		
 		$("#checkout_date").change(function() {
-			var checkout_date = $(this).val();
-			$("#ckout_date").attr("value",checkout_date);
+		var checkout_date = $(this).val();
+		$("#ckout_date").attr("value",checkout_date);
 		});
 		
-		$("#adult").change(function() {
+		 $("#adult").change(function() {
 			adult = ($(this).val());
 			
 			console.log(adult);
@@ -203,9 +198,9 @@ var capacity, adult, children;
 			capacity = parseInt(adult) + parseInt(children)
 			console.log(capacity);
 			$("#capacity").val(capacity);
-			
 		})
 		
+			
 		
 </script>
 </body>
