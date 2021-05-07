@@ -151,6 +151,58 @@ DbConnect db=new DbConnect();
       }
       
  
+      //num에대한 id반환 메서드
+      public GuestDto getId(String g_num)
+
+      {
+         GuestDto dto=new GuestDto();
+         Connection conn=null;
+
+         PreparedStatement pstmt=null;
+
+         ResultSet rs=null;
+
+         String sql="select * from guest where g_num=?";
+
+         conn=db.getCommonConnection();
+
+   
+
+         try {
+
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1, g_num);
+            rs=pstmt.executeQuery();
+            if(rs.next())
+
+            {
+               dto.setG_num(rs.getString("g_num"));
+               dto.setName(rs.getString("name"));
+               dto.setBirth(rs.getString("birth"));
+               dto.setEmail(rs.getString("email"));
+               dto.setHp(rs.getString("hp"));
+               dto.setAddr(rs.getString("addr"));
+               dto.setId(rs.getString("id"));
+               dto.setPass(rs.getString("pass"));
+
+            }
+
+         } catch (SQLException e) {
+
+            // TODO Auto-generated catch block
+
+            e.printStackTrace();
+
+         }finally {
+
+            db.dbColse(rs, pstmt, conn);
+
+         }return dto;
+      }
+      
+      
+      
+      
 
       public void updateGuest(GuestDto dto)
 
@@ -159,7 +211,7 @@ DbConnect db=new DbConnect();
 
             PreparedStatement pstmt=null;
 
-            String sql="update guest set name=?,birth=?,email=?,hp=?,addr=? where id=?";
+            String sql="update guest set name=?,birth=TO_DATE(?,'yyyy-MM-dd'),email=?,hp=?,addr=? where id=?";
             
             conn=db.getCommonConnection();
 
@@ -178,7 +230,12 @@ DbConnect db=new DbConnect();
                pstmt.setString(5, dto.getAddr());
 
                pstmt.setString(6, dto.getId());
-          
+           	System.out.println("name : " + dto.getName());
+			System.out.println("birth : " +  dto.getBirth());
+			System.out.println("email : " + dto.getEmail());
+			System.out.println("hp : " + dto.getHp());
+			System.out.println("addr : " + dto.getAddr());
+			System.out.println("id : " + dto.getId());
 
                pstmt.execute();
 
@@ -200,7 +257,7 @@ DbConnect db=new DbConnect();
          Connection conn = null;
          PreparedStatement pstmt = null;
          String sql = "delete from guest where id=?";
-         conn = db.getConnection();
+         conn = db.getCommonConnection();
          try {
             pstmt = conn.prepareStatement(sql);
             

@@ -3,15 +3,16 @@
     pageEncoding="UTF-8"%>
 <%
 
-	String g_num=request.getParameter("g_num");
+	String id=request.getParameter("id");
 
 	GuestDao dao=new GuestDao();
 	
 	
-	dao.deleteGuest(g_num);
+	dao.deleteGuest(id);
+
+	String go="../main.jsp";
+
+	response.sendRedirect(go);
 	
-	
-	
-	
-	
+
 %>

@@ -53,7 +53,7 @@ div.accountinfo{
 
 
 String id=session.getAttribute("id").toString();
-System.out.println("id:"+id);
+//System.out.println("id:"+id);
 
 
 	GuestDao dao=new GuestDao();
@@ -99,105 +99,61 @@ System.out.println("id:"+id);
 <div class="accountinfo">
 
 	<h2 style="font-size: 1.8em;color:#8C4C27;">내 정보</h2>
-
 	<hr style="border:2px solid black;width:600px;margin-left:0px;">
-
-	<h5>고객님의 정보를 언제든지 확인,변경하실 수 있습니다.</h5>
-
+	<h5>고객님의 정보를 언제든지 확인하실 수 있습니다.</h5>
 	<br>
 
 	<table style="width:600px;"class="table table-bordered">
-
 		<caption>기본정보</caption>
-
 		<tr>
-
 				<td>아이디</td>
-
 			<td>
 			<%=dto.getId()%>
 			</td>
-
 		</tr>
-
 		<tr>
-
 			<td>성명</td>
-
 			<td>
-
 				<input type="text" class="form-control input-sm"
-
 					style="width: 120px;"
-
 					 name="name" required="required"
-
 					readonly="readonly" value="<%=dto.getName()%>">				
-
 			</td>
-
 		</tr>
-
+		
 		<tr>
 			<td>생년월일</td>
-			<td><input type="text" name="brith" style="width: 150px;" class="form-control input-sm"
-			 required="required" readonly="readonly" value="<%=dto.getBirth().substring(0,10)%>">
-           </td>
-			<tr>
+			<td>
+			<input type="text" id="birth" name="birth" style="width: 150px;"  readonly="readonly"
+			value="<%=dto.getBirth().substring(0, 10)%>">
+			</td>
+       </tr>	
 
+
+		<tr>
 			<td>이메일</td>
-
 			<td>
-
 			<input type="text" name="email" style="width: 150px;" class="input" readonly="readonly"value="<%=dto.getEmail() %>">
-
-			
-
 			</td>
-
 		</tr>
 
 		<tr>
-
 			<td>휴대전화</td>
-
 			<td>
-
-	 		<input type="text" id="hp" maxlength="10"
-
-	 			style="width: 100px;" readonly="readonly" value="<%=dto.getHp() %>" >
-
-
-
-	 	</td>  
-
+	 		<input type="text" name="hp" id="hp" maxlength="13"
+	 			style="width: 100px;"required="required" readonly="readonly" value="<%=dto.getHp() %>" >
+	 		</td>  
 		</tr>
 
 		<tr>
-
 			<td>주소</td>
-
-			<td><input type="text" name="zip" id="zip" class="input" >
-
-				<button style="color:white;"type="button" class="button" onclick="openaddr()">주소 찾기</button>
-
-				<br><br><input type="text" name="addr1" id="addr1" class="input" style="width: 400px;"
+			<td>
+				<input type="text" name="addr" id="addr" class="input" style="width: 400px;"
 				readonly="readonly" value="<%=dto.getAddr() %>">
-
-				<br><input type="text" name="addr2" id="addr2" class="input" style="width: 400px;"
-				readonly="readonly" value="<%=dto.getAddr() %>">
-
 			</td>
-
 		</tr>
-
- 
-
 	</table>
-
-
 	</div>
-
   </form>
 
 	  	<script type="text/javascript">

@@ -128,87 +128,53 @@ String id=session.getAttribute("id").toString();
 		<caption>기본정보</caption>
 
 		<tr>
-
 			<td>아이디</td>
-
 			<td>
 			<%=dto.getId()%>
 			</td>
-
 		</tr>
-
-		<tr>
-
-			<td>성명</td>
-
-			<td>
-
-				<input type="text" class="form-control input-sm"
-
-					style="width: 120px;"
-
-					 name="name" required="required"
-
-					value="<%=dto.getName()%>">				
-
-			</td>
-
-		</tr>
-
-		<tr>
-
-			<td>생년월일</td>
-			<td><input type="text" name="brith" style="width: 150px;" class="form-control input-sm"
-			 required="required" value="<%=dto.getBirth().substring(0,10)%>">
-           </td>
-			<tr>
-
-			<td>이메일</td>
-
-			<td>
-
-			<input type="text" name="email" style="width: 140px;" class="input" value="<%=dto.getEmail() %>">
-
 		
-
+		<tr>
+			<td>성명</td>
+			<td>
+				<input type="text" class="form-control input-sm"
+					style="width: 120px;"
+					 name="name" required="required"
+					value="<%=dto.getName()%>">			
 			</td>
-
+		</tr>
+		
+		<tr>
+			<td>생년월일</td>
+			<td>
+			<input type="text" id="birth" name="birth" style="width: 150px;"
+			value="<%=dto.getBirth().substring(0, 10)%>">
+			</td>
+		</tr>
+           
+		<tr>
+			<td>이메일</td>
+			<td>
+			<input type="text" name="email" style="width: 140px;" class="input" value="<%=dto.getEmail() %>">
+			</td>
 		</tr>
 
 		<tr>
-
 			<td>휴대전화</td>
-
 			<td>
 
-	 		<input type="text" id="hp" maxlength="10"
+	 		<input type="text" id="hp" name="hp" maxlength="13"
 
-	 			style="width: 150px;" value="<%=dto.getHp() %>" >
-
-	
-
-	 	</td>  
-
+	 			style="width: 150px;" required="required" value="<%=dto.getHp()%>" >
+	 		</td>  
 		</tr>
-
+		
 		<tr>
-
 			<td>주소</td>
-
-			<td><input type="text" name="zip" id="zip" class="input" >
-
-				<button  style="color:white;type="button" class="button" onclick="openaddr()">주소 찾기</button>
-
-				<br><br><input type="text" name="addr1" id="addr1" class="input" style="width: 400px;"value="<%=dto.getAddr() %>">
-
-				<br><input type="text" name="addr2" id="addr2" class="input" style="width: 400px;"value="<%=dto.getAddr() %>">
-
+			<td>
+				<input type="text" name="addr" id="addr" class="input" style="width: 400px;"value="<%=dto.getAddr() %>">
 			</td>
-
 		</tr>
-
- 
-
 	</table>
 
 	
@@ -218,14 +184,15 @@ String id=session.getAttribute("id").toString();
 	  		  id="btnsubmit">변경</button>
 
 	 <button type="button" style="color:white; width: 120px;"
-			onclick="history.back()" id="btncancel">취소</button> 	
+onclick="history.back()" id="btncancel">취소</button> 	
 
 	</div>
 
   </form>
 
-	  	<script type="text/javascript">
-
+	<script type="text/javascript">
+	  	
+	 
 	//이메일 선택 이벤트
 
 	$("select[name=email]").change(function(){
@@ -247,8 +214,6 @@ String id=session.getAttribute("id").toString();
 	});
 	
 
-	
-
 	//주소창 띄우기 사용자 함수
 
 	 function openaddr() {
@@ -266,9 +231,6 @@ String id=session.getAttribute("id").toString();
                 var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
 
                 var extraRoadAddr = ''; // 도로명 조합형 주소 변수
-
- 
-
                 // 법정동명이 있을 경우 추가한다. (법정리는 제외)
 
                 // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
@@ -300,10 +262,7 @@ String id=session.getAttribute("id").toString();
                 if(fullRoadAddr !== ''){
 
                     fullRoadAddr += extraRoadAddr;
-
                 }
-
- 
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
 

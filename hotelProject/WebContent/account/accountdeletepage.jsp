@@ -91,7 +91,7 @@ String id=session.getAttribute("id").toString();
 	</ul>	
 		
 </div>
-
+<form action="account/accountdelete.jsp">
 <div class="accountdelete">
 <h2 style="font-size: 1.8em;color:#8C4C27;">회원 탈퇴</h2>
 	<hr style="border:2px solid black;width:600px;margin-left:0px;">
@@ -116,57 +116,13 @@ String id=session.getAttribute("id").toString();
 		</tr>	
 		
 	</table>		
-	<button type="button" style="color:white; width: 120px;"
-	  		id="btnmdel">
-	  	확인</button>
+	<button type="submit" style="color:white; width: 120px;"
+	  		id="btnsubmit">	확인</button>
 	
 		
 		
 
 </div> 
-<script type="text/javascript">
-	//삭제 버튼 이벤트
-	function fundel(num){
-		//alert(num);
-		$("#btnmdel").attr("g_num",g_num);
-		$("#memberDelModal").modal();
-	}
-
-</script>
-
- <!-- Modal -->
-  <div class="modal fade" id="memberDelModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">회원 탈퇴</h4>
-        </div>
-        <div class="modal-body">
-          <p>회원 탈퇴를 원하면 아래 [탈퇴확인]버튼을 눌러주세요</p>
-          <button type="button" class="btn btn-danger"
-          style="width:150px;" id="btnmdel" num=""
-          data-dismiss="modal">탈퇴확인</button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-  <script type="text/javascript">
-  $("#btnmdel").click(function() {
-  	//버튼에 있는 num 읽어오기
-  	var g_num=$(this).attr("g_num");
-  	//이동
-  	location.href="account/accountdelete.jsp?g_num="+g_num;
-  });
-  
-  </script>
-
+</form>
 </body>
 </html>   
