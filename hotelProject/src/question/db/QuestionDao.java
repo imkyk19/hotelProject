@@ -19,7 +19,7 @@ public class QuestionDao {
 		PreparedStatement pstmt=null;
 		
 		//sql문 선언
-		String sql="insert into question values (seq_Q.nextval,?,?,?,?,?,?,?,sysdate)";
+		String sql="insert into question values (seq_Q.nextval,?,?,?,?,?,?,sysdate)";
 
 		conn=db.getCommonConnection();
 		try {
@@ -27,7 +27,7 @@ public class QuestionDao {
 			//바인딩
 			pstmt.setString(1, dto.getType());
 			pstmt.setString(2, dto.getSubject());
-			pstmt.setString(3, dto.getContent());
+			pstmt.setString(3, dto.getContent()); 
 			pstmt.setString(4, dto.getName());
 			pstmt.setString(5, dto.getPass());
 			pstmt.setString(6, dto.getEmail());
