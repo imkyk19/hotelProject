@@ -31,8 +31,16 @@
 		border: 2px solid gray;
 	}
 	
+	table.pay tbody {
+		border: 1px solid gray;
+	}
+	
 	tbody.guestInfo tr td {
 		font-size: 1.5em;
+	}
+	
+	tbody.card input {
+		float: left;
 	}
 </style>
 </head>
@@ -54,7 +62,27 @@
 	GuestDao gdao = new GuestDao();
 	gdto = gdao.getData(id);
 %>
+<script type="text/javascript">
+	$(function(){
+		$("#btnPay").click(function(e) {
+			e.preventDefault();
+			data = $("#payfrm").serialize();
+			
+			$.ajax({
+				type: "post",
+				dataType: "html",
+				url: "reservation/insertreservationaction.jsp",
+				data: data,
+				success: function(data){
+					
+				}
+			});
+		});
+	});
+
+</script>
 <div class="pay">
+	<form id = "payfrm">
 	<table class = 'table table-bordered pay'>
 		<thead>
 			<tr>
@@ -98,7 +126,36 @@
 				<td colspan="3">Address: <%=gdto.getAddr() %></td>
 			</tr>
 		</tbody>
+		<tbody class="card">
+			<tr>
+				<td >
+					<label for = "card" >신용카드: </label>
+				</td>
+				<td colspan="2">
+					<input style="width: 50px;" type="text" class="form-inline">
+					<input style="width: 50px;" type="text" class="form-inline">
+					<input style="width: 50px;" type="text" class="form-inline">
+					<input style="width: 50px;" type="text" class="form-inline">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for = "cardDate" >만료일(MM/YY): </label>
+				</td>
+				<td colspan="2">
+					<input name = "cardDate" style="width: 80px;" type="text" class="form-inline">
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="3" align="center">
+					<button id = "btnPay" type="submit" class="btn btn-success btn-lg" style="height: 50px; width: 200px;">결제하기</button>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
+	</form>
 </div>
 </body>
 </html>
