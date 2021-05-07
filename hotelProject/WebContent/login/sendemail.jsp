@@ -21,18 +21,18 @@
 
 	
 
-	// »ç¿ëÀÚ¿¡°Ô º¸³¾ ¸Ş½ÃÁö¸¦ ±âÀÔÇÕ´Ï´Ù.
+	// ì‚¬ìš©ìì—ê²Œ ë³´ë‚¼ ë©”ì‹œì§€ë¥¼ ê¸°ì…í•©ë‹ˆë‹¤.
 
-	String host = "http://localhost:9000/hotelProject/main.jsp?go=member/memberform.jsp?ech=ok";//ÀÌ¸ŞÀÏ ¸µÅ©·Î µé¾î°¡¾ßÇÑ´Ù
+	String host = "http://localhost:9000/hotelProject/main.jsp?go=member/memberform.jsp?ech=ok";//ì´ë©”ì¼ ë§í¬ë¡œ ë“¤ì–´ê°€ì•¼í•œë‹¤
 	String from = "rlatngus9655";
 	String to = email;
-	String subject = "±×·¹ÀÌ½ºÈ£ÅÚ ÀÓ½Ã¹øÈ£ÀÔ´Ï´Ù.";
-	String content = "ÀÓ½Ã ºñ¹Ğ¹øÈ£´Â <b style='text-decoration: underline;'>" + pa+"</b> ÀÔ´Ï´Ù";
+	String subject = "ê·¸ë ˆì´ìŠ¤í˜¸í…” ì„ì‹œë²ˆí˜¸ì…ë‹ˆë‹¤.";
+	String content = "ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ëŠ” <b style='text-decoration: underline;'>" + pa+"</b> ì…ë‹ˆë‹¤";
 		
 
 	
 
-	// SMTP¿¡ Á¢¼ÓÇÏ±â À§ÇÑ Á¤º¸¸¦ ±âÀÔÇÕ´Ï´Ù.
+	// SMTPì— ì ‘ì†í•˜ê¸° ìœ„í•œ ì •ë³´ë¥¼ ê¸°ì…í•©ë‹ˆë‹¤.
 
 	   Properties p = new Properties();
    p.put("mail.smtp.user", from);
@@ -63,7 +63,7 @@
 	   e.printStackTrace();
 	   PrintWriter script = response.getWriter();
 	   script.println("<script>");
-	   script.println("alert('¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù..');");
+	   script.println("alert('ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤..');");
 	   script.println("history.back();");
 	   script.println("</script>");
 	   script.close();

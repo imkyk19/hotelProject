@@ -8,11 +8,11 @@
 <%
 	
 	String name=request.getParameter("name");	
-	//³¯Â¥ ÀúÀå
+	//ë‚ ì§œ ì €ìž¥
 	String birth=request.getParameter("year")+"-"+request.getParameter("month")+"-"+request.getParameter("day");	
 	System.out.println(birth);
 	
-    //ÁÖ¼ÒÀúÀå(null°ªÀÏ ½Ã no·Î ÀúÀå)
+    //ì£¼ì†Œì €ìž¥(nullê°’ì¼ ì‹œ noë¡œ ì €ìž¥)
 	String addr1=request.getParameter("addr1");
 	String addr2=request.getParameter("addr2");
 	String addr="";

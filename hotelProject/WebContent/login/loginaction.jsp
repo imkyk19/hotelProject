@@ -6,7 +6,7 @@
 	request.setCharacterEncoding("utf-8");
 	String id=request.getParameter("id");
 	String pass=request.getParameter("pass");
-	String savecheck=request.getParameter("savecheck");//Ã¼Å© ¾ÈÇÏ¸é null°ª
+	String savecheck=request.getParameter("savecheck");//ì²´í¬ ì•ˆí•˜ë©´ nullê°’
 	GuestDao dao=new GuestDao();   
 	GuestDto dto=new GuestDto();
 	
@@ -17,23 +17,23 @@
 		session.setAttribute("id", id);
 		session.setAttribute("loginok", "ok");
 		session.setAttribute("savecheck", savecheck==null?"no":"yes");
-		session.setMaxInactiveInterval(60*60*8);//8½Ã°£ À¯Áö
+		session.setMaxInactiveInterval(60*60*8);//8ì‹œê°„ ìœ ì§€
 		
 		response.sendRedirect("../main.jsp");
 	}else if(!t && pass.equals(chpass)){%>
 		<script type="text/javascript">
-			alert("¾ÆÀÌµğ°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
+			alert("ì•„ì´ë””ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			location.href="../main.jsp?go=login/loginform.jsp";
 		</script>
 	<%
 	}else if(t && !pass.equals(chpass)){%>
 		<script type="text/javascript">
-			alert("ºñ¹Ğ¹øÈ£°¡ Æ²¸³´Ï´Ù.");
+			alert("ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤.");
 			location.href="../main.jsp?go=login/loginform.jsp";
 		</script>
 	<%}else{%>
 		<script type="text/javascript">
-			alert("ÀÏÄ¡ÇÏ´Â È¸¿øÁ¤º¸°¡ ¾ø½À´Ï´Ù.");
+			alert("ì¼ì¹˜í•˜ëŠ” íšŒì›ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 			location.href="../main.jsp?go=login/loginform.jsp";
 		</script>
 	<%}

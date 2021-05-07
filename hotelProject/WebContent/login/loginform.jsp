@@ -36,7 +36,7 @@ $(function(){
 <%
 String id=(String)session.getAttribute("id");
 String savecheck=(String)session.getAttribute("savecheck");
-//¾ÆÀÌµğÀúÀåÀ» Ã¼Å©ÇßÀ» °Ü¿ì true, Ã¼Å© ¾È ÇßÀ» °æ¿ìfalse
+//ì•„ì´ë””ì €ì¥ì„ ì²´í¬í–ˆì„ ê²¨ìš° true, ì²´í¬ ì•ˆ í–ˆì„ ê²½ìš°false
 boolean b;
 if(savecheck==null || savecheck.equals("no"))
 	b=false;
@@ -45,39 +45,39 @@ else
 %>
 
 <div class="loginform">
-	<h2 style="color: #8C4C27;">·Î±×ÀÎ</h2>
+	<h2 style="color: #8C4C27;">ë¡œê·¸ì¸</h2>
 	<hr style="background: #260F01;height: 5px;">
 	<br> <br>
-	<h2 style="text-align: center; color:#8C4C27; ">Hotel GRACE¿¡ ¿À½Å °ÍÀ» È¯¿µÇÕ´Ï´Ù.</h2>
+	<h2 style="text-align: center; color:#8C4C27; ">Hotel GRACEì— ì˜¤ì‹  ê²ƒì„ í™˜ì˜í•©ë‹ˆë‹¤.</h2>
 	<br>
-	<h5 style="text-align: center;">¹øÈ£¿Í ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.</h5>
-	<h6 style="text-align: center; color: #aaa;">¡ØÈ¸¿øÀÌ µÇ½Ã¸é È¸¿ø¸¸À» À§ÇÑ ´Ù¾çÇÑ ¼­ºñ½º¿Í ÇıÅÃÀ» ¹ŞÀ¸½Ç ¼ö ÀÖ½À´Ï´Ù</h6>
+	<h5 style="text-align: center;">ë²ˆí˜¸ì™€ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.</h5>
+	<h6 style="text-align: center; color: #aaa;">â€»íšŒì›ì´ ë˜ì‹œë©´ íšŒì›ë§Œì„ ìœ„í•œ ë‹¤ì–‘í•œ ì„œë¹„ìŠ¤ì™€ í˜œíƒì„ ë°›ìœ¼ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤</h6>
 	<br> <br>
 	<form action="login/loginaction.jsp" name="lfrm">
 	<table class="joinform table table-bordered">
 		<tr style="height: 30px; text-align: center; ">
-			<th style="text-align: center; width: 140px;">È¸¿ø <hr style="background: #BF8975;height: 7px;"></th>
-			<th style="text-align: center; width: 100px;">ºñÈ¸¿ø</th>
+			<th style="text-align: center; width: 140px;">íšŒì› <hr style="background: #BF8975;height: 7px;"></th>
+			<th style="text-align: center; width: 100px;">ë¹„íšŒì›</th>
 		</tr>
 		<tr style="height: 30px;" bgcolor="#F2DAC4">
-			<td style="text-align: right;"><input type="text"  placeholder="¾ÆÀÌµğ ÀÔ·Â" class="input" name="id" 
+			<td style="text-align: right;"><input type="text"  placeholder="ì•„ì´ë”” ì…ë ¥" class="input" name="id" 
 			value="<%= b?id:"" %>"></td>
-			<td rowspan="2" align="left"><button type="submit" class="button" style="width: 120px; height: 50px;color: white;">·Î±×ÀÎ</button></td>
+			<td rowspan="2" align="left"><button type="submit" class="button" style="width: 120px; height: 50px;color: white;">ë¡œê·¸ì¸</button></td>
 			
 		</tr>
 		<tr style="height: 30px;" bgcolor="#F2DAC4">
-			<td style="text-align: right;"><input type="password"  placeholder="ºñ¹Ğ¹øÈ£" class="input" name="pass"></td>
+			<td style="text-align: right;"><input type="password"  placeholder="ë¹„ë°€ë²ˆí˜¸" class="input" name="pass"></td>
 		</tr>
 		<tr>
 			<td colspan="2" bgcolor="#F2DAC4" style="text-align: center;">
-				<input type="checkbox" id="savecheck" <%= b?"checked":"" %> name="savecheck">¾ÆÀÌµğ ÀúÀå
+				<input type="checkbox" id="savecheck" <%= b?"checked":"" %> name="savecheck">ì•„ì´ë”” ì €ì¥
 			</td>
 		</tr>
 		<tr align="center" bgcolor="#F2DAC4">
 			<td colspan="2">
-			<button type="button" style="background-color: #402A22; color: white; width: 50px;" onclick="location.href='main.jsp?go=member/memberform.jsp'">°¡ÀÔ</button>
-			<button type="button" style="background-color: #BF8975; color: white; width: 100px;" onclick="openidsearch()">¾ÆÀÌµğÃ£±â</button>
-			<button type="button" style="background-color: #BF8975; color: white; width: 110px;" onclick="openpasssearch()">ºñ¹Ğ¹øÈ£ Ã£±â</button>
+			<button type="button" style="background-color: #402A22; color: white; width: 50px;" onclick="location.href='main.jsp?go=member/memberform.jsp'">ê°€ì…</button>
+			<button type="button" style="background-color: #BF8975; color: white; width: 100px;" onclick="openidsearch()">ì•„ì´ë””ì°¾ê¸°</button>
+			<button type="button" style="background-color: #BF8975; color: white; width: 110px;" onclick="openpasssearch()">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</button>
 			</td>
 		</tr>
 		<tr>
@@ -91,19 +91,19 @@ else
 	</form>	
 </div>
 <script type="text/javascript">
-	//¾ÆÀÌµğ Ã£±â ÀÌº¥Æ®
+	//ì•„ì´ë”” ì°¾ê¸° ì´ë²¤íŠ¸
 		 function openidsearch(){
 			 	window.open("login/idsearchform.jsp","","left=100px,top=100px,width=400px,height=200px");
 			 }
 	
-	//ºñ¹Ğ¹øÈ£ Ã£±â ÀÌº¥Æ®
+	//ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° ì´ë²¤íŠ¸
 		function openpasssearch(){
 			 	window.open("login/passsearchform.jsp","","left=100px,top=100px,width=400px,height=240px");
 			 	
 
 			 }
 	
-	/* 	Kakao.init('01888666f60f258d702fb52e5eb58bb0'); //¹ß±Ş¹ŞÀº Å° Áß javascriptÅ°¸¦ »ç¿ëÇØÁØ´Ù.
+	/* 	Kakao.init('01888666f60f258d702fb52e5eb58bb0'); //ë°œê¸‰ë°›ì€ í‚¤ ì¤‘ javascriptí‚¤ë¥¼ ì‚¬ìš©í•´ì¤€ë‹¤.
 		console.log(Kakao.isInitialized());
 		function kakaoLogin() {
 		    Kakao.Auth.login({
@@ -125,7 +125,7 @@ else
 		  }
  */
 
-		//±¸±Û ÇÁ·ÎÇÊ Á¤º¸ ¾ò±â
+		//êµ¬ê¸€ í”„ë¡œí•„ ì •ë³´ ì–»ê¸°
 		function onSignIn(googleUser) {
 		  var profile = googleUser.getBasicProfile();
 		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.

@@ -21,18 +21,18 @@
 
 	
 
-	// »ç¿ëÀÚ¿¡°Ô º¸³¾ ¸Ş½ÃÁö¸¦ ±âÀÔÇÕ´Ï´Ù.
+	// ì‚¬ìš©ìì—ê²Œ ë³´ë‚¼ ë©”ì‹œì§€ë¥¼ ê¸°ì…í•©ë‹ˆë‹¤.
 
-	String host = "http://localhost:9000/hotelProject/main.jsp?go=member/memberform.jsp?ech=ok";//ÀÌ¸ŞÀÏ ¸µÅ©·Î µé¾î°¡¾ßÇÑ´Ù
+	String host = "http://localhost:9000/hotelProject/main.jsp?go=member/memberform.jsp?ech=ok";//ì´ë©”ì¼ ë§í¬ë¡œ ë“¤ì–´ê°€ì•¼í•œë‹¤
 	String from = "rlatngus9655";
 	String to = email;
-	String subject = "±×·¹ÀÌ½ºÈ£ÅÚ È¸¿ø°¡ÀÔÀ» À§ÇÑ ÀÌ¸ŞÀÏ È®ÀÎ ¸ŞÀÏÀÔ´Ï´Ù.";
-	String content = "´ÙÀ½ ¸µÅ©¿¡ Á¢¼ÓÇÏ¿© ÀÌ¸ŞÀÏ È®ÀÎÀ» ÁøÇàÇÏ¼¼¿ä." +
-		"<a href='" + host + "?code=" + new SHA256().getSHA256(to) + "'>ÀÌ¸ŞÀÏ ÀÎÁõÇÏ±â</a>";
+	String subject = "ê·¸ë ˆì´ìŠ¤í˜¸í…” íšŒì›ê°€ì…ì„ ìœ„í•œ ì´ë©”ì¼ í™•ì¸ ë©”ì¼ì…ë‹ˆë‹¤.";
+	String content = "ë‹¤ìŒ ë§í¬ì— ì ‘ì†í•˜ì—¬ ì´ë©”ì¼ í™•ì¸ì„ ì§„í–‰í•˜ì„¸ìš”." +
+		"<a href='" + host + "?code=" + new SHA256().getSHA256(to) + "'>ì´ë©”ì¼ ì¸ì¦í•˜ê¸°</a>";
 
 	
 
-	// SMTP¿¡ Á¢¼ÓÇÏ±â À§ÇÑ Á¤º¸¸¦ ±âÀÔÇÕ´Ï´Ù.
+	// SMTPì— ì ‘ì†í•˜ê¸° ìœ„í•œ ì •ë³´ë¥¼ ê¸°ì…í•©ë‹ˆë‹¤.
 
 	   Properties p = new Properties();
    p.put("mail.smtp.user", from);
@@ -63,7 +63,7 @@
 	   e.printStackTrace();
 	   PrintWriter script = response.getWriter();
 	   script.println("<script>");
-	   script.println("alert('¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù..');");
+	   script.println("alert('ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤..');");
 	   script.println("history.back();");
 	   script.println("</script>");
 	   script.close();

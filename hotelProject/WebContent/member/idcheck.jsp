@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>���̵� �Է�</title>
+<title>아이디 입력</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
@@ -40,39 +40,39 @@
 <body>
 <%
 	request.setCharacterEncoding("utf-8");
-	String key=request.getParameter("key");//ó�� ȣ��� null
+	String key=request.getParameter("key");//처음 호출시 null
 	if(key==null){
-		//null���� ��� form�� ��Ÿ��
+		//null값인 경우 form을 나타냄
 		%>
 		<div style="margin: 10px 30px;">
 		<form action="idcheck.jsp" method="post" class="form-line">
-			<b>���̵� �Է����ּ���</b><br>
-			<input type="text" name="id" class="input" style="width: 130px;float: left;" autofocus required placeholder="���̵� �Է�">
+			<b>아이디를 입력해주세요</b><br>
+			<input type="text" name="id" class="input" style="width: 130px;float: left;" autofocus required placeholder="아이디 입력">
 			
 			<input type="hidden" name="key" value="yes">
-			<button type="submit" class="button" style="margin-left: 10px;color: white;">�ߺ� üũ</button>
+			<button type="submit" class="button" style="margin-left: 10px;color: white;">중복 체크</button>
 		</form>
 		</div>
 	<% }else{
-		//action ó��
+		//action 처리
 		String id=request.getParameter("id");
-		//dao���� �� ���̵� db�� �����ϴ��� Ȯ��
+		//dao선언 후 아이디가 db에 존재하는지 확인
 		GuestDao dao=new GuestDao();
 		boolean b=dao.isIdCheck(id);
 		if(b){
-			//�����ϴ� ���
+			//존재하는 경우
 			%>
 			<div style="margin: 10px 30px;">
-			<h6><%= id %>�� �̹� ���Ե� ���̵��Դϴ�</h6>
-			<button type="button" class="button" onclick="location.href='idcheck.jsp'">�ٽ��Է�</button>
+			<h6><%= id %>는 이미 가입된 아이디입니다</h6>
+			<button type="button" class="button" onclick="location.href='idcheck.jsp'">다시입력</button>
 			</div>
 		<% }else{
-			//�������� �ʴ� ���
+			//존재하지 않는 경우
 			%>
 				<div style="margin: 10px 30px;">
-				<b><%= id %>�� ��밡���� ���̵��Դϴ�</b><br>
-				<button type="button" class="button" onclick="saveId('<%=id%>')">�����ϱ�</button>
-				<button type="button" class="button" onclick="location.href='idcheck.jsp'">�ٽ��Է�</button>
+				<b><%= id %>는 사용가능한 아이디입니다</b><br>
+				<button type="button" class="button" onclick="saveId('<%=id%>')">적용하기</button>
+				<button type="button" class="button" onclick="location.href='idcheck.jsp'">다시입력</button>
 				</div>
 		<% }
 		
@@ -80,9 +80,9 @@
 %>
 <script type="text/javascript">
 function saveId(id){
-		//�θ�â : opener
+		//부모창 : opener
 		opener.memberfrm.idsel.value=id;
-		//����â �ݱ�
+		//현재창 닫기
 		window.close();
 }
 </script>

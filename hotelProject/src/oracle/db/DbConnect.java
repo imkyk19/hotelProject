@@ -12,13 +12,13 @@ public class DbConnect {
 	String oracleDriver = "oracle.jdbc.driver.OracleDriver";
 	String oracleUrl = "jdbc:oracle:thin:@localhost:1521:xe";
 	String susuUrl = "jdbc:oracle:thin:@192.168.0.39:1521:xe";
-	
+	String suhyeonUrl = "jdbc:oracle:thin:@192.168.0.9:1521:xe";
 	public DbConnect() {
 		
 		try {
 			Class.forName(oracleDriver);
 		} catch (ClassNotFoundException e) {
-			System.out.println("ì˜¤ë¼í´ ë“œë¼ì´ë²„ ê²€ìƒ‰ ì‹¤íŒ¨:" + e.getMessage());
+			System.out.println("¿À¶óÅ¬ µå¶óÀÌ¹ö °Ë»ö ½ÇÆĞ:" + e.getMessage());
 		}
 	}
 	
@@ -26,12 +26,12 @@ public class DbConnect {
 	public Connection getConnection() {
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection(oracleUrl, "angel", "a1234");
+			conn = DriverManager.getConnection(suhyeonUrl, "hotel", "a1234");
 			
 
 			
 		} catch (SQLException e) {
-			System.out.println("ì˜¤ë¼í´ ì—°ê²° ì‹¤íŒ¨:" + e.getMessage());
+			System.out.println("¿À¶óÅ¬ ¼­¹ö ¿¬°á ½ÇÆĞ:" + e.getMessage());
 		
 		}
 
@@ -48,7 +48,7 @@ public class DbConnect {
 
 			
 		} catch (SQLException e) {
-			System.out.println("susuUrl ì—°ê²° ì‹¤íŒ¨:" + e.getMessage());
+			System.out.println("susuUrl ¿¬°á½ÇÆĞ:" + e.getMessage());
 			
 		}
 

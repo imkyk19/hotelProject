@@ -31,17 +31,17 @@
 </head>
 <body>
 <div class="joinsuccess">
-	<h2 style="color: #8C4C27;">�׷��̽� ����</h2>
+	<h2 style="color: #8C4C27;">그레이스 가입</h2>
 	<hr style="height: 2px;background: gray;">
-	<h2 style="color: #8C4C27;text-align: center;">�����մϴ�</h2>
-	<h3 style="text-align: center;"><%= name %>�Բ����� �׷��̽��� ���������� ���ԵǼ̽��ϴ�.</h3>
+	<h2 style="color: #8C4C27;text-align: center;">감사합니다</h2>
+	<h3 style="text-align: center;"><%= name %>님께서는 그레이스에 정상적으로 가입되셨습니다.</h3>
 	<div class="joinsuccess2">
 		<br><br><br>
-		<span><b style="font-size: 2em;color: #A6A6A6;">���̵� | </b></span><span><b style="font-size: 2em;color:#8C4C27; ">  <%= id %></b></span>
+		<span><b style="font-size: 2em;color: #A6A6A6;">아이디 | </b></span><span><b style="font-size: 2em;color:#8C4C27; ">  <%= id %></b></span>
 		<br><br>
-		<h4>�α��� �Ͻ� �� �پ��� ���ð� ���񽺸� �����غ��ñ� �ٶ��ϴ�.</h4>
+		<h4>로그인 하신 후 다양한 혜택과 서비스를 경험해보시기 바랍니다.</h4>
 			<br><br>
-		<button class="button" style="color: white;width: 150px;height: 50px;text-align: center;background-color: #260101;font-size: 1.3em;" onclick="location.href='main.jsp?go=login/loginform.jsp'" >�α���</button>
+		<button class="button" style="color: white;width: 150px;height: 50px;text-align: center;background-color: #260101;font-size: 1.3em;" onclick="location.href='main.jsp?go=login/loginform.jsp'" >로그인</button>
 	</div>
 </div>
 </body>

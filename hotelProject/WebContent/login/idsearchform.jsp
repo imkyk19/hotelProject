@@ -38,79 +38,79 @@
 <%
 	String search =request.getParameter("search");
 	if(search==null){
-	//search°ªÀÌ nullÀÏ¶§(Ã³À½ ÀÔ·ÂÆû)
+	//searchê°’ì´ nullì¼ë•Œ(ì²˜ìŒ ìž…ë ¥í¼)
 
 %>
 <div class="searchid" id="searchid">
 <form action="idsearchform.jsp">
 	<table>
 		<tr style="background-color:  #A6806A; height: 50px;">
-			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;¾ÆÀÌµð Ã£±â</span></td>
+			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;ì•„ì´ë”” ì°¾ê¸°</span></td>
 		</tr>
 		<tr>
 			<th colspan="2" style="text-align: center;">
 				<div class="searchid2">
 				<br>
-					¼º¸í <input type="text" name="namesearch" class="input" required><br><br>
-					ÀÌ¸ÞÀÏ <input type="text" name="emailsearch" class="input" required><br>
+					ì„±ëª… <input type="text" name="namesearch" class="input" required><br><br>
+					ì´ë©”ì¼ <input type="text" name="emailsearch" class="input" required><br>
 					<input type="hidden" name="search" value="yes">
 				</div>
 			</th>
 		</tr>
 		<tr>
-			<th style="text-align: center;" colspan="2"><br><button type="submit" class="button" style="color: white;width: 80px;">È®ÀÎ</button></th>
+			<th style="text-align: center;" colspan="2"><br><button type="submit" class="button" style="color: white;width: 80px;">í™•ì¸</button></th>
 		</tr>
 	</table>
 	</form>
 </div>
 <%
 	}else if(search!=null){
-		//°Ë»öÇßÀ» ¶§ Æû
+		//ê²€ìƒ‰í–ˆì„ ë•Œ í¼
 		GuestDao dao=new GuestDao();
 		String namesearch = request.getParameter("namesearch");
 		String emailsearch = request.getParameter("emailsearch");
 		String id=dao.getId(namesearch, emailsearch);
 		System.out.println(id);
 		
-		if(id=="¾øÀ½"){
-			//¾ÆÀÌµð°¡ ¾øÀ» ¶§%>
+		if(id=="ì—†ìŒ"){
+			//ì•„ì´ë””ê°€ ì—†ì„ ë•Œ%>
 			<table>
 		<tr style="background-color:  #A6806A; height: 50px;">
-			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;¾ÆÀÌµð Ã£±â</span></td>
+			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;ì•„ì´ë”” ì°¾ê¸°</span></td>
 		</tr>
 		<tr>
 			<th colspan="2" style="text-align: center;">
 				<div class="searchid2">
 				<br>
-					<h4>ÀÏÄ¡ÇÏ´Â ¾ÆÀÌµð°¡ ¾ø½À´Ï´Ù</h4>
+					<h4>ì¼ì¹˜í•˜ëŠ” ì•„ì´ë””ê°€ ì—†ìŠµë‹ˆë‹¤</h4>
 				</div>
 			</th>
 		</tr>
 		<tr>
-			<th style="text-align: center;" colspan="2"><br><button type="button" class="button" style="color: white;width: 80px;" onclick="location.href='idsearchform.jsp'">µ¹¾Æ°¡±â</button></th>
+			<th style="text-align: center;" colspan="2"><br><button type="button" class="button" style="color: white;width: 80px;" onclick="location.href='idsearchform.jsp'">ëŒì•„ê°€ê¸°</button></th>
 		</tr>
 	</table>
 			
 		<%}else{
-			//¾ÆÀÌµð°¡ ÀÖÀ» ¶§
+			//ì•„ì´ë””ê°€ ìžˆì„ ë•Œ
 			int num=id.length()-3;
 			id=id.substring(0,num)+"***";
 			
 			%>
 			<table>
 		<tr style="background-color:  #A6806A; height: 50px;">
-			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;¾ÆÀÌµð Ã£±â</span></td>
+			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;ì•„ì´ë”” ì°¾ê¸°</span></td>
 		</tr>
 		<tr>
 			<th colspan="2" style="text-align: center;">
 				<div class="searchid2">
 				<br>
-					<h4>¾ÆÀÌµð´Â<b style="color: #402A22;"> <%= id %></b>ÀÔ´Ï´Ù.</h4>
+					<h4>ì•„ì´ë””ëŠ”<b style="color: #402A22;"> <%= id %></b>ìž…ë‹ˆë‹¤.</h4>
 				</div>
 			</th>
 		</tr>
 		<tr>
-			<th style="text-align: center;" colspan="2"><br><button type="button" class="button" style="color: white;width: 80px;" onclick="window.close()">·Î±×ÀÎ</button></th>
+			<th style="text-align: center;" colspan="2"><br><button type="button" class="button" style="color: white;width: 80px;" onclick="window.close()">ë¡œê·¸ì¸</button></th>
 		</tr>
 	</table>
 			

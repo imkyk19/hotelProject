@@ -40,71 +40,71 @@
 <%
 	String search =request.getParameter("search");
 	if(search==null){
-	//search���� null�϶�(ó�� �Է���)
+	//search값이 null일때(처음 입력폼)
 
 %>
 <div class="searchpass" id="searchid">
 <form action="passsearchform.jsp">
 	<table>
 		<tr style="background-color:  #A6806A; height: 50px;">
-			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;��й�ȣ ã��</span></td>
+			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;비밀번호 찾기</span></td>
 		</tr>
 		<tr>
-			<th colspan="2" style="text-align: center;"><h5 style="color: #402A22;">����Ͻ� �̸��Ϸ� �ӽ� ��й�ȣ�� �߱��ص帳�ϴ�.</h5></th>
+			<th colspan="2" style="text-align: center;"><h5 style="color: #402A22;">등록하신 이메일로 임시 비밀번호를 발급해드립니다.</h5></th>
 		</tr>
 		<tr>
 			<th colspan="2" style="text-align: center;">
 				<div class="searchpass2">
 				<br>
-					���� <input type="text" name="namesearch" class="input" required><br><br>
-					�̸��� <input type="text" name="emailsearch" class="input" required><br>
+					성명 <input type="text" name="namesearch" class="input" required><br><br>
+					이메일 <input type="text" name="emailsearch" class="input" required><br>
 					<input type="hidden" name="search" value="yes">
 				</div>
 			</th>
 		</tr>
 		<tr>
-			<th style="text-align: center;" colspan="2"><br><button type="submit" class="button" style="color: white;width: 80px;">Ȯ��</button></th>
+			<th style="text-align: center;" colspan="2"><br><button type="submit" class="button" style="color: white;width: 80px;">확인</button></th>
 		</tr>
 	</table>
 	</form>
 </div>
 <%
 	}else if(search!=null){
-		//�˻����� �� ��
+		//검색했을 때 폼
 		GuestDao dao=new GuestDao();
 		String namesearch = request.getParameter("namesearch");
 		String emailsearch = request.getParameter("emailsearch");
 		String id=dao.getId(namesearch, emailsearch);
 		System.out.println(id);
 		
-		if(id=="����"){
-			//�Էµ����Ͱ� ��ġ���� ���� ��%>
+		if(id=="없음"){
+			//입력데이터가 일치하지 않을 때%>
 			<table>
 		<tr style="background-color:  #A6806A; height: 50px;">
-			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;���̵� ã��</span></td>
+			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;아이디 찾기</span></td>
 		</tr>
 		<tr>
 			<th colspan="2" style="text-align: center;">
 				<div class="searchid2">
 				<br>
-					<h4>��ġ�ϴ� ȸ�������� �����ϴ�.</h4>
+					<h4>일치하는 회원정보가 없습니다.</h4>
 				</div>
 			</th>
 		</tr>
 		<tr>
-			<th style="text-align: center;" colspan="2"><br><button type="button" class="button" style="color: white;width: 80px;" onclick="location.href='passsearchform.jsp'">���ư���</button></th>
+			<th style="text-align: center;" colspan="2"><br><button type="button" class="button" style="color: white;width: 80px;" onclick="location.href='passsearchform.jsp'">돌아가기</button></th>
 		</tr>
 	</table>
 			
 		<%}else{
-			//ȸ�������� ���� ��
-			//�ӽú�� �������� �߱��ϱ�
+			//회원정보가 있을 때
+			//임시비번 랜덤으로 발급하기
 				Random random = new Random();
 				String pa="";
 				char c=' ';
 				for(int i =0;i<=1;i++) {
 					int n = random.nextInt(26)+65;
-					c=(char)n;//���ĺ� �빮�� ���Ƿ� 5�� ���
+					c=(char)n;//알파벳 대문자 임의로 5개 출력
 				}
 				pa+=c;
 				for(int i =1;i<=5;i++) {
@@ -112,7 +112,7 @@
 					pa+=String.valueOf(n);
 					}
 			
-			//��й�ȣ ����
+			//비밀번호 수정
 			GuestDto dto=new GuestDto();
 			dto=dao.getData(id);
 			dto.setPass(pa);
@@ -120,18 +120,18 @@
 			%>
 			<table>
 		<tr style="background-color:  #A6806A; height: 50px;">
-			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;���̵� ã��</span></td>
+			<td colspan="2" style="text-align: left;width: 500px;"><span style="color: white;font-style: bold;font-size: 2em;">&nbsp;아이디 찾기</span></td>
 		</tr>
 		<tr>
 			<th colspan="2" style="text-align: center;">
 				<div class="searchid2">
 				<br>
-					<h4>�Է��Ͻ� <b style="color: #402A22;"> <%= emailsearch %></b>�� �ӽ� ��й�ȣ�� ���½��ϴ�.</h4>
+					<h4>입력하신 <b style="color: #402A22;"> <%= emailsearch %></b>로 임시 비밀번호를 보냈습니다.</h4>
 				</div>
 			</th>
 		</tr>
 		<tr>
-			<th style="text-align: center;" colspan="2"><br><button type="button" class="button sendbtn" style="color: white;width: 80px;" onclick="location.href='sendemail.jsp?email=<%=emailsearch%>&pa=<%= pa %>'">Ȯ��</button></th>
+			<th style="text-align: center;" colspan="2"><br><button type="button" class="button sendbtn" style="color: white;width: 80px;" onclick="location.href='sendemail.jsp?email=<%=emailsearch%>&pa=<%= pa %>'">확인</button></th>
 		</tr>
 	</table>
 		<%}

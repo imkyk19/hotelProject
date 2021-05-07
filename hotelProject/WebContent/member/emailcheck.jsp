@@ -27,9 +27,9 @@
 </head>
 <body>
 <div class="joinsuccess">
-   <h2 style="color: #8C4C27;">╠в╥╧юл╫╨ хёез</h2>
+   <h2 style="color: #8C4C27;">Й╥╦К═┬Л²╢Л┼╓ М≤╦М┘■</h2>
    <hr style="height: 2px;background: gray;">
-   <h2 style="color: #8C4C27;text-align: center;">юл╦чюою╩ х╝юнгьаж╪╪©Д.</h2>
+   <h2 style="color: #8C4C27;text-align: center;">Л²╢К╘■Л²╪Л²└ М≥∙Л²╦М∙╢Лё╪Л└╦Л ■.</h2>
 
 </div>
 </body>
