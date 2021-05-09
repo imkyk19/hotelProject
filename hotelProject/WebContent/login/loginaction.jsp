@@ -19,7 +19,17 @@
 		session.setAttribute("savecheck", savecheck==null?"no":"yes");
 		session.setMaxInactiveInterval(60*60*8);//8시간 유지
 		
-		response.sendRedirect("../main.jsp");
+		//관리자인지 체크해서 관리자면 mana세션으로 아이디를 저장
+		dto= dao.getData(id);
+		int mana=dto.getMana();
+		if(mana==0){
+			response.sendRedirect("../main.jsp");
+		}else if(mana==1){
+			session.setAttribute("mana", id);
+			response.sendRedirect("../main.jsp");
+		}
+		
+		
 	}else if(!t && pass.equals(chpass)){%>
 		<script type="text/javascript">
 			alert("아이디가 올바르지 않습니다.");

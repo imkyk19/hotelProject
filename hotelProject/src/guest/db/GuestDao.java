@@ -134,6 +134,7 @@ DbConnect db=new DbConnect();
                dto.setAddr(rs.getString("addr"));
                dto.setId(rs.getString("id"));
                dto.setPass(rs.getString("pass"));
+               dto.setMana(rs.getInt("mana"));
 
             }
 

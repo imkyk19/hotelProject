@@ -123,9 +123,9 @@ x<%@page import="guest.db.GuestDao"%>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*휴대전화</th>
 			<td>&nbsp;
-			<input type="text" name="hp1" style="width: 80px;" class="input hp1" required>-
-			<input type="text" name="hp2" style="width: 80px;" class="input hp2" required>-
-			<input type="text" name="hp3" style="width: 80px;" class="input hp3" required>
+			<input type="text" name="hp1" style="width: 80px;" class="input hp1" required maxlength="3">-
+			<input type="text" name="hp2" style="width: 80px;" class="input hp2" required maxlength="4">-
+			<input type="text" name="hp3" style="width: 80px;" class="input hp3" required maxlength="4">
 			</td>
 		</tr>
 		<tr>
@@ -278,6 +278,9 @@ x<%@page import="guest.db.GuestDao"%>
 		<%}
 		%>
 	});
+	
+	
+	
 	
 </script>
 </body>

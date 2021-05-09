@@ -39,6 +39,7 @@
 					<%
 						String id=(String)session.getAttribute("id");
 						String loginok=(String)session.getAttribute("loginok");
+						String mana=(String)session.getAttribute("mana");
 						if(loginok==null){%>
 							<td><a href="main.jsp?go=login/loginform.jsp">로그인</a></td>
 							<td><a href="main.jsp?go=member/memberform.jsp">회원가입</a></td>
@@ -46,9 +47,15 @@
 							<td><a href="login/logoutaction.jsp">로그아웃</a></td>
 							<td><a href="main.jsp?go=mypage/mypagemain.jsp">마이페이지</a></td>
 						<%}
+							
+							//관리자일 경우 관리페이지, 일반 회원일 경우 예약 확인 페이지
+							if(mana!=null){%>
+								<td><a href="index.jsp?mana=<%= mana %>">관리자 페이지</a></td>
+							<%}else{%>
+								<td><a href="main.jsp?go=reservecheck/reservecheckpage.jsp">예약확인</a></td>
+							<%}
 					%>
 					
-					<td><a href="main.jsp?go=reservecheck/reservecheckpage.jsp">예약확인</a></td>
 				</tr>
 				<tr style="text-align: left;">
 					<td><a href="main.jsp?go=information/information.jsp">소개</a></td>
