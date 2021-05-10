@@ -62,6 +62,7 @@ GuestDao dao=new GuestDao();
 
 String id=(String)session.getAttribute("id");
 String name=dao.getName(id);
+String loginok=(String)session.getAttribute("loginok");
 
 //로그인된 아이디 세션 값 얻기
 
@@ -72,7 +73,7 @@ GuestDto dto=dao.getId(id);
 
 
 //미로그인시 로그인폼 이동
-if(id!=null){
+if(id!=null &&loginok!=null){
 	%>
 <div class="mymain">
 	<br>
@@ -149,18 +150,20 @@ if(id!=null){
 
 	
 
-	<table class="table table-bordered" style="width:700px;">
+	<table class="table table-bordered" style="width:900px;">
 	 <tr>  
-	 	<td colspan="6"style="font-size: 1.2em;">
+	 	<td colspan="7"style="font-size: 1.2em;width:700px;">
 	 	Total:
 	 	</td>
 	 </tr>
 
-	 <tr style="background-color: #FAEBD0;font-size: 1.2em;border:1px solid black;">
-	 	<td>객실 번호</td><td>객실수</td><td>인원수</td><td>체크인/체크아웃날짜</td><td>예약상태</td><td>가격</td>
+	 <tr style="background-color: #FAEBD0;font-size: 1.0em;border:1px solid black;width:700px;">
+	 	<td style="width:70px;">객실번호</td><td style="width:70px;">객실수</td><td style="width:70px;">인원수</td>
+	 	<td style="width:70px;">체크인날짜</td><td style="width:100px;">체크아웃날짜</td><td style="width:70px;">가격</td>
+	 	<td style="width:70px;">예약상태</td>
 	 </tr>
 	 <tr>
-	 	<td colspan="6" style="font-size: 1.2em;width:400px;text-align: center;">
+	 	<td colspan="7" style="font-size: 1.2em;text-align: center;">
 	 		자료가 없습니다
 	 	</td>
 	 </tr>
