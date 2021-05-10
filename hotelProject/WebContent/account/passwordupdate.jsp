@@ -1,3 +1,5 @@
+<%@page import="guest.db.GuestDto"%>
+<%@page import="guest.db.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -46,6 +48,16 @@ div.passwordupdate{
 
 </style>
 </head>
+<%
+
+
+String id=session.getAttribute("id").toString();
+
+	GuestDao dao=new GuestDao();  
+
+	GuestDto dto=dao.getData(id);
+
+%>
 <body>
 <div class="mymain">
 	<h3 style="margin-left: 20px;">마이 페이지</h3>
@@ -91,7 +103,8 @@ div.passwordupdate{
 			<td>
 				<input type="password" class="form-control input-sm"
 					style="width: 200px;"
-					id="old_pw"  name="oldPw" required="required";>				
+					id="pw"  name="Pw" required="required"; 
+					>				
 			</td>
 		</tr>	
 		<tr>
@@ -99,7 +112,8 @@ div.passwordupdate{
 			<td>
 				<input type="password" class="form-control input-sm"
 					style="width: 200px;"
-					id="new_pw" name="newPw" required="required";>				
+					id="new_pw" name="newPw" required="required";
+					>				
 			</td>
 		</tr>	
 	</table>

@@ -442,72 +442,40 @@ DbConnect db=new DbConnect();
 				return t;
 			}
 			
-			//비번 알아내기
-			public int userCheck(String id, String pass) {
-				int resultNum = 0;
-				Connection conn = null;
-				PreparedStatement pstmt = null;
-				ResultSet rs = null;
-				String sql = "select pass from guest where id=?";
-				conn = db.getCommonConnection();
-
-				try {
-					
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, id);
-					rs = pstmt.executeQuery();
-					//System.out.println("a");
-					if(rs.next()) {
-						String dbPw = rs.getString("pass");
-						if(dbPw.equals(pass)) { //로그인에 성공한 경우
-							resultNum = 1;
-						} else { //비밀번호가 틀렸을 경우
-							resultNum = 0;
-						}				
-					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				} finally {
-					db.dbColse(rs, pstmt, conn);
-				}
-					return resultNum;
-
-			}
-			
-			
+		
 			//비번 바꾸기
-			public boolean changePass(String id, String pass) {
-
-				boolean flag = false;
-				Connection conn = null;
-				PreparedStatement pstmt = null;
-				String sql = "update guest set pass=? where id=?"; 
-				conn = db.getCommonConnection();
-				try {
-					
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, pass);
-					pstmt.setString(2, id);
-					System.out.println("a");
 			
-					int i = pstmt.executeUpdate();
+			 public void passUpdate(GuestDto dto)
 
-					if(i == 1) {
-						flag = true;
-					} else {
-						flag = false;
-					}			
-				} catch (Exception e) {
-					e.printStackTrace();
-				} finally {
-					db.dbColse(pstmt, conn);
-				
-				}
-				
-				return flag;
-			}
-			
+	            {
+	                  Connection conn=null;
+
+	                  PreparedStatement pstmt=null;
+
+	                  String sql="update guest set pass=? where id=?";
+	                  
+	                  conn=db.getCommonConnection();
+
+	                  try {
+
+	                     pstmt=conn.prepareStatement(sql);
+	                     pstmt.setString(1, dto.getPass());
+	                     pstmt.setString(2, dto.getId());
+	                     pstmt.execute();
+
+	                  } catch (SQLException e) {
+
+	                     // TODO Auto-generated catch block
+
+	                     e.printStackTrace();
+
+	                  }finally {
+
+	                     db.dbColse(pstmt, conn);
+
+	                  }
+
+	               }
 			
 			
 			

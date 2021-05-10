@@ -8,22 +8,20 @@
 	
 	String id=session.getAttribute("id").toString();
 	String pass =request.getParameter("pass");
-
+	String newPw=request.getParameter("newPw");
 	
 	GuestDao dao=new GuestDao();
 	GuestDto dto=new GuestDto();
 	
-		boolean flag = dao.changePass(id, pass);
 		
-		if(flag) {
-			
 			dto.setId(id);
-			dto.setPass(pass);
-			System.out.println("pass:"+pass);
+			dto.setPass(newPw);
+			dao.passUpdate(dto);	
+				
+	
 			String go="../main.jsp?go=mypage/mypagemain.jsp";
-
 			response.sendRedirect(go);
-		}
+
 			
 
 %>
