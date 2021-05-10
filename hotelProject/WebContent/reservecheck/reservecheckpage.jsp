@@ -157,7 +157,7 @@ if(id!=null){
 	 </tr>
 
 	 <tr style="background-color: #FAEBD0;font-size: 1.2em;border:1px solid black;">
-	 	<td>예약번호</td><td>객실/패키지</td><td>객실수</td><td>체크인/체크아웃</td><td>예약상태</td>
+	 	<td>객실 번호</td><td>객실수</td><td>인원수</td><td>체크인/체크아웃날짜</td><td>예약상태</td><td>가격</td>
 	 </tr>
 	 <tr>
 	 	<td colspan="6" style="font-size: 1.2em;width:400px;text-align: center;">
