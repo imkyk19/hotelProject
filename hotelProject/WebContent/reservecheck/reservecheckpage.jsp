@@ -66,14 +66,14 @@ String loginok=(String)session.getAttribute("loginok");
 
 //로그인된 아이디 세션 값 얻기
 
-System.out.print("id:"+id);
+//System.out.print("id:"+id);
 
 //아이디를 통해 해당 개인정보 가져오기
 GuestDto dto=dao.getId(id);
 
 
 //미로그인시 로그인폼 이동
-if(id!=null &&loginok!=null){
+if(id!=null &&loginok!=null){    
 	%>
 <div class="mymain">
 	<br>
