@@ -126,7 +126,7 @@ String id=session.getAttribute("id").toString();
 
 	<table style="width:600px;"class="table table-bordered">
 
-		<caption>기본정보</caption>
+		<caption>정보수정</caption>
 
 		<tr>
 			<td>아이디</td>

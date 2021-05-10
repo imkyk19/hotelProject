@@ -98,6 +98,7 @@ String id=session.getAttribute("id").toString();
 <h2 style="font-size: 1.8em;color:#8C4C27;">회원 탈퇴</h2>
 	<hr style="border:2px solid black;width:600px;margin-left:0px;">
 	<h4>고객님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인합니다.</h4>
+	<br>
 	<table style="width:400px;"class="table table-bordered">
 		<tr>
 			<td>아이디</td>
