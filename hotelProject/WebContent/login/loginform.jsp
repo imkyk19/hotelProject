@@ -132,6 +132,23 @@ else
 		  console.log('Name: ' + profile.getName());
 		  console.log('Image URL: ' + profile.getImageUrl());
 		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		  
+		  var id=profile.getId();
+		  var name=profile.getName();
+		  var email=profile.getEmail();
+		  
+		  $.ajax({
+			 type:"get",
+			 dataType:"json",
+			 url:"checkid.jsp",
+			 data:{"id":id},
+			 success:function(d){
+				 
+			 }
+			 
+			 
+		  });
+		  
 }
 </script>
 </body>
