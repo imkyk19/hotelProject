@@ -19,15 +19,15 @@ public class ReservationDao {
 		conn = db.getCommonConnection();
 		try {
 			pstmt = conn.prepareStatement(sql);
-			GuestDto gdto = new GuestDto();
 			
-			pstmt.setString(1, gdto.getG_num());
+			
+			pstmt.setInt(1, dto.getg_num());
 			pstmt.setInt(2, dto.getGuestQty());
 			pstmt.setInt(3, dto.getBookingQty());
 			pstmt.setInt(4, dto.getTotalPrice());
-			pstmt.setInt(4, dto.getRoomNum());
-			pstmt.setString(5, dto.getCheckInDate());
-			pstmt.setString(6, dto.getCheckOutDate());
+			pstmt.setInt(5, dto.getRoomNum());
+			pstmt.setString(6, dto.getCheckInDate());
+			pstmt.setString(7, dto.getCheckOutDate());
 			
 			pstmt.execute();
 		} catch (SQLException e) {
@@ -39,7 +39,7 @@ public class ReservationDao {
 		
 	}
 	
-	public ReservationDto getIndividualReservation(int guestNum) {
+	public ReservationDto getIndividualReservation(int g_num) {
 		ReservationDto dto = new ReservationDto();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -49,11 +49,11 @@ public class ReservationDao {
 		conn = db.getCommonConnection();
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, guestNum);
+			pstmt.setInt(1, g_num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setNum(rs.getInt("num"));
-				dto.setGuestNum(rs.getInt("g_num"));
+				dto.setg_num(rs.getInt("g_num"));
 				dto.setGuestQty(rs.getInt("guest_qty"));
 				dto.setBookingQty(rs.getInt("booking_qty"));
 				dto.setTotalPrice(rs.getInt("total_price"));

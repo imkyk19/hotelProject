@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class ReservationDto {
 	private int num;
-	private int guestNum;
+	private int g_num;
 	private String guestName;
 	private String checkInDate;
 	private String checkOutDate;
@@ -25,11 +25,11 @@ public class ReservationDto {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getGuestNum() {
-		return guestNum;
+	public int getg_num() {
+		return g_num;
 	}
-	public void setGuestNum(int guestNum) {
-		this.guestNum = guestNum;
+	public void setg_num(int g_num) {
+		this.g_num = g_num;
 	}
 	public String getGuestName() {
 		return guestName;

@@ -67,6 +67,13 @@
 		$("#btnPay").click(function(e) {
 			e.preventDefault();
 			data = $("#payfrm").serialize();
+			//alert(data);
+			
+			var card = $("input.card").val();
+			if(card.length == 0){
+				alert("카드 번호를 입력하세요");
+				return;
+			}
 			
 			$.ajax({
 				type: "post",
@@ -96,12 +103,21 @@
 				<td rowspan = '4'>
 					<img style="width: 300px;" class = "pay" alt="" src="<%=dto.getPhoto()%>">
 				</td>
-				<td><h4>Room Number: <%=roomNum%></h4></td>
-				<td align="right"><h4><b>Price: <%=dto.getPrice() %> 원</b></h4></td>
+				<td><h4>Room Number: <%=roomNum%></h4>
+				<input type="hidden" name = "room_num" id = "room_num" value = "<%=roomNum%>">
+				</td>
+				<td align="right"><h4><b>Price: <%=dto.getPrice() %> 원</b></h4>
+				<input type = "hidden" name = "price" id ="price" value = "<%=dto.getPrice()%>">
+				</td>
 			</tr>
 			<tr>
 				<td><%=dto.getCapacity()%> 인용</td>
-				<td align="right"><h4><b>예약 날짜: <%=checkin_date%> ~ <%=checkout_date%></b></h4></td>
+				
+				<td align="right"><h4><b>예약 날짜: <%=checkin_date%> ~ <%=checkout_date%></b></h4>
+				<input type="hidden" name = "checkin_date" id ="checkin_date" value = "<%=checkin_date%>">
+				<input type="hidden" name = "checkout_date" id ="checkout_date" value = "<%=checkout_date%>">
+				
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2" rowspan="2"><%=dto.getText() %></td>
@@ -109,8 +125,8 @@
 		</tbody>
 		<tbody class = "guestInfo">
 			<tr>
-				<td colspan = "2">Name: <%=gdto.getName()%></td>
-				<td style="display: none;">g_num: <%=gdto.getG_num()%></td>
+				<td colspan = "1">Name: <%=gdto.getName()%></td>
+				<td><input type="hidden" name = "g_num" id = "g_num" value = "<%=gdto.getG_num()%>"></td>
 				<td align="right">ID: <%=gdto.getId() %></td>
 			</tr>
 			<tr>
@@ -132,10 +148,10 @@
 					<label for = "card" >신용카드: </label>
 				</td>
 				<td colspan="2">
-					<input style="width: 50px;" type="text" class="form-inline">
-					<input style="width: 50px;" type="text" class="form-inline">
-					<input style="width: 50px;" type="text" class="form-inline">
-					<input style="width: 50px;" type="text" class="form-inline">
+					<input style="width: 50px;" type="text" class="form-inline card">
+					<input style="width: 50px;" type="text" class="form-inline card">
+					<input style="width: 50px;" type="text" class="form-inline card">
+					<input style="width: 50px;" type="text" class="form-inline card">
 				</td>
 			</tr>
 			<tr>
@@ -143,8 +159,11 @@
 					<label for = "cardDate" >만료일(MM/YY): </label>
 				</td>
 				<td colspan="2">
-					<input name = "cardDate" style="width: 80px;" type="text" class="form-inline">
+					<input name = "cardDate" style="width: 80px;" type="text" class="form-inline cardDate">
+					<input type="hidden" name = "guest_qty" id = "guest_qty" value = "<%=dto.getCapacity()%>">
+					<input type="hidden" name = "booking_qty" id = "booking_qty" value = "1">
 				</td>
+				
 			</tr>
 		</tbody>
 		<tfoot>
