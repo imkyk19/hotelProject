@@ -213,7 +213,9 @@ public class reviewDao {
 		ResultSet rs = null;
 
 		conn = db.getCommonConnection();
-		String sql = "select * from review where h_num=?";
+		String sql = "select h_num,type,name,id,subject,content,readcount,likes,review.writeday as writeday,review.g_num as g_num,image\r\n"
+				+ "from guest, review\r\n"
+				+ "where guest.g_num=review.g_num and h_num=?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -231,6 +233,8 @@ public class reviewDao {
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setLikes(rs.getInt("likes"));
 				dto.setWriteday(rs.getTimestamp("writeday"));
+				dto.setName(rs.getString("name"));
+				dto.setId(rs.getString("id"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

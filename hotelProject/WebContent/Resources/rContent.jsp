@@ -46,7 +46,22 @@
 	</style>
 <script type="text/javascript">
 	$(function(){
-	
+		//삭제 이벤트
+		$("button.delreview").click(function(){
+			var num=$(this).attr("num");
+			var t=confirm("정말 삭제하시겠습니까?");
+			if(t){
+				$.ajax({
+					type:"get",
+					data:{"num":num},
+					dataType:"html",
+					url:"delreview.jsp",
+					success:function(){}
+				});
+			}
+			
+		
+		});
 		
 	});
 </script>
@@ -357,7 +372,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">문의</h1>
+                    <h1 class="h3 mb-2 text-gray-800">후기 관리</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4" style="width: 65%;">
@@ -371,31 +386,34 @@
 	                                	reviewDao dao=new reviewDao();
 	                                	reveiwDto dto=dao.getData(num);
 	                                	
-	                                %>                                                                 
+	                                %>   
+	                                
+	                                	
+	                                                                                         
                                     <tr style="width: 580px;">
-                                    	<th width="80px;">문의 종류</th>
+                                    	<th width="80px;">평가</th>
                                     	<td><%=dto.getType() %></td>
+                                    	<td><span style="text-align: left;"><b>좋아요</b> <%=dto.getLikes() %></span></td>
+	                                	<td><span style="text-align: right;"><b>조회수</b> <%=dto.getReadcount() %></span></td>
                                     </tr>
                                     <tr>
-                                    	<th width="80px;">작성자</th>
-                                    	<td><%=dto.getName() %></td>
+                                    	<th width="80px;">작성자(아이디)</th>
+                                    	<td colspan="3"><%=dto.getName()+"("+dto.getId()+")" %></td>
                                     </tr>
                                      <tr>
                                     	<th width="80px;">제목</th>
-                                    	<td><%=dto.getSubject() %></td>
+                                    	<td colspan="3"><%=dto.getSubject() %></td>
                                     </tr>
                                      <tr>
                                     	<th width="80px;">내용</th>
-                                    	<td><textarea style="width: 500px;height: 300px;"><%=dto.getContent() %></textarea></td>
+                                    	<td colspan="3"><textarea style="width: 500px;height: 300px;"><%=dto.getContent() %></textarea></td>
                                     </tr>
-                                     <tr>
-                                    	<th width="80px;">답글</th>
-                                    	<td><textarea style="width: 500px;"></textarea></td>
+                                      <tr>
+                                    	<th width="80px;">이미지</th>
+                                    	<td colspan="3"><textarea style="width: 500px;height: 300px;"><%=dto.getImage() %></textarea></td>
                                     </tr>
                                 </table>
-                                <div>
-                                	<button class="btn btn-info" style="margin-left: 300px;">답글 작성</button>
-                                </div>
+                                <div style="text-align: center;"><button type="button" class="btn btn-danger delreview" num="<%=dto.getH_num()%>">삭제</button></div>
                             </div>
                         </div>
                     </div>
@@ -410,7 +428,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Grace</span>
                     </div>
                 </div>
             </footer>
