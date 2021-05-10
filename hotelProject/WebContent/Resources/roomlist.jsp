@@ -1,3 +1,5 @@
+<%@page import="room.db.RoomDto"%>
+<%@page import="room.db.RoomDao"%>
 <%@page import="java.util.List"%>
 <%@page import="guest.db.GuestDto"%>
 <%@page import="guest.db.GuestDao"%>
@@ -14,9 +16,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>Grace 관리</title>
     
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,31 +40,92 @@
 	</style>
 <script type="text/javascript">
 	$(function(){
-		//회원 삭제 이벤트
-		$("span.delguest").click(function(){
-			var g_num=$(this).attr("num");
-			var t=confirm("정말 삭제하시겠습니까?");
-			
-			 if(t){
-				//관리자가 예를 눌렀을 때
-				$.ajax({
-					type:"get",
-					data:{"num":g_num},
-					dataType:"html",
-					url:"../admin/delguestaction.jsp",
-					success:function(){
-						//새로고침
-						location.reload();
-					}
-				});
-				
-			} 
-			
-			
+		//룸 모달창 띄우기
+		$("th.roomcheck").click(function(){
+		 	//클릭한 호수의 num값 구하기
+			var num=$(this).attr("num");
+		 	$.ajax({
+		 		type:"get",
+		 		dataType:"json",
+		 		url:"getroomlist.jsp",
+		 		data:{"num":num},
+		 		success:function(d){
+		 			var photo=d.photo;
+		 			var room_num=d.room_num;
+		 			var status=d.status;
+		 			var capacity=d.capacity;
+		 			var price=d.price;
+		 			var text=d.text;
+		 			var num=d.num;
+		 			$("div.modal-body img").attr("src",photo);
+		 			$("div.modal-body th.room_num").text(room_num);
+		 			$("div.modal-body th.capacity").text(capacity);
+		 			$("div.modal-body th.price").text(price);
+		 			$("div.modal-body th.text").text(text);
+		 			$("#myModal").modal();
+		 			
+		 			//수정 버튼 클릭시
+		 			$("button.updateroom").click(function(){
+		 				//태그를 바꾸고 값을 넣어놓기
+		 				$("div.modal-body th.room_num").contents().unwrap().wrap("<input type='text' value='"+room_num+"호' class='form-control room_num'></input>");
+		 				$("div.modal-body th.capacity").contents().unwrap().wrap("<input type='text' value='"+capacity+"' class='form-control capacity'></input>");
+		 				$("div.modal-body th.price").contents().unwrap().wrap("<input type='text' value='"+price+"' class='form-control price'></input>");
+		 				$("div.modal-body th.text").contents().unwrap().wrap("<textarea value='"+text+"' class='form-control text'></textarea>");
+		 				
+		 				//최종 수정 버튼을 눌렀을 때
+		 				$(this).click(function(){
+		 					var room_num=$("input.room_num").val();
+		 					var capacity=$("input.capacity").val();
+		 					var price=$("input.price").val();
+		 					var text=$("textarea.text").text();
+		 					alert(text);
+		 					
+		 					$.ajax({
+		 						type:"get",
+		 				 		dataType:"html",
+		 				 		url:"updateroom.jsp",
+		 				 		data:{"room_num":room_num,"capacity":capacity,"price":price,"text":text,"num":num},
+		 				 		success:function(){
+		 				 			
+		 				 		}
+		 				 			
+		 				 		
+		 					});
+		 				});
+		 				
+		 			});
+		 			
+		 			//삭제 버튼 눌렀을 때
+		 			$("button.delroom").click(function(){
+
+		 				var t=confirm("정말 삭제하시겠습니까?");
+		 				if(t){
+		 					$.ajax({
+		 						type:"get",
+		 				 		dataType:"html",
+		 				 		url:"delroom.jsp",
+		 				 		data:{"num":num},
+		 				 		success:function(){}
+		 				 			
+		 				 		
+	
+		 				 		
+		 					});
+		 				}
+		 			});
+		 		}
+		 		
+		 	});
 		});
+		
+		
 	});
 </script>
 </head>
+<%
+	//아이디값 얻기
+	String id=request.getParameter("mana");
+%>
 
 <body id="page-top">
 
@@ -69,69 +133,28 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
+       <!-- 사이드바 -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.jsp">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.jsp">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Grace Hotel</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.jsp">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li>
-
+            
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -141,26 +164,33 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
+               <li class="nav-item">
+                <a class="nav-link collapsed" href="guestlist.jsp">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>회원관리</span>
                 </a>
-            </li>
+                 </li>
+                
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
+                    <span>예약관리</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+            <li class="nav-item">
+                <a class="nav-link" href="roomlist.jsp">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>객실관리</span></a>
+            </li>
+            
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="roomlist">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>문의 사항</span></a>
             </li>
 
             <!-- Divider -->
@@ -170,6 +200,7 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+
 
         </ul>
         <!-- End of Sidebar -->
@@ -354,7 +385,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=id %>님</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -390,66 +421,46 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">회원 목록</h1>
+                    <h1 class="h3 mb-2 text-gray-800">객실 관리</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"></h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        	<th>no</th>
-                                            <th>성명</th>
-                                            <th>생년월일</th>
-                                            <th>이메일</th>
-                                            <th>연락처</th>
-                                            <th>주소</th>
-                                            <th>아이디</th>
-                                            <th>주소</th>
-                                            <th>고유 번호</th>
-                                            <th>관리</th>
+                                        	 <th style="width: 80px;">no</th>
+                                            <th>호수</th>
+                                            <th>가격</th>
+                                            <th>상태</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>no</th>
-                                            <th>성명</th>
-                                            <th>생년월일</th>
-                                            <th>이메일</th>
-                                            <th>연락처</th>
-                                            <th>주소</th>
-                                            <th>아이디</th>
-                                            <th>비밀 번호</th>
-                                            <th>고유 번호</th>
-                                            <th>관리</th>
+                                             <th>no</th>
+                                            <th>호수</th>
+                                            <th>가격</th>
+                                            <th>상태</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                     <%
-                                    	GuestDao dao=new GuestDao();
-                                    	GuestDto dto= new GuestDto();
-                                    	List<GuestDto> list= dao.getGuestList();
+                                    	RoomDao dao= new  RoomDao();
+                                    	RoomDto dto= new RoomDto();
+                                    	List<RoomDto> list= dao.getAllRoom();
                                     	//순서 변수
                                     	int no=0;
-                                    	for(GuestDto d:list){%>
+                                    	for(RoomDto d:list){%>
                                     	<!-- 회원목록 출력 -->	
                                     	<tr>
                                             <th><%= ++no %></th>
-                                            <th><%= d.getName() %></th>
-                                            <th><%= d.getBirth().substring(0,10) %></th>
-                                           	<th><%= d.getEmail()%></th>
-                                            <th><%= d.getHp() %></th>
-                                            <th><%= d.getAddr() %></th>
-                                           	<th><%= d.getId() %></th>
-                                            <th><%= d.getPass() %></th>
-                                            <th><%= d.getG_num() %></th>
-                                            <th>
-                                            	<span class="delguest" num="<%= d.getG_num() %>"><i class="fas fa-user-minus" style="color: red;" ></i></span>
-                                            </th>
+                                            <th num="<%=d.getRoomNum()%>" class="roomcheck"><%= d.getRoomNum() %>호</th>
+                                            <th><%= d.getPrice() %></th>
+                                           	<th><%= d.getStatus()%></th>
                                         </tr>		
                                     	<%}
                                     %>
@@ -506,6 +517,57 @@
             </div>
         </div>
     </div>
+    
+    <!-- Modal 사진 클릭시 다이얼로그 형태로 보이게 하기 위한 코드-->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+        	<h4 class="modal-title imgname">객실 상세</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+          <form action="">
+          	<table class="table table-bordered">
+          		<tr>
+          			<th colspan="2" style="text-align: center;"><img src="" style="width: 400px;height: 300px;"></th>
+          		</tr>
+          		<tr>
+          			<br>
+          			<th style="width: 100px;">호수</th>
+          			<th class="room_num"></th>
+          		</tr>
+          		<tr>
+          			<th style="width: 100px;">최대 인원</th>
+          			<th class="capacity"></th>
+          		</tr>
+          		<tr>
+          			<th style="width: 100px;">가격</th>
+          			<th class="price"></th>
+          		</tr>
+          		<tr>
+          			<th style="width: 100px;">설명</th>
+          			<th class="text"></th>
+          		</tr>
+          	</table>
+          	<div style="text-align: center;">
+          		<span><button type="button" class="btn btn-warning text-white-50 updateroom" style="text-align: right;" num="">수정</button></span>&nbsp;
+          		<span><button type="button" class="btn btn-danger text-white-50 delroom" style="text-align: left;" num="">삭제</button></span>
+          	</div>
+          </form>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

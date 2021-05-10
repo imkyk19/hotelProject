@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import guest.db.GuestDto;
 import oracle.db.DbConnect;
 
 public class RoomDao {
@@ -121,5 +122,61 @@ public class RoomDao {
 		
 		return dto;
 	}
+	
+	//관리자 페이지-객실 수정
+	public void updateRoom(RoomDto dto)
+
+    {
+          Connection conn=null;
+
+          PreparedStatement pstmt=null;
+
+          String sql="update room set room_num=?,capacity=?,price=?,text=? where num=?";
+          
+          conn=db.getCommonConnection();
+
+          try {
+
+             pstmt=conn.prepareStatement(sql);
+             pstmt.setInt(1, dto.getRoomNum());
+             pstmt.setInt(2, dto.getCapacity());
+             pstmt.setInt(3, dto.getPrice());
+             pstmt.setString(4, dto.getText());
+             pstmt.setInt(5, dto.getNum());
+             pstmt.execute();
+
+          } catch (SQLException e) {
+
+             // TODO Auto-generated catch block
+
+             e.printStackTrace();
+
+          }finally {
+
+             db.dbColse(pstmt, conn);
+
+          }
+
+       }
+	
+	//관리자 페이지-객실 삭제
+	 public void deleteRoom(String room_num) {
+         Connection conn = null;
+         PreparedStatement pstmt = null;
+         String sql = "delete from room where room_num=?";
+         
+         conn = db.getCommonConnection();
+         try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, room_num);
+            
+            pstmt.execute();
+         } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         } finally {
+            db.dbColse(pstmt, conn);
+         }
+      }
 	
 }
