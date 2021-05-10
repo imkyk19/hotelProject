@@ -121,6 +121,10 @@
 				alert("체크아웃 날짜를 선택하세요");
 				return;
 			}
+			if(ckOutDate<ckInDate){
+				alert("체크아웃 날짜는 체크인 날짜보다 먼저 올 수 없습니다. 다시 선택하세요")
+				return;
+			}
 			if(adultvalue == "select"){
 				alert("어른 인원 수를 선택하세요");
 				return;

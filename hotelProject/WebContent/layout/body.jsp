@@ -69,6 +69,12 @@
   	text-align: center;
   }
   
+  table.booking2 {
+		width: 1200px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+  
   </style>
 
 </head>
@@ -96,7 +102,7 @@
 	 <div class="item">
 	 	<img alt="연회장" src="image/연회장.jpg" id="img">
 	 	<div class="carousel-caption">
-	 		 <h3>banquet hall</h3>
+	 		 <h3>Banquet Hall</h3>
 	 		<p>넓은 연회장에서 소중한 추억을 만들어보세요</p>
 	 	</div>
 	 </div>
@@ -129,12 +135,20 @@
   </a>
 </div>
 <br><br>
-<div>
-	<form action="reservation/orderlist.jsp" method = "post">
-		<table class="booking">
+<div class = "reserve">
+<form action="main.jsp?go=reservation/bookingform.jsp" id = "reservefrm" method = "post">
+		<table class="booking2">
+			<thead class="title">
+				<tr>
+					<td colspan="5" style="height: 100px; background-color: #FAEBD0;">
+						Reservation
+					</td>
+				</tr>
+			</thead>
+			<br>
 			<tbody class="bookingform">
 				<tr>
-					<td >
+					<%-- <td >
 						<label for = "room">Rooms: </label>
 						<select name = "room" id = "room">
 						<%
@@ -145,48 +159,55 @@
 							}
 						%>
 						</select>
-					</td>
+					</td> --%>
 					<td>
 						<label for = "checkin_date">Check In: </label>
-						<input type="date" id = "checkin_date" name = "checkin_date">
+						
+						<input type="date" id = "checkin_date" name = "checkin_date" required="required">
+						
+						
 					</td>
 					<td>
 						<label for = "checkout_date">Check Out: </label>
-						<input type="date" id = "checkout_date" name = "checkout_date">
+						<input type="date" id = "checkout_date" name = "checkout_date" required="required">
+						
 					</td>
 					<td >
 						<label for = "adult">Adults: </label>
-						<select name = "adult" id = "adult">
-						<%
-							for(int i = 0; i <= 5; i++){
-								%>
-								<option><%=i%></option>
-								<%
-							}
-						%>
+						<select name = "adult" id = "adult" required="required" class = "people">
+							<option value = "select" selected="selected">--Select--</option>
+							<option value = 1>1</option>
+							<option value = 2>2</option>
+							<option value = 3>3</option>
 						</select>
 					</td>
 					<td >
 						<label for = "children">Children: </label>
-						<select name = "children" id = "children">
-						<%
-							for(int i = 0; i <= 2; i++){
-								%>
-								<option><%=i%></option>
-								<%
-							}
-						%>
+						<select name = "children" id = "children" required="required" class = "people">
+							<option value = "select" selected="selected">--Select--</option>
+							<option value = 0>0</option>
+							<option value = 1>1</option>
 						</select>
-					</td>
-					<td>
-					<button style="margin-top: 10px; margin-bottom:10px; width: 100px;" type="button" id = "btnsearch" class="btn btn-default btn">검색</button>
 					</td>
 				</tr>
 			</tbody>
-			<br>
+			<tfoot>
+				<tr style="margin-top: 10px;">
+					<td  colspan="5" align="center">
+					
+					<input type="hidden" name = "ckin_date" id = "ckin_date" value = "">
+					<input type="hidden" name = "ckout_date" id = "ckout_date" value = "">
+					<input type="hidden" name = "capacity" id = "capacity" value = "">
+					
+						<button style="margin-top: 10px; margin-bottom:10px; width: 200px; height: 50px;" type="submit" id = "btnBodySearch" class="btn btn-success btn-lg">Search</button>
+						
+					</td>
+				</tr>
+			</tfoot>
 		</table>
-	</form>
-</div>
+</form>
+</div> 
+
 <br><br>
 <!-- 호텔 리워즈 -->
 <div class="rewards">
