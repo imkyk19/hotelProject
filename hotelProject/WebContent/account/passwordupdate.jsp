@@ -13,11 +13,11 @@
 div.mymain{
 	width:240px;
 	height:500px;
-	border: 1px solid gray;
-	margin-top: 50px;
-	margin-left: 200px;
+	margin-top: 70px;
+	margin-left: 300px;
 	margin-bottom: 100px;
 	background-color: #FAEBD0;
+	
 	
 
 }
@@ -60,7 +60,8 @@ String id=session.getAttribute("id").toString();
 %>
 <body>
 <div class="mymain">
-	<h3 style="margin-left: 20px;">마이 페이지</h3>
+	<br>
+	<h3 style="margin-top:10px;margin-left: 20px;">마이 페이지</h3>
 	<hr style="border:2px solid black;width:200px;margin-left:0px;">
 	<br>
 	<ul>
@@ -96,6 +97,7 @@ String id=session.getAttribute("id").toString();
 <h2 style="font-size: 1.8em;color:#8C4C27;">비밀번호 변경</h2>
 	<hr style="border:2px solid black;width:600px;margin-left:0px;">
 	<h4>고객님의 정보를 언제든지 확인,변경하실 수 있습니다.</h4>
+	<br>
 	
 	<table style="width:400px;"class="table table-bordered">
 		<tr>
@@ -118,14 +120,15 @@ String id=session.getAttribute("id").toString();
 		</tr>	
 	</table>
 	
-	<button type="submit"  style="color:white; width: 140px;"
+	<button type="submit"  style="color:white; width: 200px;"
 	  		id="btnsubmit">
 	  	변경</button>
-	 <button type="button" style="color:white; width: 140px;"
+	 <button type="button" style="color:white; width: 200px;"
 	 onclick="history.back()"id="btncancel">취소</button> 	
+</div>
 </form>	 
 	  	
 
-</div>
+
 </body>
 </html>

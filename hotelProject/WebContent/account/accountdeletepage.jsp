@@ -14,9 +14,8 @@
 div.mymain{
 	width:240px;
 	height:500px;
-	border: 1px solid gray;
-	margin-top: 50px;
-	margin-left: 200px;
+	margin-top: 70px;
+	margin-left: 300px;
 	margin-bottom: 100px;
 	background-color: #FAEBD0;
 	
@@ -61,7 +60,8 @@ String id=session.getAttribute("id").toString();
 %>
 <body>
 <div class="mymain">
-	<h3 style="margin-left: 20px;">마이 페이지</h3>
+	<br>
+	<h3 style="margin-top:10px;margin-left: 20px;">마이 페이지</h3>
 	<hr style="border:2px solid black;width:200px;margin-left:0px;">
 	<br>
 	<ul>
@@ -119,13 +119,13 @@ String id=session.getAttribute("id").toString();
 		
 	</table>
 	
-	<button type="submit" style="color:white; width: 120px;"
+	<button type="submit" style="color:white; width: 200px;"
 	  		id="btnsubmit">	확인</button>
-	 <button type="button" style="color:white; width: 120px;"
+	 <button type="button" style="color:white; width: 200px;"
 onclick="history.back()" id="btncancel">취소</button> 	
-	
-
-</div> 
+</div>
 </form>
+ 
+
 </body>
 </html>   

@@ -37,15 +37,7 @@
 	String hp=request.getParameter("hp");
 	String addr=request.getParameter("addr");
 	
-	
 
-	
-	System.out.println("id:"+id);
-	System.out.println("name:"+name);
-	System.out.println("birth:"+birth);
-	System.out.println("email:"+email);
-	System.out.println("hp:"+hp);
-	System.out.println("addr:"+addr);
 	
 	dto.setId(id);
 	dto.setName(name);

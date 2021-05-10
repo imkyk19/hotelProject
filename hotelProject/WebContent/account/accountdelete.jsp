@@ -4,9 +4,7 @@
 <%
 request.setCharacterEncoding("utf-8");
 
-String id=session.getAttribute("id").toString();
-
-
+	String id=session.getAttribute("id").toString();
 
 	String pass=request.getParameter("pass");
 
@@ -18,10 +16,9 @@ String id=session.getAttribute("id").toString();
 	session.removeAttribute("loginok");
 	session.removeAttribute("id");
 	response.sendRedirect("../main.jsp");
-	%>
+	
+	
+%>
 	
 
-	
-	
-	
 	

@@ -26,11 +26,11 @@
 div.mymain{
 	width:240px;
 	height:500px;
-	border: 1px solid gray;
-	margin-top: 50px;
-	margin-left: 200px;
+	margin-top: 70px;
+	margin-left: 300px;
 	margin-bottom: 100px;
 	background-color: #FAEBD0;
+	
 	
 
 }
@@ -76,7 +76,8 @@ String id=session.getAttribute("id").toString();
 %>
 <body>
 <div class="mymain">
-	<h3 style="margin-left: 20px;">마이 페이지</h3>
+	<br>
+	<h3 style="margin-top:10px;margin-left: 20px;">마이 페이지</h3>
 	<hr style="border:2px solid black;width:200px;margin-left:0px;">
 	<br>
 	<ul>
@@ -119,7 +120,7 @@ String id=session.getAttribute("id").toString();
 
 	<hr style="border:2px solid black;width:600px;margin-left:0px;">
 
-	<h5>고객님의 정보를 언제든지 확인,변경하실 수 있습니다.</h5>
+	<h4>고객님의 정보를 언제든지 확인,변경하실 수 있습니다.</h4>
 
 	<br>
 
@@ -138,7 +139,7 @@ String id=session.getAttribute("id").toString();
 			<td>성명</td>
 			<td>
 				<input type="text" class="form-control input-sm"
-					style="width: 120px;"
+					style="width: 150px;"
 					 name="name" required="required"
 					value="<%=dto.getName()%>">			
 			</td>
@@ -155,7 +156,7 @@ String id=session.getAttribute("id").toString();
 		<tr>
 			<td>이메일</td>
 			<td>
-			<input type="text" name="email" style="width: 140px;" class="input" value="<%=dto.getEmail() %>">
+			<input type="text" name="email" style="width: 150px;" class="input" value="<%=dto.getEmail() %>">
 			</td>
 		</tr>
 
@@ -178,11 +179,11 @@ String id=session.getAttribute("id").toString();
 
 	
 
-	<button type="submit" style="color:white; width: 120px;"
+	<button type="submit" style="color:white; width: 200px;"
 
 	  		  id="btnsubmit">변경</button>
 
-	 <button type="button" style="color:white; width: 120px;"
+	 <button type="button" style="color:white; width: 200px;"
 onclick="history.back()" id="btncancel">취소</button> 	
 
 	</div>

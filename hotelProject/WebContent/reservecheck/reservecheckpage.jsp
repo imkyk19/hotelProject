@@ -24,11 +24,11 @@
 div.mymain{
 	width:240px;
 	height:500px;
-	border: 1px solid gray;
-	margin-top: 50px;
-	margin-left: 200px;
+	margin-top: 70px;
+	margin-left: 300px;
 	margin-bottom: 100px;
 	background-color: #FAEBD0;
+	
 	
 
 }
@@ -75,7 +75,8 @@ GuestDto dto=dao.getId(id);
 if(id!=null){
 	%>
 <div class="mymain">
-	<h3 style="margin-left: 20px;">마이 페이지</h3>
+	<br>
+	<h3 style="margin-top:10px;margin-left: 20px;">마이 페이지</h3>
 	<hr style="border:2px solid black;width:200px;margin-left:0px;">
 	<br>
 	<ul>
