@@ -34,14 +34,14 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 	<style type="text/css">
-		.delguest{
+		tr.roomcheck{
 			cursor: pointer;
 		}
 	</style>
 <script type="text/javascript">
 	$(function(){
 		//룸 모달창 띄우기
-		$("th.roomcheck").click(function(){
+		$("tr.roomcheck").click(function(){
 		 	//클릭한 호수의 num값 구하기
 			var num=$(this).attr("num");
 		 	$.ajax({
@@ -188,9 +188,15 @@
             
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="roomlist">
+                <a class="nav-link" href="questionlist.jsp">
                     <i class="fas fa-fw fa-table"></i>
                     <span>문의 사항</span></a>
+            </li>
+            
+              <li class="nav-item">
+                <a class="nav-link" href="reviewlist.jsp">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>후기글 관리</span></a>
             </li>
 
             <!-- Divider -->
@@ -456,9 +462,9 @@
                                     	int no=0;
                                     	for(RoomDto d:list){%>
                                     	<!-- 회원목록 출력 -->	
-                                    	<tr>
+                                    	<tr num="<%=d.getRoomNum()%>" class="roomcheck">
                                             <th><%= ++no %></th>
-                                            <th num="<%=d.getRoomNum()%>" class="roomcheck"><%= d.getRoomNum() %>호</th>
+                                            <th num="<%=d.getRoomNum()%>" ><%= d.getRoomNum() %>호</th>
                                             <th><%= d.getPrice() %></th>
                                            	<th><%= d.getStatus()%></th>
                                         </tr>		

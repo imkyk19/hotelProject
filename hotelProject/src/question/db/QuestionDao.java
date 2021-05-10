@@ -187,4 +187,46 @@ public class QuestionDao {
 		}
 	}
 	
+	//관리자 페이지-출력
+		public List<QuestionDto> getList() {
+			
+			List<QuestionDto> list=new Vector<QuestionDto>();
+			
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			
+			conn=db.getCommonConnection();
+			String sql="select * from question order by num";
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				
+				//실행
+				rs=pstmt.executeQuery();
+				//데이터 넣기
+				while(rs.next()) {
+					QuestionDto dto=new QuestionDto();
+					
+					dto.setNum(rs.getString("num"));
+					dto.setType(rs.getString("type"));
+					dto.setSubject(rs.getString("subject"));
+					dto.setContent(rs.getString("content"));
+					dto.setName(rs.getString("name"));
+					dto.setPass(rs.getString("pass"));
+					dto.setEmail(rs.getString("email"));
+					dto.setHp(rs.getString("hp"));
+					dto.setWriteday(rs.getTimestamp("writeday"));
+					//list에 추가
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbColse(rs, pstmt, conn);
+			}
+			return list;
+		}
+
 }

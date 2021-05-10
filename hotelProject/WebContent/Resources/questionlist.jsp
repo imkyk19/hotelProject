@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="question.db.QuestionDto"%>
+<%@page import="question.db.QuestionDao"%>
 <%@page import="room.db.RoomDto"%>
 <%@page import="room.db.RoomDao"%>
 <%@page import="java.util.List"%>
@@ -34,13 +37,18 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 	<style type="text/css">
-		.delguest{
+		tr.showcontent:hover{
 			cursor: pointer;
 		}
+		
 	</style>
 <script type="text/javascript">
 	$(function(){
-		
+		//한 줄을 클릭했을 때 내용 보기
+		$("tr.showcontent").click(function(){
+			var num=$(this).attr("num");
+			location.href="qContent.jsp?num="+num;
+		});
 		
 	});
 </script>
@@ -114,6 +122,12 @@
                 <a class="nav-link" href="questionlist.jsp">
                     <i class="fas fa-fw fa-table"></i>
                     <span>문의 사항</span></a>
+            </li>
+            
+              <li class="nav-item">
+                <a class="nav-link" href="reviewlist.jsp">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>후기글 관리</span></a>
             </li>
 
             <!-- Divider -->
@@ -344,7 +358,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">객실 관리</h1>
+                    <h1 class="h3 mb-2 text-gray-800">문의 관리</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -356,34 +370,39 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        	 <th style="width: 80px;">no</th>
-                                            <th>호수</th>
-                                            <th>가격</th>
-                                            <th>상태</th>
+                                       		<th style="width: 80px;">no</th>                                         
+                                            <th>질문 유형</th>
+                                            <th>제목</th>
+                                            <th>작성자</th>
+                                            <th>작성일</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                             <th>no</th>
-                                            <th>호수</th>
-                                            <th>가격</th>
-                                            <th>상태</th>
+                                            <th style="width: 80px;">no</th>                                         
+                                            <th>질문 유형</th>
+                                            <th>제목</th>
+                                            <th>작성자</th>
+                                            <th>작성일</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                     <%
-                                    	RoomDao dao= new  RoomDao();
-                                    	RoomDto dto= new RoomDto();
-                                    	List<RoomDto> list= dao.getAllRoom();
+                                    	QuestionDao dao= new  QuestionDao();
+                                    	QuestionDto dto= new QuestionDto();
+                                    	List<QuestionDto> list= dao.getList();
+                                    	SimpleDateFormat sdf= new SimpleDateFormat("yy-MM-dd");
                                     	//순서 변수
                                     	int no=0;
-                                    	for(RoomDto d:list){%>
+                                    	for(QuestionDto d:list){%>
                                     	<!-- 회원목록 출력 -->	
-                                    	<tr>
-                                            <th><%= ++no %></th>
-                                            <th num="<%=d.getRoomNum()%>" class="roomcheck"><%= d.getRoomNum() %>호</th>
-                                            <th><%= d.getPrice() %></th>
-                                           	<th><%= d.getStatus()%></th>
+                                    	<tr class="showcontent" num="<%=d.getNum()%>">
+                                            <th><%= ++no %></th>                                         
+                                            <th><%=d.getType() %></th>
+                                           	<th><%=d.getSubject() %></th>
+                                           	<th><%=d.getName() %></th>
+                                           	 <th><%=sdf.format(d.getWriteday())%></th>
                                         </tr>		
                                     	<%}
                                     %>

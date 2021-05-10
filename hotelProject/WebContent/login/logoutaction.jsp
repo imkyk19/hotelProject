@@ -2,5 +2,6 @@
     pageEncoding="UTF-8"%>
 <%
 	session.removeAttribute("loginok");
+	session.removeAttribute("mana");
 	response.sendRedirect("../main.jsp");
 %>

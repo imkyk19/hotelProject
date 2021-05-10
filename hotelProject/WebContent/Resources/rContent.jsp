@@ -1,3 +1,10 @@
+<%@page import="review.db.reveiwDto"%>
+<%@page import="review.db.reviewDao"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="question.db.QuestionDto"%>
+<%@page import="question.db.QuestionDao"%>
+<%@page import="room.db.RoomDto"%>
+<%@page import="room.db.RoomDao"%>
 <%@page import="java.util.List"%>
 <%@page import="guest.db.GuestDto"%>
 <%@page import="guest.db.GuestDao"%>
@@ -17,8 +24,7 @@
     <title>Grace 관리</title>
     
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <SCRIPT src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></SCRIPT>
-    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,64 +39,30 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 	<style type="text/css">
-		span.addguest{
+		tr.showcontent:hover{
 			cursor: pointer;
 		}
+		
 	</style>
 <script type="text/javascript">
 	$(function(){
-		//회원추가 버튼을 클릭했을때 
-		$("span.addguest").click(function(){
-			$("#myModal").modal();
-		});
+	
 		
-	
 	});
-	
-	//주소창 띄우기 사용자 함수
-	 function openaddr() {
-      new daum.Postcode({
-          oncomplete: function(data) {
-              // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-              // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-              // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-              var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-              var extraRoadAddr = ''; // 도로명 조합형 주소 변수
-
-              // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-              // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-              if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                  extraRoadAddr += data.bname;
-              }
-              // 건물명이 있고, 공동주택일 경우 추가한다.
-              if(data.buildingName !== '' && data.apartment === 'Y'){
-                 extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-              }
-              // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-              if(extraRoadAddr !== ''){
-                  extraRoadAddr = ' (' + extraRoadAddr + ')';
-              }
-              // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-              if(fullRoadAddr !== ''){
-                  fullRoadAddr += extraRoadAddr;
-              }
-
-              // 우편번호와 주소 정보를 해당 필드에 넣는다.
-              document.getElementById('zip').value = data.zonecode; //5자리 새우편번호 사용
-              document.getElementById('addr1').value = fullRoadAddr;
-              document.getElementById('addr2').focus();
-          }
-      }).open();
-  }
 </script>
 </head>
+<%
+	//아이디값 얻기
+	String id=request.getParameter("mana");
+	String num=request.getParameter("num");
+%>
 
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
+        <!-- Sidebar -->
        <!-- 사이드바 -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -132,7 +104,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="char">
+                <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>예약관리</span></a>
             </li>
@@ -151,7 +123,7 @@
                     <span>문의 사항</span></a>
             </li>
             
-              <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="reviewlist.jsp">
                     <i class="fas fa-fw fa-table"></i>
                     <span>후기글 관리</span></a>
@@ -349,7 +321,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=id %>님</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -385,75 +357,45 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">회원 목록</h1>
+                    <h1 class="h3 mb-2 text-gray-800">문의</h1>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" style="width: 65%;">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"></h6>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">                           	
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                
-                                    <thead>
-                                    <div style="text-align: right;"><span style="margin-right: 30px;" class="addguest"><i class="fas fa-user-plus" style="color: #074A59;"></i>회원 추가</span></div>
-                                        <tr>
-                                        	<th>no</th>
-                                            <th>성명</th>
-                                            <th>생년월일</th>
-                                            <th>이메일</th>
-                                            <th>연락처</th>
-                                            <th>주소</th>
-                                            <th>아이디</th>
-                                            <th>비밀 번호</th>
-                                            <th>고유 번호</th>
-                                            <th>관리</th>
-                                           
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                           	<th>no</th>
-                                            <th>성명</th>
-                                            <th>생년월일</th>
-                                            <th>이메일</th>
-                                            <th>연락처</th>
-                                            <th>주소</th>
-                                            <th>아이디</th>
-                                            <th>비밀 번호</th>
-                                            <th>고유 번호</th>
-                                            <th>관리</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    <%
-                                    	GuestDao dao=new GuestDao();
-                                    	GuestDto dto= new GuestDto();
-                                    	List<GuestDto> list= dao.getGuestList();
-                                    	//순서 변수
-                                    	int no=0;
-                                    	for(GuestDto d:list){%>
-                                    	<!-- 회원목록 출력 -->	
-                                    	<tr>
-                                            <th><%= ++no %></th>
-                                            <th><%= d.getName() %></th>
-                                            <th><%= d.getBirth().substring(0,10) %></th>
-                                           	<th><%= d.getEmail()%></th>
-                                            <th><%= d.getHp() %></th>
-                                            <th><%= d.getAddr() %></th>
-                                           	<th><%= d.getId() %></th>
-                                            <th><%= d.getPass() %></th>
-                                            <th><%= d.getG_num() %></th>
-                                            <th>
-                                            	<span class="delguest" num="<%= d.getG_num() %>"><i class="fas fa-user-minus" style="color: red;" ></i></span>
-                                            </th>
-                                        </tr>		
-                                    	<%}
-                                    %>
-                                        
-                                    </tbody>
+                        <div class="card-body" style="width: 60%;">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable"  cellspacing="0">   
+	                                <%
+	                                	reviewDao dao=new reviewDao();
+	                                	reveiwDto dto=dao.getData(num);
+	                                	
+	                                %>                                                                 
+                                    <tr style="width: 580px;">
+                                    	<th width="80px;">문의 종류</th>
+                                    	<td><%=dto.getType() %></td>
+                                    </tr>
+                                    <tr>
+                                    	<th width="80px;">작성자</th>
+                                    	<td><%=dto.getName() %></td>
+                                    </tr>
+                                     <tr>
+                                    	<th width="80px;">제목</th>
+                                    	<td><%=dto.getSubject() %></td>
+                                    </tr>
+                                     <tr>
+                                    	<th width="80px;">내용</th>
+                                    	<td><textarea style="width: 500px;height: 300px;"><%=dto.getContent() %></textarea></td>
+                                    </tr>
+                                     <tr>
+                                    	<th width="80px;">답글</th>
+                                    	<td><textarea style="width: 500px;"></textarea></td>
+                                    </tr>
                                 </table>
+                                <div>
+                                	<button class="btn btn-info" style="margin-left: 300px;">답글 작성</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -468,7 +410,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Grace Hotel 2020</span>
+                        <span>Copyright &copy; Your Website 2020</span>
                     </div>
                 </div>
             </footer>
@@ -505,117 +447,8 @@
         </div>
     </div>
     
-     <!-- Modal 사진 클릭시 다이얼로그 형태로 보이게 하기 위한 코드-->
-  <div class="modal fade" id="myModal" role="dialog" >
-    <div class="modal-dialog modal-lg">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" >
-        <h4 class="modal-title imgname">회원 추가</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          
-        </div>
-        <div class="modal-body">
-          <form action="addguest.jsp">
-          	<table>
-          		<tr>
-					<th style="width: 100px;">성명</th>
-					<td>&nbsp;&nbsp;<input type="text" name="name" class="input" required id="name"></td>
-				</tr>
-				<tr>
-					<th style="width: 100px;">생년월일</th>
-					<td>&nbsp;&nbsp;
-					<select id="year" style="width: 70px;" class="input" name="year">
-					
-					<script type="text/javascript">
-					var date=new Date();
-					var year=date.getFullYear();
-					for(var y=year;y>=1950;y--){
-					var op="<option>"+y+"</option>";
-					document.write(op);
-					}
-					</script>
-					</select>
-					년  
-					<select id="month" style="width: 70px;" class="input" name="month">
-					<script type="text/javascript">
-					//console.log(date.getMonth());
-					var curm=date.getMonth()+1;
-					for(var m=1;m<=12;m++){
-					var op="";
-					if(m==curm)
-					op="<option selected>"+m+"</option>";
-					else
-					op="<option>"+m+"</option>";
-					document.write(op);
-					} 	
-					</script>
-					</select>
-					월  
-					<select id="day" style="width: 70px;" class="input" name="day">
-					<script type="text/javascript">
-					var curd=date.getDate();
-					for(var d=1;d<=31;d++){
-					var op="";
-					if(d==curd)
-					op="<option selected>"+d+"</option>";
-					else
-					op="<option>"+d+"</option>";
-					document.write(op);
-					} 	
-					</script>
-					</select>
-					일<br>	
-					</td>
-				</tr>
-				<tr>
-					<th style="width: 100px;">이메일</th>
-					<td>
-					&nbsp;&nbsp;<input type="text" name="email1" style="width: 100px;" class="input" required id="email1">
-					@&nbsp;<input type="text" name=email2 class="email2 input" required id="email2" >&nbsp;
-					</td>
-				</tr>
-				<tr>
-					<th style="width: 100px;">휴대전화</th>
-					<td>&nbsp;
-					<input type="text" name="hp1" style="width: 80px;" class="input hp1" required maxlength="3">-
-					<input type="text" name="hp2" style="width: 80px;" class="input hp2" required maxlength="4">-
-					<input type="text" name="hp3" style="width: 80px;" class="input hp3" required maxlength="4">
-					</td>
-				</tr>
-				<tr>
-					<th style="width: 100px;">자택 주소</th>
-					<td>&nbsp;&nbsp;<input type="text" name="zip" id="zip" class="input">
-						<button type="button" class="btn btn-info" style="color: white;" onclick="openaddr()">주소 찾기</button>
-						<br><br>&nbsp;&nbsp;<input type="text" name="addr1" id="addr1" class="input" style="width: 400px;">
-						<br>&nbsp;&nbsp;<input type="text" name="addr2" id="addr2" class="input" style="width: 400px;">
-					</td>
-				</tr>
-				<tr>
-					<th style="width: 100px;">아이디</th>
-					<td>&nbsp;&nbsp;<input type="text" name="idsel" class="input id" required>
-						
-					</td>
-				</tr>
-				<tr>
-					<th style="width: 100px;">비밀번호</th>
-					<td>&nbsp;&nbsp;<input type="text" name="pass" class="input pass1" required>
-						
-					</td>
-				</tr>
-          	</table>
-          		<div style="text-align: center;"><button type="submit" class="btn btn-warning" >추가</button></div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  	<!-- modal끝 -->
+   
+       
   
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

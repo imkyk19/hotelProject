@@ -12,6 +12,10 @@ public class reveiwDto {
 	private int readcount;
 	private int likes;
 	private Timestamp writeday;
+	private String name;
+	private String id;
+	
+	
 	
 	
 	public String getH_num() {
@@ -67,6 +71,18 @@ public class reveiwDto {
 	}
 	public void setWriteday(Timestamp writeday) {
 		this.writeday = writeday;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 

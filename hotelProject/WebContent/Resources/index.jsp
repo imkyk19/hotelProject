@@ -88,6 +88,13 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>문의 사항</span></a>
             </li>
+            
+             <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="reviewlist.jsp">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>후기글 관리</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

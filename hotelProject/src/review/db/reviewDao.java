@@ -351,6 +351,50 @@ public class reviewDao {
 		return n;
 	}
 	
-
+	//관리자 페이지-출력
+		public List<reveiwDto> getList() {
+			
+			List<reveiwDto> list=new Vector<reveiwDto>();
+			
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			
+			conn=db.getCommonConnection();
+			String sql="select h_num,type,name,id,subject,content,readcount,likes,review.writeday as writeday,review.g_num as g_num,image\r\n"
+					+ "from guest, review\r\n"
+					+ "where guest.g_num=review.g_num";
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				
+				//실행
+				rs=pstmt.executeQuery();
+				//데이터 넣기
+				while(rs.next()) {
+					reveiwDto dto=new reveiwDto();
+					
+					dto.setH_num(rs.getString("h_num"));
+					dto.setType(rs.getString("type"));
+					dto.setG_num(rs.getString("g_num"));
+					dto.setSubject(rs.getString("subject"));
+					dto.setContent(rs.getString("content"));
+					dto.setImage(rs.getString("image"));
+					dto.setReadcount(rs.getInt("readcount"));
+					dto.setLikes(rs.getInt("likes"));
+					dto.setWriteday(rs.getTimestamp("writeday"));
+					dto.setName(rs.getString("name"));
+					dto.setId(rs.getString("id"));
+					//list에 추가
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbColse(rs, pstmt, conn);
+			}
+			return list;
+		}
 
 }

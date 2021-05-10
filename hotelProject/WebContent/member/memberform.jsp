@@ -105,7 +105,7 @@ x<%@page import="guest.db.GuestDao"%>
 			</select>
 			일<br>	
 			</td>
-</tr>
+		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*이메일</th>
 			<td>
