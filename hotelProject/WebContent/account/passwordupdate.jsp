@@ -79,7 +79,7 @@ div.passwordupdate{
 	</ul>	
 		
 </div>
-
+<form action="account/passwordupdateaction.jsp" method="post">
 <div class="passwordupdate">
 <h2 style="font-size: 1.8em;color:#8C4C27;">비밀번호 변경</h2>
 	<hr style="border:2px solid black;width:600px;margin-left:0px;">
@@ -91,7 +91,7 @@ div.passwordupdate{
 			<td>
 				<input type="password" class="form-control input-sm"
 					style="width: 200px;"
-					 name="pass" required="required";>				
+					id="old_pw"  name="oldPw" required="required";>				
 			</td>
 		</tr>	
 		<tr>
@@ -99,30 +99,17 @@ div.passwordupdate{
 			<td>
 				<input type="password" class="form-control input-sm"
 					style="width: 200px;"
-					 name="newpass" required="required";>				
+					id="new_pw" name="newPw" required="required";>				
 			</td>
 		</tr>	
-		<tr>
-			<td>새 비밀번호 확인</td>
-			<td>
-				<input type="password" class="form-control input-sm"
-					style="width: 200px;"
-					 name="newpassch" required="required";>				
-			</td>
-		</tr>		
-		
-	
-		
-	
-	
 	</table>
 	
 	<button type="submit"  style="color:white; width: 140px;"
 	  		id="btnsubmit">
 	  	변경</button>
 	 <button type="button" style="color:white; width: 140px;"
-	  		id="btncancel">
-	  	취소</button> 	
+	 onclick="history.back()"id="btncancel">취소</button> 	
+</form>	 
 	  	
 
 </div>

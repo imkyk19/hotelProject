@@ -60,15 +60,16 @@ div.reservechange{
 <%
 GuestDao dao=new GuestDao();
 
-//String id=(String)session.getAttribute("id");
-//String name=dao.getName(id);
+String id=(String)session.getAttribute("id");
+String name=dao.getName(id);
 
 //로그인된 아이디 세션 값 얻기
-String id=(String)session.getAttribute("id");
+
 System.out.print("id:"+id);
 
 //아이디를 통해 해당 개인정보 가져오기
 GuestDto dto=dao.getId(id);
+
 
 //미로그인시 로그인폼 이동
 if(id!=null){
@@ -111,7 +112,7 @@ if(id!=null){
 
 
 
-	<h2 style="font-size: 1.8em;color:#8C4C27;">예약확인/취소</h2>
+	<h2 style="font-size: 1.8em;color:#8C4C27;"> 예약확인/취소</h2>
 	<hr style="border:2px solid black;width:720px;margin-right:600px;">
 
 
@@ -119,7 +120,7 @@ if(id!=null){
 	<tr>
 		<td style="font-size: 1.2em;">
 		
-		객실및 패키지 예약 내역을 확인하실수있습니다.
+			 <%=name%>님의 객실및 패키지 예약 내역을 확인하실수있습니다.
 		</td>    
 	</tr>
 	<tr>

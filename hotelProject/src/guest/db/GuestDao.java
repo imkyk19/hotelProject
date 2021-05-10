@@ -202,9 +202,7 @@ DbConnect db=new DbConnect();
       }
       
       
-      
-      
-
+      //회원정보수정
       public void updateGuest(GuestDto dto)
 
       {
@@ -231,12 +229,12 @@ DbConnect db=new DbConnect();
                pstmt.setString(5, dto.getAddr());
 
                pstmt.setString(6, dto.getId());
-          System.out.println("name : " + dto.getName());
-			System.out.println("birth : " +  dto.getBirth());
-			System.out.println("email : " + dto.getEmail());
-			System.out.println("hp : " + dto.getHp());
-			System.out.println("addr : " + dto.getAddr());
-			System.out.println("id : " + dto.getId());
+//          System.out.println("name : " + dto.getName());
+//			System.out.println("birth : " +  dto.getBirth());
+//			System.out.println("email : " + dto.getEmail());
+//			System.out.println("hp : " + dto.getHp());
+//			System.out.println("addr : " + dto.getAddr());
+//			System.out.println("id : " + dto.getId());
 
                pstmt.execute();
 
@@ -253,7 +251,7 @@ DbConnect db=new DbConnect();
             }
 
          }
-      
+      //회원탈퇴
       public void deleteGuest(String id) {
          Connection conn = null;
          PreparedStatement pstmt = null;
@@ -262,7 +260,7 @@ DbConnect db=new DbConnect();
          conn = db.getCommonConnection();
          try {
             pstmt = conn.prepareStatement(sql);
-            System.out.println("a");
+            //System.out.println("a");
             pstmt.setString(1, id);
             
             pstmt.execute();
@@ -302,7 +300,7 @@ DbConnect db=new DbConnect();
             }
             
             
-            
+            //회원있는지 체크
             public boolean isPassCheck(String id,String pass) {
     			Connection conn=null;
     			PreparedStatement pstmt=null;
@@ -331,7 +329,7 @@ DbConnect db=new DbConnect();
             
 
             
-            
+            //회원이름알아내기
             public String getName(String id)
             {
             	String name="";
@@ -358,8 +356,7 @@ DbConnect db=new DbConnect();
             }
             
         
-            
-    
+           
             //비밀 번호 수정
             public void updatePass(GuestDto dto)
 
@@ -444,5 +441,76 @@ DbConnect db=new DbConnect();
 				}
 				return t;
 			}
+			
+			//비번 알아내기
+			public int userCheck(String id, String pass) {
+				int resultNum = 0;
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				String sql = "select pass from guest where id=?";
+				conn = db.getCommonConnection();
+
+				try {
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, id);
+					rs = pstmt.executeQuery();
+					//System.out.println("a");
+					if(rs.next()) {
+						String dbPw = rs.getString("pass");
+						if(dbPw.equals(pass)) { //로그인에 성공한 경우
+							resultNum = 1;
+						} else { //비밀번호가 틀렸을 경우
+							resultNum = 0;
+						}				
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					db.dbColse(rs, pstmt, conn);
+				}
+					return resultNum;
+
+			}
+			
+			
+			//비번 바꾸기
+			public boolean changePass(String id, String pass) {
+
+				boolean flag = false;
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				String sql = "update guest set pass=? where id=?"; 
+				conn = db.getCommonConnection();
+				try {
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, pass);
+					pstmt.setString(2, id);
+					System.out.println("a");
+			
+					int i = pstmt.executeUpdate();
+
+					if(i == 1) {
+						flag = true;
+					} else {
+						flag = false;
+					}			
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					db.dbColse(pstmt, conn);
+				
+				}
+				
+				return flag;
+			}
+			
+			
+			
+			
+			
       
 }

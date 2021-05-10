@@ -117,12 +117,13 @@ String id=session.getAttribute("id").toString();
 			</td>
 		</tr>	
 		
-	</table>		
+	</table>
+	
 	<button type="submit" style="color:white; width: 120px;"
 	  		id="btnsubmit">	확인</button>
+	 <button type="button" style="color:white; width: 120px;"
+onclick="history.back()" id="btncancel">취소</button> 	
 	
-		
-		
 
 </div> 
 </form>

@@ -20,6 +20,8 @@ String id=session.getAttribute("id").toString();
 	response.sendRedirect("../main.jsp");
 	%>
 	
+
+	
 	
 	
 	
