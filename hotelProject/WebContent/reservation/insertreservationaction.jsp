@@ -26,5 +26,5 @@
 	
 	ReservationDao dao = new ReservationDao();
 	dao.insertReservation(dto);
-	response.sendRedirect("main.jsp");
+	
 %>
