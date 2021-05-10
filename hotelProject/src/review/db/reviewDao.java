@@ -166,14 +166,14 @@ public class reviewDao {
 	}
 	
 	//삭제메서드
-	public void deleteContent(String num) {
+	public void deleteContent(String h_num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		conn = db.getCommonConnection();
 		String sql = "delete from review where h_num=?";
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, num);
+			pstmt.setString(1, h_num);
 			pstmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -274,31 +274,53 @@ public class reviewDao {
 		return photo;
 	}
 	
-	//num에해당하는 likes 변경 메서드
-	public void updatdLikes(String h_num){
+	//h_num에해당하는 likes 변경 메서드
+	public int updatdLikes(String h_num){
 		//변수선언
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		
-		//좋아요 변수
-		int n=this.getData(h_num).getLikes();
-		
 		//sql문
-		String sql="update review set likes=? where h_num=?";
+		String sql="update review set likes=likes+1 where h_num=?";
 
 		//db연결
 		conn=db.getCommonConnection();
 			try {
 				pstmt=conn.prepareStatement(sql);
-				pstmt.setInt(1, n==0?1:0);
-				pstmt.setString(2, h_num);
-				pstmt.execute();
+				pstmt.setString(1, h_num);
+				return pstmt.executeUpdate();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
 				db.dbColse(pstmt, conn);
 			}
+			return -1;
+
+	}
+	
+	//h_num에해당하는 likes 변경 메서드
+	public int deleteLikes(String h_num){
+		//변수선언
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		//sql문
+		String sql="update review set likes=likes-1 where h_num=?";
+
+		//db연결
+		conn=db.getCommonConnection();
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, h_num);
+				return pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbColse(pstmt, conn);
+			}
+			return -1;
 
 	}
 	
@@ -328,4 +350,7 @@ public class reviewDao {
 		}
 		return n;
 	}
+	
+
+
 }

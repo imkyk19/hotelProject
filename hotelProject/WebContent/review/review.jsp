@@ -133,6 +133,10 @@
 		<%
 	}
 %>
+<input type="hidden" name="search" id="search">
+<input type="text" name="inputsearch" id="inputsearch" style="width: 120px; margin-left: 650px;" placeholder="검색">
+<button type="button" class="btnsearch" id="btnsearch" style="color: white;" search="" start="<%=start%>" end="<%=end%>">검색</button>
+<br><br>
 <table class="table table-bordered" style="width: 900px;">
 	<tr bgcolor="#fff7e8"  >
 		<th width="60" style="text-align: center;" >번호</th>
@@ -171,7 +175,7 @@
 							String today=sdf.format(day);
 							if(today.equals(sdf.format(dto.getWriteday()))){
 								%>
-								<a href="<%=path %>" style="color: black; cursor: pointer;" h_num="<%=dto.getH_num()%>">
+								<a id="alink" href="<%=path %>" style="color: black; cursor: pointer;" h_num="<%=dto.getH_num()%>" pageNum="<%=currentPage%>">
 								<%=dto.getSubject() %></a>&nbsp;<img src="image/new.png" style="width: 15px;" height="15px;">
 								<%
 							}else{
@@ -251,6 +255,33 @@
 	}
 %>
 <br><br><br><br><br>
+<script type="text/javascript">
 
+$("#inputsearch").change(function() {
+	//선택값 얻기
+	var p=$(this).val();
+	//인풋태그에 넣기
+	$("#search").val(p);
+	//btn에 넣기
+	$("#btnsearch").attr("search", p);
+	});
+	
+$("#btnsearch").click(function() {
+	var search=$(this).attr("search");
+	var h_num=$("#alink").attr("h_num");
+	var pageNum=$("#alink").attr("pageNum");
+	var start=$(this).attr("start");
+	var end=$(this).attr("end");
+	
+	$.ajax({
+		type:"get",
+		dataType:"html",
+		data:{"h_num":h_num,"pageNum":pageNum,"search":search,"start":start,"end":end},
+		url:"review/searchSubject.",
+		success:function(data){
+		}
+	});	
+});
+</script>
 </body>
 </html>

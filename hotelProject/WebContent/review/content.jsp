@@ -1,3 +1,4 @@
+<%@page import="likes.db.LIkesDao"%>
 <%@page import="guest.db.GuestDto"%>
 <%@page import="guest.db.GuestDao"%>
 <%@page import="java.io.File"%>
@@ -38,11 +39,10 @@ b.thumbs{
 	font-size: 2em;
 }
 
-b.thumbs:active {
-	color: red;
-	font-weight: bold;
-	font-size: 4em;
+button{
+	float: left;
 }
+
 </style>
 </head>
 <%
@@ -50,6 +50,13 @@ b.thumbs:active {
 	String key=request.getParameter("key");
 	String h_num=request.getParameter("h_num");
 	String pageNum=request.getParameter("pageNum");
+	
+	//id세션 값
+	//로그인된 아이디 세션 값 얻기
+	String id=(String)session.getAttribute("id");
+	
+	//로그인 되어있는지 체크
+	String loginok=(String)session.getAttribute("loginok");
 	
 	//db처리 위한 dao 선언
 	reviewDao dao=new reviewDao();
@@ -82,6 +89,17 @@ b.thumbs:active {
 		currentPage=Integer.parseInt(pageNum);
 %>
 
+<%
+if(loginok!=null && id.equals(gdto.getId())){
+	%>
+	<button type="button" style="width: 120px; margin-left:1200px; color: white;"" class="btnupdate"
+		onclick="location.href='main.jsp?go=review/updateform.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=pageNum%>'">수정</button>
+	<button type="button" style="width: 120px;  color: white;" class="btndelete"
+		onclick="location.href='main.jsp?go=review/delete.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=pageNum%>'">삭제</button>	
+	<%
+}else{
+	%>
+
 <body>
 <div class="reviewform">
 	<div class="reviewmenu">
@@ -93,7 +111,23 @@ b.thumbs:active {
 
 <table class="table table-bordered content" >
 	<caption><b style="font-size: 2em; color: #524630; font-weight: bold;'">후기글</b></caption>
-	<caption><b class="glyphicon glyphicon-thumbs-up thumbs" style="float: right;" h_num="<%=dto.getH_num() %>" pageNum="<%=pageNum%>"></b></caption>
+	<%
+	LIkesDao ldao=new LIkesDao();
+	if(ldao.likeData(id, dto.getSubject(), h_num)!=0){
+		int thumbs=ldao.likeData(id, dto.getSubject(), h_num);
+		//System.out.println("로그인된 아이디:"+id);
+		//System.out.println("클릭되어있으면1 안되어있으면0:"+thumbs);
+		%>
+		<caption><b class="glyphicon glyphicon-thumbs-up thumbs" style="float: right; color: red;" 
+				h_num="<%=dto.getH_num() %>" pageNum="<%=pageNum%>" subject="<%=dto.getSubject()%>" id="<%=id%>" thumbs="<%=thumbs %>"></b></caption>
+		<%
+	}else{
+		%>
+		<caption><b class="glyphicon glyphicon-thumbs-up thumbs" style="float: right; " 
+				h_num="<%=dto.getH_num() %>" pageNum="<%=pageNum%>" subject="<%=dto.getSubject()%>" id="<%=id%>"></b></caption>
+		<%
+	}
+	%>
 	
 	<tr>
 		<td style="height: 30px;">
@@ -134,27 +168,51 @@ b.thumbs:active {
 <br>
 <button type="button" style="width: 120px; margin-left: 1000px; color: white;" class="btnlist"
 onclick="location.href='main.jsp?go=review/review.jsp?pageNum=<%=pageNum%>'">목록</button>
+
+	<%
+}
+%>
+
 <br><br><br><br><br>
 
 </body>
 
 <script type="text/javascript">
+var click=true;
 
 //thumbs클릭 이벤트
 $("b.thumbs").click(function() {
 	var h_num=$(this).attr("h_num");
 	var pageNum=$(this).attr("pageNum");
-	console.log(h_num+pageNum)
+	var subject=$(this).attr("subject");
+	var id=$(this).attr("id");
+	var thumbs=$(this).attr("thumbs");
 	
-	$(this).css("color", "red");
-	$.ajax({
-		type:"get",
-		dataType:"html",
-		data:{"h_num":h_num,"pageNum":pageNum},
-		url:"review/updatelikes.jsp",
-
-	});
-
+	//클릭시	
+	if(click){
+		//미로그인시 로그인폼 이동
+		if(id=="null"){
+			alert("로그인이 필요합니다.");
+		}if(thumbs==1){
+			alert("이미 추천을 누르신 게시글입니다.");
+		}else{
+			$(this).css("color", "red");
+			$.ajax({
+				type:"get",
+				dataType:"html",
+				data:{"h_num":h_num,"pageNum":pageNum,"subject":subject},
+				url:"review/updatelikes.jsp",
+				success:function(data){
+					alert("추천되었습니다. 감사합니다.");	
+				}
+			});	
+			//click false값으로 변경
+			click=!click;
+		}
+	}else{
+		alert("죄송합니다. 추천은 게시글당 1회씩 가능합니다.");
+	}
+	
 });
 
 </script>
