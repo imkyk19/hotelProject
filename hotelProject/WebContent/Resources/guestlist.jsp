@@ -44,6 +44,29 @@
 			$("#myModal").modal();
 		});
 		
+		//회원 삭제 이벤트
+		$("span.delguest").click(function(){
+			var g_num=$(this).attr("num");
+			var t=confirm("정말 삭제하시겠습니까?");
+			
+			 if(t){
+				//관리자가 예를 눌렀을 때
+				$.ajax({
+					type:"get",
+					data:{"num":g_num},
+					dataType:"html",
+					url:"../admin/delguestaction.jsp",
+					success:function(){
+						//새로고침
+						location.reload();
+					}
+				});
+				
+			} 
+			
+			
+		});
+		
 	
 	});
 	
