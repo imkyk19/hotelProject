@@ -12,7 +12,8 @@
 <style type="text/css">
 	table.booking {
 		width: 1200px;
-
+		margin-left: auto;
+		margin-right: auto;
 	}
 	
 	thead.title tr td {
@@ -29,7 +30,7 @@
 	}
 	
 	tbody.bookingform tr td {
-		border: 2px solid red;
+		border: 3px solid gray;
 		text-align: center;
 		width: 200px;
 		height: 50px;
@@ -37,7 +38,7 @@
 	
 	div.roomlist {
 		width: 1200px; 
-		border: 2px solid pink;
+		height: 2200px;
 		margin-bottom: 50px;
 		text-align: center;
 		font-size: 1em;
@@ -50,6 +51,18 @@
 	
 	div.body {
 		margin-bottom: 50px;
+	}
+	
+	table.roomlist {
+		border: 2px solid gray;
+	}
+	
+	table.roomlist td.text {
+		text-align: left;
+	}
+	
+	a.pay {
+		font-weight: bold;
 	}
 </style>
 
@@ -75,11 +88,11 @@
 					var text = r.find("text").text();
 					
 					
-					s += "<table class = 'table table-bordered'>";
-					s += "<tr><td rowspan = '4'><img style = 'width:300px;' src = '" +photo+"'></td>";
-					s += "<td>"+roomNum+"</td><td>"+price+"</td></tr>";
+					s += "<table class = 'table table-bordered roomlist'>";
+					s += "<tr><td rowspan = '4'><img class = 'click' style = 'width:300px;' src = '" +photo+"'></td>";
+					s += "<td>Room "+roomNum+"</td><td>"+price+"</td></tr>";
 					s += "<tr><td>"+capacity+"인용</td><td><a class = 'pay' href = 'main.jsp?go=reservation/payform.jsp?roomNum="+roomNum+"&checkin_date="+$("#checkin_date").val()+"&checkout_date="+$("#checkout_date").val()+"'>결제</a></td></tr>";
-					s += "<tr><td colspan = '2' rowspan = '2'>" + text+ "</td></tr>";
+					s += "<tr><td class = 'text' colspan = '2' rowspan = '2'>" + text+ "</td></tr>";
 					s += "</table>";
 					
 					$("div.roomlist").html(s);
@@ -93,7 +106,30 @@
 			e.preventDefault();
 			data=$("#reservefrm").serialize();
 			//alert(data);
-			list();
+			//list();
+			var adultvalue = $("select[name=adult] option").filter(":selected").val();
+			var childvalue = $("select[name=children] option").filter(":selected").val();
+			//alert("adult =" + adultvalue);
+			//alert("child =" + childvalue);
+			var ckInDate = $("#checkin_date").val();
+			var ckOutDate = $("#checkout_date").val();
+			if(ckInDate == ""){
+				alert("체크인 날짜를 선택하세요");
+				return;
+			}
+			if(ckOutDate == ""){
+				alert("체크아웃 날짜를 선택하세요");
+				return;
+			}
+			if(adultvalue == "select"){
+				alert("어른 인원 수를 선택하세요");
+				return;
+			} else if (childvalue == "select"){
+				alert("어린이 인원 수를 선택하세요");
+				return;
+			} else {
+				list();
+			}
 		});
 		
 		
@@ -115,7 +151,7 @@
 			<br>
 			<tbody class="bookingform">
 				<tr>
-					<td >
+					<%-- <td >
 						<label for = "room">Rooms: </label>
 						<select name = "room" id = "room">
 						<%
@@ -126,7 +162,7 @@
 							}
 						%>
 						</select>
-					</td>
+					</td> --%>
 					<td>
 						<label for = "checkin_date">Check In: </label>
 						<%
@@ -134,19 +170,19 @@
 							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 							String today = sdf.format(date);
 						%>
-						<input type="date" id = "checkin_date" name = "checkin_date">
+						<input type="date" id = "checkin_date" name = "checkin_date" required="required">
 						
 						
 					</td>
 					<td>
 						<label for = "checkout_date">Check Out: </label>
-						<input type="date" id = "checkout_date" name = "checkout_date">
+						<input type="date" id = "checkout_date" name = "checkout_date" required="required">
 						
 					</td>
 					<td >
 						<label for = "adult">Adults: </label>
-						<select name = "adult" id = "adult" required="required">
-							<option value = "">Select</option>
+						<select name = "adult" id = "adult" required="required" class = "people">
+							<option value = "select" selected="selected">--Select--</option>
 							<option value = 1>1</option>
 							<option value = 2>2</option>
 							<option value = 3>3</option>
@@ -154,8 +190,8 @@
 					</td>
 					<td >
 						<label for = "children">Children: </label>
-						<select name = "children" id = "children" required="required">
-							<option value = "">Select</option>
+						<select name = "children" id = "children" required="required" class = "people">
+							<option value = "select" selected="selected">--Select--</option>
 							<option value = 0>0</option>
 							<option value = 1>1</option>
 						</select>
@@ -206,8 +242,6 @@
 			console.log(capacity);
 			$("#capacity").val(capacity);
 		})
-		
-			
 		
 </script>
 </body>

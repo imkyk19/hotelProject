@@ -81,7 +81,8 @@
 				url: "reservation/insertreservationaction.jsp",
 				data: data,
 				success: function(data){
-					
+					alert("예약 성공!!!");
+					location.href = "main.jsp";
 				}
 			});
 		});
