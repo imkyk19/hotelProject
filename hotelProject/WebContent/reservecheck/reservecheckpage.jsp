@@ -165,7 +165,7 @@ if(id!=null){
 </table>	
 
 </div>	
-<script type="text/javascript">
+
 	
 	<%
 }else{

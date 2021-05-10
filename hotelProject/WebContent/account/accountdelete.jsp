@@ -9,12 +9,12 @@ String id=session.getAttribute("id").toString();
 
 
 	String pass=request.getParameter("pass");
-	String g_num=request.getParameter("g_num");
+
 	GuestDao dao=new GuestDao();
 	
 	boolean b=dao.isPassCheck(id, pass);
 	if(b)
-	dao.deleteGuest(g_num);
+	dao.deleteGuest(id);
 	session.removeAttribute("loginok");
 	session.removeAttribute("id");
 	response.sendRedirect("../main.jsp");
