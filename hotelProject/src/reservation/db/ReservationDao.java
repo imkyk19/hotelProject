@@ -11,6 +11,7 @@ import java.util.Vector;
 import guest.db.GuestDto;
 import oracle.db.DbConnect;
 import question.db.QuestionDto;
+import review.db.reveiwDto;
 
 public class ReservationDao {
 	DbConnect db = new DbConnect();
@@ -75,15 +76,14 @@ public class ReservationDao {
 		return dto;
 	}
 	
-			
-			
+			//예약출력
 			public List<ReservationDto> getReservationList(String g_num)
 			{
 				List<ReservationDto> list=new Vector<ReservationDto>();
 				Connection conn=null;
 				PreparedStatement pstmt=null;
 				ResultSet rs=null;
-				String sql="select * from reservation where g_num=? order by num";
+				String sql="select * from reservation where g_num=? order by num desc";
 				conn=db.getCommonConnection();
 				
 				try {
@@ -116,5 +116,31 @@ public class ReservationDao {
 				return list;
 			}
 	
+			
+			
+			//예약건수확인
+			public int getTotalCount(String g_num) {
+				Connection conn=null;
+				PreparedStatement pstmt=null;
+				ResultSet rs=null;
+				
+				conn=db.getCommonConnection();
+				String sql="select count(*) from reservation where g_num=?";
+				int n=0;
+				
+				try {
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, g_num);
+					rs=pstmt.executeQuery();
+					if(rs.next())
+						n=rs.getInt(1);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					db.dbColse(rs, pstmt, conn);
+				}
+				return n;
+			}
 	
 }

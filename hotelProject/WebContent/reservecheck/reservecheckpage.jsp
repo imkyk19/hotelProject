@@ -47,49 +47,21 @@ ul>li>a{
 		cursor: pointer;
 	}	
 
-div.reservechange{
+div.reservecheckmain{
 	position:absolute;
 	left:600px;
 	top:50px;
 }
 
+
+div.reservecheck{
+	position:absolute;
+	left:600px;
+	top:300px;
+
+}
 </style>
-<script type="text/javascript">
-$(function(){
-	$("#searchbtn").click(function() {
-		$.ajax({
-			type:"get",
-			url:"reservelist.jsp",
-			dataType:"xml",
-			success:function(data){
-				var s="";
-				$(data).find("reservation").each(function(i){
-					var n=$(this);
-					var g_num=n.attr("g_num");
-					var roomnum = n.find("room_num").text();
-					var bookingqty=n.find("booking_qty").text();
-					var guestqty=n.find("guest_qty").text();
-					var checkindate=n.find("checkin_date").text();
-					var checkoutdate=n.find("checkout_date").text();
-					var totalprice=n.find("total_price").text();
-					
-					s += "<table class = 'table table-bordered'>";
-					s += "<tr><td>객실번호"+roomnum+"</td><td>객실 수"+bookingqty+"</td>";
-					s += "<td>인원 수"+guestqty+"</td><td>체크인날짜"+checkindate+"</td>";
-					s += "<td>체크아웃날짜"+checkoutdate+"</td><td>가격"+totalprice+"</td></tr>";
-					s += "<tr><td class = 'text'>" + text+ "</td></tr>";
-					s += "</table>";
-						
-				
-				$("#show").html(s);
-				
 
-				});
-			});
-		});
-	});
-
-</script>
 </head>
 
 <body>
@@ -98,18 +70,15 @@ $(function(){
 
 <% 
 
-ReservationDao dao=new ReservationDao();
-ReservationDto dto=new ReservationDto();
-//List<ReservationDto> list=dao.getReservationList(g_num);
-//dto=dao.getIndividualReservation(g_num);
-
-GuestDao gdao=new GuestDao();
-GuestDto gdto=new GuestDto();
-
 String id=(String)session.getAttribute("id");
-String name=gdao.getName(id);
-gdto = gdao.getData(id);
 String loginok=(String)session.getAttribute("loginok");
+
+ReservationDao dao=new ReservationDao();
+GuestDao gdao=new GuestDao();
+GuestDto gdto=gdao.getData(id);
+String name=gdao.getName(id);
+String g_num=gdto.getG_num();
+
 
 
 //로그인된 아이디 세션 값 얻기
@@ -118,6 +87,52 @@ String loginok=(String)session.getAttribute("loginok");
 
 //아이디를 통해 해당 개인정보 가져오기
 gdto=gdao.getId(id);
+
+int totalCount=dao.getTotalCount(g_num);//전체개수 구하기
+int totalPage;//전체 페이지
+int startPage;//각 블럭의 시작페이지
+int endPage;//각 블럭의 마지막페이지
+int start;//각 페이지의 시작번호
+int end;//각 페이지의 끝번호
+int no;//각 페이지에서 출력을 시작할 번호
+int perPage=5;//한페이지에 보여질 글의 개수
+int perBlock=5;//한 블럭에 보여질 페이지의 개수
+int currentPage;//현재 페이지
+
+//총 페이지수 구하기
+totalPage=totalCount/perPage+(totalCount%perPage>0?1:0); 
+//나머지가 있으면 1페이지 더하기(글개수13개면 페이지3장필요)
+
+//현재페이지(pageNum이 null인경우 1페이지로 이동)
+String pageNum=request.getParameter("pageNum");
+if(pageNum==null)
+	currentPage=1;
+else
+	currentPage=Integer.parseInt(pageNum);
+
+//현재페이지가 3인경우 startPage는 1, endPage=5 / 현재페이지가 6인경우 startPage는 6, endPage=10
+startPage=(currentPage-1)/perBlock*perBlock+1;
+endPage=startPage+perBlock-1;
+
+//만약 총 페이지수가 8인경우 2번째 블럭은 startPage 6, endPage 10 BUT, 이때 endPage는 8로 표기되어야한다.
+if(totalPage<endPage)
+	endPage=totalPage;
+
+//각 페이지의 시작번호, 끝번호 구하기(1일경우 1, 2일경우 6)
+start=(currentPage-1)*perPage+1;
+end=start+perPage-1;
+
+//총 글수가 12인경우 마지막페이지의 end는 12가 되어야한다.
+if(end>totalCount)
+	end=totalCount;
+
+//각 글 앞에 붙일 시작번호구하기 
+//예: 총글이 20개일경우 1페이지는 20부터 2페이지는 15부터 출력해서 1씩 감소해가며 출력할것
+no=totalCount-(currentPage-1)*perPage;
+
+//start부터 end까지 게시글 가져오기
+List<ReservationDto> list=dao.getReservationList(g_num);
+
 
 
 //미로그인시 로그인폼 이동
@@ -160,7 +175,7 @@ if(id!=null &&loginok!=null){
 		
 </div>
 
-<div class="reservechange">
+<div class="reservecheckmain">
 
 
 
@@ -186,12 +201,64 @@ if(id!=null &&loginok!=null){
 	
 
 		<h2 style="font-size: 1.2em;font-weight: bold;">객실/패키지예약</h2>
+		<%
+	if(totalCount>0){
+		%>
+			<b>예약 : <%=totalCount %></b>
+		<%
+	}
+%>
+		
+		
 
 	  <hr style="border:1px solid black;width:700px;margin-left:0px;">
 	
-	<div id="show">show</div>
-</div>	
 
+</div>	
+<div class="reservecheck">
+<table class="table table-bordered" style="width: 700px;">
+	<tr bgcolor="#fff7e8"  >
+		<th>객실번호</th>
+		<th>객실수</th>
+		<th>인원수</th>
+		<th>체크인</th>
+		<th>체크아웃</th>
+		<th>가격</th>
+		<th>예약취소</th>
+	</tr>
+	<%
+		if(totalCount==0){
+			%>
+				<tr>
+					<td colspan="8" align="center"">
+						<b>예약 내역이 없습니다.</b>
+					</td>
+				</tr>
+			<%
+		}else{
+			
+			
+			for(ReservationDto dto:list){
+				%>
+					<tr align="center">
+						<td><%=dto.getRoomNum()%></td>
+						<td><%=dto.getBookingQty()%></td>
+						<td><%=dto.getGuestQty()%></td>
+						<td><%=dto.getCheckInDate()%></td>
+						<td><%=dto.getCheckOutDate()%></td>
+						<td><%=dto.getTotalPrice()%></td>
+						<td>
+							<a href="main.jsp?go=reservecheck/reservecancel.jsp?num=<%=dto.getNum()%>&pageNum=<%=currentPage%>"
+							style="text-decoration: none; color:black;">예약취소</a>
+						</td>
+					</tr>
+				<%
+			}
+		}
+	%>
+</table>
+</div>
+</body>		
 	<%
 }else{
 	%>
@@ -204,7 +271,6 @@ if(id!=null &&loginok!=null){
 
 %>
 	
-</body>
 
 </html>
 
