@@ -1,3 +1,7 @@
+<%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="reservation.db.ReservationDao"%>
+<%@page import="reservation.db.ReservationDto"%>
 <%@page import="guest.db.GuestDto"%>
 <%@page import="guest.db.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -17,8 +21,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-
-</head>
 <style>
 
 div.mymain{
@@ -28,9 +30,6 @@ div.mymain{
 	margin-left: 300px;
 	margin-bottom: 100px;
 	background-color: #FAEBD0;
-	
-	
-
 }
 
 ul,li{
@@ -55,26 +54,75 @@ div.reservechange{
 }
 
 </style>
+<script type="text/javascript">
+$(function(){
+	$("#searchbtn").click(function() {
+		$.ajax({
+			type:"get",
+			url:"reservelist.jsp",
+			dataType:"xml",
+			success:function(data){
+				var s="";
+				$(data).find("reservation").each(function(i){
+					var n=$(this);
+					var g_num=n.attr("g_num");
+					var roomnum = n.find("room_num").text();
+					var bookingqty=n.find("booking_qty").text();
+					var guestqty=n.find("guest_qty").text();
+					var checkindate=n.find("checkin_date").text();
+					var checkoutdate=n.find("checkout_date").text();
+					var totalprice=n.find("total_price").text();
+					
+					s += "<table class = 'table table-bordered'>";
+					s += "<tr><td>객실번호"+roomnum+"</td><td>객실 수"+bookingqty+"</td>";
+					s += "<td>인원 수"+guestqty+"</td><td>체크인날짜"+checkindate+"</td>";
+					s += "<td>체크아웃날짜"+checkoutdate+"</td><td>가격"+totalprice+"</td></tr>";
+					s += "<tr><td class = 'text'>" + text+ "</td></tr>";
+					s += "</table>";
+						
+				
+				$("#show").html(s);
+				
+
+				});
+			});
+		});
+	});
+
+</script>
+</head>
 
 <body>
+
+
+
 <%
-GuestDao dao=new GuestDao();
+ReservationDao dao=new ReservationDao();
+ReservationDto dto=new ReservationDto();
+List<ReservationDto> list=dao.getReservationList();
+
+GuestDao gdao=new GuestDao();
+GuestDto gdto=new GuestDto();
 
 String id=(String)session.getAttribute("id");
-String name=dao.getName(id);
+String name=gdao.getName(id);
+gdto = gdao.getData(id);
 String loginok=(String)session.getAttribute("loginok");
+
 
 //로그인된 아이디 세션 값 얻기
 
 //System.out.print("id:"+id);
 
 //아이디를 통해 해당 개인정보 가져오기
-GuestDto dto=dao.getId(id);
+gdto=gdao.getId(id);
 
 
 //미로그인시 로그인폼 이동
 if(id!=null &&loginok!=null){    
 	%>
+	
+
 <div class="mymain">
 	<br>
 	<h3 style="margin-top:10px;margin-left: 20px;">마이 페이지</h3>
@@ -127,17 +175,8 @@ if(id!=null &&loginok!=null){
 	</tr>
 	<tr>
 		<td>
-		<select>
-	 		<option>예약완료일기준</option>
-	 		<option>투숙일기준</option>
-	 	</select>
-
-	 	<button style="color:white;"type="button">3개월</button>	
-	 	<button style="color:white;"type="button">6개월</button>	
-	 	<button style="color:white;"type="button">12개월</button>
-
-	 	<input type="date" id="date1" value="sysdate">~<input type="date" id="date2" value="sysdate">
-	 	<button  style="color:white;">조회</button>
+	 	<input type="date" id="checkin_date" value="">~<input type="date" id="checkout_date" value="">
+	 	<button type="button" id="searchbtn" style="color:white;">조회</button>
 	 	</td>
 	 </tr>	
 	 </table>
@@ -148,30 +187,8 @@ if(id!=null &&loginok!=null){
 
 	  <hr style="border:1px solid black;width:700px;margin-left:0px;">
 
-	
-
-	<table class="table table-bordered" style="width:900px;">
-	 <tr>  
-	 	<td colspan="7"style="font-size: 1.2em;width:700px;">
-	 	Total:
-	 	</td>
-	 </tr>
-
-	 <tr style="background-color: #FAEBD0;font-size: 1.0em;border:1px solid black;width:700px;">
-	 	<td style="width:70px;">객실번호</td><td style="width:70px;">객실수</td><td style="width:70px;">인원수</td>
-	 	<td style="width:70px;">체크인날짜</td><td style="width:100px;">체크아웃날짜</td><td style="width:70px;">가격</td>
-	 	<td style="width:70px;">예약상태</td>
-	 </tr>
-	 <tr>
-	 	<td colspan="7" style="font-size: 1.2em;text-align: center;">
-	 		자료가 없습니다
-	 	</td>
-	 </tr>
-</table>	
-
 </div>	
 
-	
 	<%
 }else{
 	%>
@@ -183,6 +200,7 @@ if(id!=null &&loginok!=null){
 }
 
 %>
+	
 </body>
 
 </html>
