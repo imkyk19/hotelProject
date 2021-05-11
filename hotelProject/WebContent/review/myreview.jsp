@@ -148,12 +148,13 @@
 <br><br>
 <table class="table table-bordered" style="width: 900px;">
 	<tr bgcolor="#fff7e8"  >
-		<th width="60" style="text-align: center;" >번호</th>
+		<th width="50" style="text-align: center;" >번호</th>
+		<th width="80" style="text-align: center;" >후기유형</th>
 		<th width="300">제목</th>
 		<th width="70" style="text-align: center;" >작성자</th>
 		<th width="100" style="text-align: center;" >작성일</th>
-		<th width="100" style="text-align: center;" >조회수</th>
-		<th width="100" style="text-align: center;" >추천</th>
+		<th width="60" style="text-align: center;" >조회수</th>
+		<th width="60" style="text-align: center;" >추천</th>
 		<th width="100" style="text-align: center;" >수정</th>
 		<th width="100" style="text-align: center;" >삭제</th>
 	</tr>
@@ -161,7 +162,7 @@
 		if(totalCount==0){
 			%>
 				<tr>
-					<td colspan="8" align="center"">
+					<td colspan="9" align="center"">
 						<b>저장된 게시글이 없습니다.</b>
 					</td>
 				</tr>
@@ -175,6 +176,7 @@
 				%>
 					<tr align="center">
 						<td><%=no-- %></td>
+						<td><%=dto.getType() %></td>
 						<td align="left">
 						<%
 						//제목 클릭시 content.jsp 내용보이게 href에 넣기

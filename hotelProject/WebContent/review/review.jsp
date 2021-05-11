@@ -14,6 +14,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
 <title>Insert title here</title>
 <style type="text/css">
 	div.reviewmenu{
@@ -63,6 +64,7 @@
 	background-color:#524630;
 	text-decoration: none;
 	}
+
 </style>
 </head>
 
@@ -133,18 +135,29 @@
 		<%
 	}
 %>
+
+
 <input type="hidden" name="search" id="search">
-<input type="text" name="inputsearch" id="inputsearch" style="width: 120px; margin-left: 650px;" placeholder="검색">
+<input type="text" name="inputsearch" id="inputsearch" style="width: 120px; margin-left: 570px;" placeholder="검색">
 <button type="button" class="btnsearch" id="btnsearch" style="color: white;" search="" start="<%=start%>" end="<%=end%>">검색</button>
+<input type="hidden" name="number" id="number" >
+	<select name="numtype" id="numtype" style="width: 80px; float: right;">
+		<option disabled hidden selected>정렬선택</option>
+		<option value="1">조회순</option>
+		<option value="2">추천순</option>
+		<option value="3">최신순</option>
+	</select>
 <br><br>
+<div class="arraylist">
 <table class="table table-bordered" style="width: 900px;">
 	<tr bgcolor="#fff7e8"  >
-		<th width="60" style="text-align: center;" >번호</th>
+		<th width="50" style="text-align: center;" >번호</th>
+		<th width="80" style="text-align: center;" >후기유형</th>
 		<th width="300">제목</th>
 		<th width="70" style="text-align: center;" >작성자</th>
 		<th width="100" style="text-align: center;" >작성일</th>
-		<th width="100" style="text-align: center;" >조회수</th>
-		<th width="100" style="text-align: center;" >추천</th>
+		<th width="60" style="text-align: center;" >조회수</th>
+		<th width="60" style="text-align: center;" >추천</th>
 	</tr>
 	<%
 		if(totalCount==0){
@@ -164,6 +177,7 @@
 				%>
 					<tr align="center">
 						<td><%=no-- %></td>
+						<td><%=dto.getType() %></td>
 						<td align="left">
 						<%
 						//제목 클릭시 content.jsp 내용보이게 href에 넣기
@@ -205,7 +219,11 @@
 		}
 	%>
 </table>
+
 </div>
+
+</div>
+<br><br><br>
 <!-- 페이징처리 -->
 <%
 	//글이 있는 경우
@@ -256,6 +274,71 @@
 %>
 <br><br><br><br><br>
 <script type="text/javascript">
+$("#numtype").change(function() {
+	//선택값 얻기
+	var number=$(this).val();
+	//인풋태그에 넣기
+	$("#number").val(number);
+	var h_num=$("#alink").attr("h_num");
+	var pageNum=$("#alink").attr("pageNum");
+	var start=$("#btnsearch").attr("start");
+	var end=$("#btnsearch").attr("end");
+	
+	$.ajax({
+		type:"get",
+		dataType:"xml",
+		url:"review/arraylist.jsp",
+		data:{"number":number,"pageNum":pageNum,"h_num":h_num,"start":start,"end":end},
+		success:function(data){
+			var s="";
+			s+="<table class='table table-bordered' style='width: 900px;'>";
+			s+="<tr bgcolor='#fff7e8'>";
+			s+='<th width="50" style="text-align: center;" >번호</th>';
+			s+='<th width="80" style="text-align: center;" >후기유형</th>';
+			s+='<th width="300">제목</th>';
+			s+='<th width="70" style="text-align: center;" >작성자</th>';			
+			s+='<th width="100" style="text-align: center;" >작성일</th>';			
+			s+='<th width="60" style="text-align: center;" >조회수</th>';			
+			s+='<th width="60" style="text-align: center;" >추천</th>';	
+			s+='</tr>';
+			var m=1;
+			$(data).find("answer").each(function(i, element) {
+				var n=$(this);
+				//속성으로 넣은 값 attr로 얻기, 컬럼으로 넣은 값 find로 찾기
+				var h_num=n.attr("h_num");
+				var g_num=n.attr("g_num");
+				var type=n.find("type").text();
+				var subject=n.find("subject").text();
+				var content=n.find("content").text();
+				var readcount=n.find("readcount").text();
+				var likes=n.find("likes").text();
+				var writeday=n.find("writeday").text();
+				var name=n.find("name").text();
+				var path="main.jsp?go=review/content.jsp?h_num="+h_num;
+				
+					s+='<tr align="center">';
+					s+='<td>';
+					s+=m++;
+					s+='</td>';	
+					s+='<td>'+type+'</td>';
+					s+='<td align="left">';
+					s+='<a style="color: black; cursor: pointer;" href='+path+'>'+subject+'</a>';
+					s+='</td>';
+					s+='<td>'+name+'</td>';
+					s+='<td>'+writeday+'</td>';
+					s+='<td>'+readcount+'</td>';
+					s+='<td>'+likes+'</td>';
+					s+='</tr>';
+
+			});
+			s+='</table>';
+			//div에 html로 출력
+			$("div.arraylist").html(s);
+		}
+	});
+
+});
+
 
 $("#inputsearch").change(function() {
 	//선택값 얻기
