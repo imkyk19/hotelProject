@@ -1,3 +1,4 @@
+<%@page import="answer.db.AnswerDao"%>
 <%@page import="question.db.QuestionDao"%>
 <%@page import="question.db.QuestionDto"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -10,9 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <title>Insert title here</title>
-<script type="text/javascript">
-	
-</script>
+
 <style type="text/css">
 	div.infomenu{
 		position: absolute;
@@ -26,12 +25,32 @@
 		padding: 10px 20px;
 	}	
 	
-	table.content{
+	div.content{
 		width: 700px;
-		height: 500px;
 		margin-top: 50px;
 		margin-left: 700px;
 	}
+
+	div.list{
+		width: 700px;
+	}
+	
+	span.aday{
+		float: right;
+		color: gray;
+		font-size: 9pt;
+	}
+	
+	span.adel{
+		margin-left: 3px;
+		cursor: pointer;
+		font-size: 1.2em;
+	}
+	
+	span.adel:active{
+		color: red;
+	}
+	
 </style>
 </head>
 <body>
@@ -41,6 +60,9 @@
 	if(pageNum==null)
 		pageNum="1";
 	String key=request.getParameter("key");
+	String loginok=(String)session.getAttribute("loginok");
+	String id=(String)session.getAttribute("id");
+	System.out.print(id);
 
 	QuestionDao dao=new QuestionDao();
 	//dto 가져오기
@@ -54,7 +76,7 @@
 	<span class="question" onclick="location.href='main.jsp?go=customer/question.jsp'">문의하기</span><br><br>
 	<span class="question" onclick="location.href='main.jsp?go=customer/questioncheck.jsp'">문의확인</span>
 	</div>
-	
+<div class="content">
 <table class="table table-bordered content" >
 	<caption><b style="font-size: 2em; color: #524630; font-weight: bold;'">문의글</b></caption>
 	<tr>
@@ -84,9 +106,93 @@
 		</td>
 	</tr>
 </table>
-<br>
-<button type="button" style="width: 120px; margin-left: 1000px; color: white;" class="btnlist"
+<input type="hidden" name="num" id="num" value="<%=num%>">
+<input type="hidden" name="pageNum" id="pageNum" value="<%=pageNum%>">
+<%
+//관리자 계정 로그인시 댓글 가능
+if(loginok!=null && id.equals("manager")){
+	%>
+	
+	<div style="width: 800px;"" class="form-inline">
+		<b>관리자 <%=id %> : </b>
+		<input type="text" class="form-control" name="reple" id="reple" style="width: 500px;">
+		<button type="button" name="btnreple" id="btnreple" style="color: white;">입력</button>
+	</div>
+	<br>
+	<%
+}
+%>
+<div class="list"></div><br><br>
+<button type="button" style="width: 120px; margin-left: 300px; color: white;" class="btnlist"
 onclick="location.href='main.jsp?go=customer/questioncheck.jsp?pageNum=<%=pageNum%>'">목록</button>
 <br><br><br><br><br>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		list();
+
+	});
+	
+	//댓글출력 사용자함수
+	function list(){
+		var num=$("#num").val();
+		$.ajax({
+			type:"get",
+			dataType:"xml",
+			url:"customer/answerlist.jsp",
+			data:{"num":num},
+			success:function(data){
+				list();
+				var s="";
+				//댓글 출력
+				$(data).find("answer").each(function(i, element) {
+					var n=$(this);
+					//속성으로 넣은 값 attr로 얻기, 컬럼으로 넣은 값 find로 찾기
+					var idx=n.attr("idx");
+					var content=n.find("content").text();
+					var writeday=n.find("writeday").text();
+					
+					s+="<b>관리자 manager : </b>"+content+"<span class='aday'>";
+					s+=writeday;
+					s+="<span class='adel glyphicon glyphicon-trash' idx="+idx+"></span>";
+					s+="</span><br>";
+					//div에 html로 출력
+					$("div.list").html(s);
+				});
+			}
+		});
+	}
+	
+	//btnreple버튼 클릭시 댓글데이터 추가
+	$("#btnreple").click(function() {
+		var num=$("#num").val();
+		var pageNum=$("#pageNum").val();
+		var content=$("#reple").val();
+		
+		$.ajax({
+			type:"post",
+			dataType:"html",
+			url:"customer/insertanswer.jsp",
+			data:{"num":num,"pageNum":pageNum,"content":content},
+			success:function(d){
+				//목록 재출력
+				list();
+				//입력값 지우기
+				$("#reple").val(" ");
+			}
+		});
+	});
+	
+	//삭제버튼 클릭 이벤트
+	$(document).on("click","span.adel", function() {
+		var idx=$(this).attr("idx");
+		var num=$("#num").val();
+		var pageNum=$("#pageNum").val();
+		console.log(idx);
+
+		
+	});
+</script>
 </body>
 </html>

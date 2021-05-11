@@ -19,7 +19,7 @@ public class QuestionDao {
 		PreparedStatement pstmt=null;
 		
 		//sql¹® ¼±¾ð
-		String sql="insert into question values (seq_Q.nextval,?,?,?,?,?,?,sysdate)";
+		String sql="insert into question values (seq_Q.nextval,?,?,?,?,?,?,?,sysdate)";
 
 		conn=db.getCommonConnection();
 		try {
