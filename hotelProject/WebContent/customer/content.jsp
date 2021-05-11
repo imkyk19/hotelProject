@@ -155,7 +155,14 @@ onclick="location.href='main.jsp?go=customer/questioncheck.jsp?pageNum=<%=pageNu
 					
 					s+="<b>관리자 manager : </b>"+content+"<span class='aday'>";
 					s+=writeday;
-					s+="<span class='adel glyphicon glyphicon-trash' idx="+idx+"></span>";
+					<%
+					//관리자 계정 로그인시 삭제 가능
+					if(loginok!=null && id.equals("manager")){
+						%>
+						s+="<span class='adel glyphicon glyphicon-trash' idx="+idx+"></span>";
+						<%		
+					}
+					%>
 					s+="</span><br>";
 					//div에 html로 출력
 					$("div.list").html(s);
