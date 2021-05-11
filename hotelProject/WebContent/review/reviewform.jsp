@@ -35,7 +35,8 @@
 //로그인된 아이디 세션 값 얻기
 String id=(String)session.getAttribute("id");
 String loginok=(String)session.getAttribute("loginok");
-System.out.print("id:"+id);
+String ok="ok";
+System.out.print("id:"+loginok);
 
 reviewDao dao=new reviewDao();
 
@@ -45,7 +46,7 @@ GuestDto dto=dao.getId(id);
 String g_num=dto.getG_num();
 
 //미로그인시 로그인폼 이동
-if(loginok!="loginok" && id!=null){
+if(loginok!=null){
 	%>
 <div class="reviewform">
 	<div class="reviewmenu">

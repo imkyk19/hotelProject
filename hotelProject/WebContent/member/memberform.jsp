@@ -1,4 +1,5 @@
-x<%@page import="guest.db.GuestDao"%>
+x<%@page import="org.json.simple.JSONObject"%>
+<%@page import="guest.db.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,8 +7,8 @@ x<%@page import="guest.db.GuestDao"%>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <SCRIPT src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></SCRIPT>
 
 <style type="text/css">
@@ -24,23 +25,55 @@ x<%@page import="guest.db.GuestDao"%>
 	}
 </style>
 <%
+	
+
 	//이메일 링크를 타고 왔을 경우
 	String ech=request.getParameter("ech");
 	
-	//링크를 타고 왔을 경우 성명과 생년월일 저장된 상태로 두기
-	if(ech!=null){%>
-		<script type="text/javascript">
-		$(function(){
-			$("#name").val(localStorage.getItem("name"));
-			$("#year").val(localStorage.getItem("year"));
-			$("#month").val(localStorage.getItem("month"));
-			$("#day").val(localStorage.getItem("day"));
-			$("#email1").val(localStorage.getItem("email1"));
-			$("#email2").val(localStorage.getItem("email2"));
-			$("select.selemail").attr("disabled","true");
-		});
+	if(ech!=null){
+			String google=request.getParameter("google");
+			//구글 회원가입일 때
+		if(google!=null){
+			//구글 회원가입시 정보 받아 넣어놓기
+			String name= request.getParameter("name");
+			google=request.getParameter("google");
+			String email=request.getParameter("email");
+			int in=email.indexOf("@");
+			String email1=email.substring(0,in);
+			String email2=email.substring(in+1);
+			%>
 			
-		</script>
+			<script type="text/javascript">		
+			$(function(){
+				
+				$("#name").val('<%=name%>');		
+				$("#id").val('<%=email%>');	
+				$("#email1").val('<%=email1%>');
+				$("#email2").val('<%=email2%>');
+				$("select.selemail").attr("disabled","true");	
+				$("input.google").val('<%=google%>');
+			});
+			</script>
+		
+	<% 	}else{
+			//일반 이메일 인증일때 
+			//링크를 타고 왔을 경우 성명과 생년월일 저장된 상태로 두기%>
+			<script type="text/javascript">
+			$(function(){
+				$("#name").val(localStorage.getItem("name"));
+				$("#year").val(localStorage.getItem("year"));
+				$("#month").val(localStorage.getItem("month"));
+				$("#day").val(localStorage.getItem("day"));
+				$("#email1").val(localStorage.getItem("email1"));
+				$("#email2").val(localStorage.getItem("email2"));
+				$("select.selemail").attr("disabled","true");
+			});
+				
+			</script>
+			
+		<% }
+	%>
+		
 		
 	<%}
 
@@ -49,6 +82,8 @@ x<%@page import="guest.db.GuestDao"%>
 <body>
 <form action="member/memberaction.jsp" name="memberfrm">
 <div class="memberform">
+	<!-- hidden -->
+	<input type="hidden" class="google" name="google">
 	<h3 style="color: #8C4C27;">회원가입</h3>
 	<br> <br>
 	<h4>회원정보 입력</h4>
@@ -58,7 +93,7 @@ x<%@page import="guest.db.GuestDao"%>
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*성명</th>
-			<td>&nbsp;&nbsp;<input type="text" name="name" class="input" required id="name"></td>
+			<td>&nbsp;&nbsp;<input type="text" name="name" class="input name" required id="name"></td>
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*생년월일</th>
@@ -109,7 +144,7 @@ x<%@page import="guest.db.GuestDao"%>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*이메일</th>
 			<td>
-			&nbsp;&nbsp;<input type="text" name="email1" style="width: 100px;" class="input" required id="email1" <%=ech==null?"":"readonly"  %>>
+			&nbsp;&nbsp;<input type="text" name="email1" style="width: 100px;" class="input email1" required id="email1" <%=ech==null?"":"readonly"  %>>
 			@&nbsp;<input type="text" name=email2 class="email2 input" required id="email2"  <%=ech==null?"":"readonly"  %> >&nbsp;
 			<select name="email" class="input selemail">
 				<option selected>직접 입력</option>
@@ -144,7 +179,7 @@ x<%@page import="guest.db.GuestDao"%>
 		</tr>
 		<tr>
 			<th style="width: 100px;background-color:#F2ECE9;height: 40px;">*아이디</th>
-			<td>&nbsp;&nbsp;<input type="text" name="idsel" class="input id" required readonly  style="background-color: #ccc;">
+			<td>&nbsp;&nbsp;<input type="text" name="idsel" class="input id" required readonly  style="background-color: #ccc;" id="id">
 				<button type="button" class="button" style="color: white;" onclick="openId()">아이디 중복확인</button>
 			</td>
 		</tr>

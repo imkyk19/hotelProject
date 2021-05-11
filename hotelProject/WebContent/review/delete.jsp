@@ -8,5 +8,5 @@ reviewDao dao=new reviewDao();
 
 dao.deleteContent(h_num);
 
-response.sendRedirect("../main.jsp?go=review/review.jsp?pageNum="+pageNum);
+response.sendRedirect("../main.jsp?go=review/content.jsp?h_num="+h_num+"&pageNum="+pageNum);
 %>

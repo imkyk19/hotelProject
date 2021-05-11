@@ -148,7 +148,7 @@ public class reviewDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		conn = db.getCommonConnection();
-		String sql = "update review set type=?,subject=?,content=?,image=? where num=?";
+		String sql = "update review set type=?,subject=?,content=?,image=? where h_num=?";
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, type);
@@ -399,6 +399,74 @@ public class reviewDao {
 				db.dbColse(rs, pstmt, conn);
 			}
 			return list;
+		}
+		
+		//나의 후기글 페이지 출력
+		public List<reveiwDto> getUserList(String g_num) {
+			
+			List<reveiwDto> list=new Vector<reveiwDto>();
+			
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			
+			conn=db.getCommonConnection();
+			String sql="select * from review where g_num=? order by h_num desc";
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				//바인딩
+				pstmt.setString(1, g_num);
+				//실행
+				rs=pstmt.executeQuery();
+				//데이터 넣기
+				while(rs.next()) {
+					reveiwDto dto=new reveiwDto();
+					
+					dto.setH_num(rs.getString("h_num"));
+					dto.setType(rs.getString("type"));
+					dto.setG_num(rs.getString("g_num"));
+					dto.setSubject(rs.getString("subject"));
+					dto.setContent(rs.getString("content"));
+					dto.setImage(rs.getString("image"));
+					dto.setReadcount(rs.getInt("readcount"));
+					dto.setLikes(rs.getInt("likes"));
+					dto.setWriteday(rs.getTimestamp("writeday"));
+					//list에 추가
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbColse(rs, pstmt, conn);
+			}
+			return list;
+		}
+		
+		//나의 문의글의 전체개수 구하는 메서드
+		public int getUserTotalCount(String g_num) {
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			
+			conn=db.getCommonConnection();
+			String sql="select count(*) from review where g_num=?";
+			int n=0;
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, g_num);
+				rs=pstmt.executeQuery();
+				if(rs.next())
+					n=rs.getInt(1);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbColse(rs, pstmt, conn);
+			}
+			return n;
 		}
 
 }
