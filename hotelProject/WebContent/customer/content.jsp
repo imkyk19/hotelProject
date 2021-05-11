@@ -44,7 +44,7 @@
 	span.adel{
 		margin-left: 3px;
 		cursor: pointer;
-		font-size: 1.2em;
+		font-size: 2em;
 	}
 	
 	span.adel:active{
@@ -193,10 +193,11 @@ onclick="location.href='main.jsp?go=customer/questioncheck.jsp?pageNum=<%=pageNu
 	
 	//삭제버튼 클릭 이벤트
 	$(document).on("click","span.adel", function() {
+		alert("ss");
 		var idx=$(this).attr("idx");
 		var num=$("#num").val();
 		var pageNum=$("#pageNum").val();
-		console.log(idx);
+		console.log("idx:"+idx);
 
 		
 	});
