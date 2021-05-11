@@ -404,7 +404,7 @@
                                     </tr>
                                      <tr>
                                     	<th width="80px;">내용</th>
-                                    	<td colspan="2"><textarea style="width: 500px;height: 300px;" class="input"><%=dto.getContent() %></textarea></td>
+                                    	<td colspan="2" style="height: 300px;"><span style="width: 500px;height: 300px;" ><%=dto.getContent() %></span></td>
                                     </tr>
                                      <tr>
                                     	<th width="80px;">답글</th>
