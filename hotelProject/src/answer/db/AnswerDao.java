@@ -118,5 +118,42 @@ public class AnswerDao {
 			db.dbColse(pstmt, conn);
 		}
 	}
+	
+	//관리자 페이지-데이터 얻기
+	public AnswerDto getAnswer(String idx){
+		//반환타입 list 선언
+		AnswerDto dto=new AnswerDto();
+		//변수선언
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		//sql문
+		String sql="select * from answer where idx=?";
+		//db연결
+		conn=db.getCommonConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			//바인딩
+			pstmt.setString(1, idx);
+			//실행
+			rs=pstmt.executeQuery();
+			//dto에 데이터 넣기
+			if(rs.next()) {
+				
+				dto.setIdx(rs.getString("idx"));
+				dto.setContent(rs.getString("content"));
+				dto.setNum(rs.getInt("num"));
+				dto.setWriteday(rs.getTimestamp("writeday"));		
+					
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbColse(rs, pstmt, conn);
+		}
+		
+		return dto;
+	}
 
 }

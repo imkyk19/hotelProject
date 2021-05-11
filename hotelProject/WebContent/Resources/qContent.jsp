@@ -1,3 +1,5 @@
+<%@page import="answer.db.AnswerDto"%>
+<%@page import="answer.db.AnswerDao"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="question.db.QuestionDto"%>
 <%@page import="question.db.QuestionDao"%>
@@ -32,12 +34,22 @@
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/style.css">
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 	<style type="text/css">
 		tr.showcontent:hover{
+			cursor: pointer;
+		}
+		span.delanswer:hover{
+			color: black;
+			cursor: pointer;
+		}
+		span.updateanswer:hover{
+			color: black;
 			cursor: pointer;
 		}
 		
@@ -366,11 +378,11 @@
                     <h1 class="h3 mb-2 text-gray-800">문의</h1>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4" style="width: 65%;">
+                    <div class="card shadow mb-4" style="width: 800px;">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary"></h6>
                         </div>
-                        <div class="card-body" style="width: 60%;">
+                        <div class="card-body" style="width: 800px;;">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable"  cellspacing="0">   
 	                                <%
@@ -380,28 +392,47 @@
 	                                %>                                                                 
                                     <tr style="width: 580px;">
                                     	<th width="80px;">문의 종류</th>
-                                    	<td><%=dto.getType() %></td>
+                                    	<td colspan="2"><%=dto.getType() %></td>
                                     </tr>
                                     <tr>
                                     	<th width="80px;">작성자</th>
-                                    	<td><%=dto.getName() %></td>
+                                    	<td colspan="2"><%=dto.getName() %></td>
                                     </tr>
                                      <tr>
                                     	<th width="80px;">제목</th>
-                                    	<td><%=dto.getSubject() %></td>
+                                    	<td colspan="2"><%=dto.getSubject() %></td>
                                     </tr>
                                      <tr>
                                     	<th width="80px;">내용</th>
-                                    	<td><textarea style="width: 500px;height: 300px;"><%=dto.getContent() %></textarea></td>
+                                    	<td colspan="2"><textarea style="width: 500px;height: 300px;" class="input"><%=dto.getContent() %></textarea></td>
                                     </tr>
                                      <tr>
                                     	<th width="80px;">답글</th>
-                                    	<td><textarea style="width: 500px;"></textarea></td>
+                                    	<td><textarea style="width: 500px;" class="input addanswer"></textarea></td>
+                                    	<td><button class="btn btn-info btn-sm addanswer" style="width: 80px;" type="button">답글 작성</button></td>                                    	
                                     </tr>
+                                    <%
+                                    	AnswerDao adao=new AnswerDao();
+                                    	List<AnswerDto>list=adao.getAnswerList(num);
+                                    	SimpleDateFormat sdf= new SimpleDateFormat("yy-MM-dd HH:mm");
+                                    	if(list.size()!=0){
+                                    		//답글이 있다면
+                                    		for(AnswerDto ad:list){
+                                    		
+                                    		%>
+                                    		<tr>
+                                    			<th width="80px;">답글</th>
+                                    			<td><span style="width: 100px;text-align: left;" class="answer"><%=ad.getContent() %></span>                                  
+                                    			</td>
+                                    			<td><span class="delanswer" num="<%=ad.getIdx()%>"><i class="far fa-trash-alt"></i></span>&nbsp;<span class="updateanswer" num="<%=ad.getIdx()%>"><i class="fas fa-edit"></i></span></td>
+                                    		</tr>
+                                    		
+                                    		<%}
+                                    		}
+                                    	
+                                    %>                                   
                                 </table>
-                                <div>
-                                	<button class="btn btn-info" style="margin-left: 300px;">답글 작성</button>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -454,7 +485,70 @@
     </div>
     
    
-       
+ <script type="text/javascript">
+	//답글 작성 이벤트
+	$("button.addanswer").click(function(){
+		var answer=$("textarea.addanswer").val();
+		var num=<%=num%>;
+		$.ajax({
+			data:{"answer":answer,"num":num},
+			dataType:"html",
+			url:"addanswer.jsp",
+			type:"get",
+			success:function(){
+				location.reload();
+			}
+		});
+	});
+	
+	//답글 삭제 이벤트
+	$("span.delanswer").click(function(){
+		var idx=$(this).attr("num");
+		var t=confirm("정말 삭제하시겠습니까?");
+		if(t){
+			$.ajax({
+				data:{"idx":idx},
+				dataType:"html",
+				url:"delanswer.jsp",
+				type:"get",
+				success:function(){
+					location.reload();
+				}
+			});
+		}
+	});
+	
+	//답글 수정 이벤트
+	$("span.updateanswer").click(function(){
+		var idx=$(this).attr("num");
+		$.ajax({
+			data:{"idx":idx},
+			dataType:"json",
+			url:"getanswer.jsp",
+			type:"get",
+			success:function(d){
+				var answer=d.answer;
+				var t=prompt("정말 수정하시겠습니까?",answer );
+				if(t!=answer){
+				
+					$.ajax({
+						data:{"idx":idx,"answer":t},
+						dataType:"html",
+						url:"updateanswer.jsp",
+						type:"get",
+						success:function(){
+							location.reload();
+						}
+					});
+				}
+					
+			}
+		});
+			
+		
+	});
+ 
+ </script>   
   
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

@@ -1,3 +1,4 @@
+<%@page import="answer.db.AnswerDao"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="question.db.QuestionDto"%>
 <%@page import="question.db.QuestionDao"%>
@@ -370,13 +371,13 @@
                     <h1 class="h3 mb-2 text-gray-800">문의 관리</h1>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" style="width: 1000px;">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary"></h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="800px;" cellspacing="0">
                                     <thead>
                                         <tr>
                                        		<th style="width: 80px;">no</th>                                         
@@ -404,16 +405,29 @@
                                     	SimpleDateFormat sdf= new SimpleDateFormat("yy-MM-dd");
                                     	//순서 변수
                                     	int no=0;
-                                    	for(QuestionDto d:list){%>
+                                    	for(QuestionDto d:list){
+                                    		//답글 수 구하기
+                                    		AnswerDao adao =new AnswerDao();
+                                    		int cnt=adao.getAnswerList(d.getNum()).size();
+                                    		
+                                    	%>
                                     	<!-- 회원목록 출력 -->	
                                     	<tr class="showcontent" num="<%=d.getNum()%>">
                                             <th><%= ++no %></th>                                         
                                             <th><%=d.getType() %></th>
-                                           	<th><%=d.getSubject() %></th>
+                                            <%
+                                            	if(cnt>0){%>
+                                            		<th><span style="margin-left: 5px; color: gray; font-size: 0.8em; font-weight: bold;">[답변완료] </span> <%= d.getSubject() %></th>
+                                            	<% }else{%>
+                                            		<th><%= d.getSubject() %></th>
+                                            	<% }
+                                            %>
+                                           
                                            	<th><%=d.getName() %></th>
                                            	 <th><%=sdf.format(d.getWriteday())%></th>
                                         </tr>		
                                     	<%}
+                                    	
                                     %>
                                         
                                     </tbody>
