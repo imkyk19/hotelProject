@@ -101,11 +101,56 @@
 		});
 	};
 	
+	/* function roomList(){
+		$.ajax({
+			type: "get",
+			dataType: "xml",
+			url: ".jsp",
+			data: {"checkin_date":checkin_date, "checkout_date":checkout_date, "adult":adult, "children":children},
+			success: function(d){
+				$("#checkin_date").html(checkin_date);
+				$("#checkout_date").html(checkout_date);
+				$("#adult").html(adult);
+				$("#children").html(children)
+			}
+		});
+	}; */
+	<%
+		String checkin_date = request.getParameter("checkin_date");
+		String checkout_date = request.getParameter("checkout_date");
+		/* int adult = Integer.parseInt(request.getParameter("adult"));
+		int children = Integer.parseInt(request.getParameter("children"));
+		int capacity = adult + children; */
+		
+		/* System.out.println("checkin:"+checkin_date);
+		System.out.println("checkout:"+checkout_date);
+		System.out.println("adult"+adult);
+		System.out.println("children"+children);
+		System.out.println("capacity"+capacity); */
+	%>
+	
 	$(function(){
+	 	
+		var date = new Date();
+		
+		var day = date.getDate();
+		var month = date.getMonth()+1;
+		var year = date.getFullYear();
+		
+		if(month<10)
+			month = "0" + month;
+		if(day<10)
+			day = "0" + day;
+		
+		var today = year + "-" + month + "-" + day;
+		//$("#checkin_date").attr("value", today);
+		
+		
+		
 		$("#btnsearch").click(function(e) {
 			e.preventDefault();
 			data=$("#reservefrm").serialize();
-			//alert(data);
+			alert(data);
 			//list();
 			var adultvalue = $("select[name=adult] option").filter(":selected").val();
 			var childvalue = $("select[name=children] option").filter(":selected").val();
@@ -113,6 +158,10 @@
 			//alert("child =" + childvalue);
 			var ckInDate = $("#checkin_date").val();
 			var ckOutDate = $("#checkout_date").val();
+			if(ckInDate <= today){
+				alert("예약 날짜를 오늘 날짜 이후로 잡아주세요");
+				return;
+			}
 			if(ckInDate == ""){
 				alert("체크인 날짜를 선택하세요");
 				return;
@@ -137,12 +186,12 @@
 		});
 		
 		
-	});
+	}); 
 </script>
 </head>
 <body>
 <div class = "reserve">
-<form action="#" id = "reservefrm">
+<form action="#" id = "reservefrm" method="post">
 
 		<table class="booking">
 			<thead class="title">
@@ -169,23 +218,23 @@
 					</td> --%>
 					<td>
 						<label for = "checkin_date">Check In: </label>
-						<%
+						<%-- <%
 							Date date = new Date();
 							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 							String today = sdf.format(date);
-						%>
-						<input type="date" id = "checkin_date" name = "checkin_date" required="required">
+						%> --%>
+						<input type="date" id = "checkin_date" name = "checkin_date" required="required" value="<%=checkin_date%>">
 						
 						
 					</td>
 					<td>
 						<label for = "checkout_date">Check Out: </label>
-						<input type="date" id = "checkout_date" name = "checkout_date" required="required">
+						<input type="date" id = "checkout_date" name = "checkout_date" required="required" value = "<%=checkout_date%>">
 						
 					</td>
 					<td >
 						<label for = "adult">Adults: </label>
-						<select name = "adult" id = "adult" required="required" class = "people">
+						<select name = "adult" id = "adult" required="required" class = "people" >
 							<option value = "select" selected="selected">--Select--</option>
 							<option value = 1>1</option>
 							<option value = 2>2</option>
@@ -194,7 +243,7 @@
 					</td>
 					<td >
 						<label for = "children">Children: </label>
-						<select name = "children" id = "children" required="required" class = "people">
+						<select name = "children" id = "children" required="required" class = "people" >
 							<option value = "select" selected="selected">--Select--</option>
 							<option value = 0>0</option>
 							<option value = 1>1</option>
@@ -236,6 +285,9 @@
 			adult = ($(this).val());
 			
 			console.log(adult);
+			capacity = parseInt(adult) + parseInt(children)
+			console.log(capacity);
+			$("#capacity").val(capacity);
 		})
 		
 		$("#children").change(function() {
