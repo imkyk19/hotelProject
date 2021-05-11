@@ -28,7 +28,8 @@
 	String to = email;
 	String subject = "그레이스호텔 회원가입을 위한 이메일 확인 메일입니다.";
 	String content = "다음 링크에 접속하여 이메일 확인을 진행하세요." +
-		"<a href='" + host + "?code=" + new SHA256().getSHA256(to) + "'>이메일 인증하기</a>";
+		"<a href='" + host + "?code=" + new SHA256().getSHA256(to) + "'>이메일 인증하기</a><br><br>"+
+		"<img src='https://cdn.pixabay.com/photo/2017/05/31/10/23/manor-house-2359884_960_720.jpg' style='width=400px;'>";
 
 	
 

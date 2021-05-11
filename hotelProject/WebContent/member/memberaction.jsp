@@ -25,6 +25,9 @@
 	String email=request.getParameter("email1")+"@"+request.getParameter("email2");
 	String id=request.getParameter("idsel");	
 	String pass=request.getParameter("pass");
+	String google=request.getParameter("google");
+	if(google==null)
+		google="no";
 	
 
 	GuestDto dto=new GuestDto();
@@ -35,10 +38,11 @@
 	dto.setId(id);
 	dto.setName(name);
 	dto.setPass(pass);
+	dto.setGoogle(google);
 	
 	GuestDao dao=new GuestDao();
 	dao.insertGuest(dto);
-	response.sendRedirect("../main.jsp?go=member/join.jsp?name="+name+"&id="+id);
+	response.sendRedirect("../main.jsp?go=member/join.jsp&name="+name+"&id="+id);
 %>
 
 

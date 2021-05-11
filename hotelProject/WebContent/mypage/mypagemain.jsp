@@ -107,50 +107,44 @@ String id=session.getAttribute("id").toString();
 	<table style="width:600px;"class="table table-bordered">
 		<caption>기본정보</caption>
 		<tr>
-				<td>아이디</td>
+				<td style="width:70px;">아이디</td>
 			<td>
-			<%=dto.getId()%>
+				<%=dto.getId()%>
 			</td>
 		</tr>
 		<tr>
-			<td>성명</td>
+			<td style="width:70px;">성명</td>
 			<td>
-				<input type="text" class="form-control input-sm"
-					style="width: 150px;"
-					 name="name" required="required"
-					readonly="readonly" value="<%=dto.getName()%>">				
+				<%=dto.getName()%>		
 			</td>
 		</tr>
 		
 		<tr>
-			<td>생년월일</td>
+			<td style="width:100px;">생년월일</td>
 			<td>
-			<input type="text" id="birth" name="birth" style="width: 150px;"  readonly="readonly"
-			value="<%=dto.getBirth().substring(0, 10)%>">
+				<%=dto.getBirth().substring(0, 10)%>
 			</td>
        </tr>	
 
 
 		<tr>
-			<td>이메일</td>
+			<td style="width:70px;">이메일</td>
 			<td>
-			<input type="text" name="email" style="width: 150px;" class="input" readonly="readonly"value="<%=dto.getEmail() %>">
+				<%=dto.getEmail() %>
 			</td>
 		</tr>
 
 		<tr>
-			<td>휴대전화</td>
+			<td style="width:70px;">휴대전화</td>
 			<td>
-	 		<input type="text" name="hp" id="hp" maxlength="13"
-	 			style="width: 150px;"required="required" readonly="readonly" value="<%=dto.getHp() %>" >
+	 			<%=dto.getHp() %>
 	 		</td>  
 		</tr>
 
 		<tr>
-			<td>주소</td>
+			<td style="width:70px;">주소</td>
 			<td>
-				<input type="text" name="addr" id="addr" class="input" style="width: 400px;"
-				readonly="readonly" value="<%=dto.getAddr() %>">
+				<%=dto.getAddr() %>
 			</td>
 		</tr>
 	</table>

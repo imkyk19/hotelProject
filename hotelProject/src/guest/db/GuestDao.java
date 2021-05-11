@@ -277,7 +277,7 @@ DbConnect db=new DbConnect();
                Connection conn=null;
                PreparedStatement pstmt=null;
                
-               String sql="insert into guest values (seq_q.nextval,?,TO_DATE(?,'yyyy-MM-dd'),?,?,?,?,?,0)";
+               String sql="insert into guest values (seq_q.nextval,?,TO_DATE(?,'yyyy-MM-dd'),?,?,?,?,?,0,?)";
                conn=db.getCommonConnection();
                try {
                   pstmt=conn.prepareStatement(sql);
@@ -288,6 +288,7 @@ DbConnect db=new DbConnect();
                   pstmt.setString(5, dto.getAddr());
                   pstmt.setString(6, dto.getId());
                   pstmt.setString(7, dto.getPass());
+                  pstmt.setString(8, dto.getGoogle());
                   
                   pstmt.execute();
                } catch (SQLException e) {
@@ -477,11 +478,81 @@ DbConnect db=new DbConnect();
 
 	               }
 			
-			 
+			 //google아이디인지 체크
+			 public boolean isGoogleCheck(String google) {
+		         boolean t=false;     
+		         Connection conn=null;
+		         PreparedStatement pstmt=null;
+		         ResultSet rs=null;
+		         
+		         String sql="select * from guest where google=?";
+		         conn=db.getCommonConnection();
+		         try {
+		            pstmt=conn.prepareStatement(sql);
+		            pstmt.setString(1, google);
+		            rs=pstmt.executeQuery();
+		            if(rs.next()) {
+		               t=true;
+		            }
+		         } catch (SQLException e) {
+		            // TODO Auto-generated catch block
+		            e.printStackTrace();
+		         }finally {
+		            db.dbColse(rs, pstmt, conn);
+		         }
+		         return t;
+		      }
 			 
 			
 				
-				
+			 public GuestDto getGoogleId(String google)
+
+		      {
+		         GuestDto dto=new GuestDto();
+		         Connection conn=null;
+
+		         PreparedStatement pstmt=null;
+
+		         ResultSet rs=null;
+
+		         String sql="select * from guest where google=?";
+
+		         conn=db.getCommonConnection();
+
+		   
+
+		         try {
+
+		            pstmt=conn.prepareStatement(sql);
+		            pstmt.setString(1, google);
+		            rs=pstmt.executeQuery();
+		            if(rs.next())
+
+		            {
+		               dto.setG_num(rs.getString("g_num"));
+		               dto.setName(rs.getString("name"));
+		               dto.setBirth(rs.getString("birth"));
+		               dto.setEmail(rs.getString("email"));
+		               dto.setHp(rs.getString("hp"));
+		               dto.setAddr(rs.getString("addr"));
+		               dto.setId(rs.getString("id"));
+		               dto.setPass(rs.getString("pass"));
+		               dto.setMana(rs.getInt("mana"));
+
+		            }
+
+		         } catch (SQLException e) {
+
+		            // TODO Auto-generated catch block
+
+		            e.printStackTrace();
+
+		         }finally {
+
+		            db.dbColse(rs, pstmt, conn);
+
+		         }return dto;
+		      }
 	      
 	}
 			

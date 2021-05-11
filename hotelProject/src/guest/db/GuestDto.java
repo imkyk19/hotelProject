@@ -11,6 +11,8 @@ public class GuestDto {
 	private String id;
 	private String pass;
 	private int mana;
+	private String google;
+	
 	public String getG_num() {
 		return g_num;
 	}
@@ -64,6 +66,12 @@ public class GuestDto {
 	}
 	public void setMana(int mana) {
 		this.mana = mana;
+	}
+	public String getGoogle() {
+		return google;
+	}
+	public void setGoogle(String google) {
+		this.google = google;
 	}
 	
 	

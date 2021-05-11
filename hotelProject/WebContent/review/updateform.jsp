@@ -1,3 +1,4 @@
+<%@page import="review.db.reveiwDto"%>
 <%@page import="guest.db.GuestDto"%>
 <%@page import="review.db.reviewDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -35,18 +36,17 @@
 //로그인된 아이디 세션 값 얻기
 String id=(String)session.getAttribute("id");
 String loginok=(String)session.getAttribute("loginok");
-String ok="ok";
-System.out.print("id:"+loginok);
-
+System.out.print("id:"+id);
+String h_num=request.getParameter("h_num");
+String pageNum=request.getParameter("pageNum");
 reviewDao dao=new reviewDao();
+reveiwDto rdto=dao.getData(h_num);
 
 //아이디를 통해 해당 개인정보 가져오기
 GuestDto dto=dao.getId(id);
 //아이디를 통해 해당 g_num(guest테이블)값 가져오기
 String g_num=dto.getG_num();
 
-//미로그인시 로그인폼 이동
-if(loginok!=null){
 	%>
 <div class="reviewform">
 	<div class="reviewmenu">
@@ -56,10 +56,12 @@ if(loginok!=null){
 	</div>
 </div>
 
-<form action="review/reviewaction.jsp" method="post" enctype="multipart/form-data">
+<form action="review/updateaction.jsp" method="post" enctype="multipart/form-data">
 	<table class="table table-bordered rtable" style="width: 800px;">
-		<caption><b style="font-size: 2em; color: #524630; font-weight: bold;'">후기글 작성</b></caption>
+		<caption><b style="font-size: 2em; color: #524630; font-weight: bold;'">후기글 수정</b></caption>
 		<input type="hidden" name="g_num" id="g_num" value="<%=g_num%>">
+		<input type="hidden" name="h_num" id="g_num" value="<%=h_num%>">
+		<input type="hidden" name="pageNum" value="<%=pageNum%>">
 		<tr>
 			<td bgcolor="#fff7e8" style="height: 20px;">아이디</td>
 			<td><%=id%>
@@ -87,25 +89,30 @@ if(loginok!=null){
 		<tr>
 			<td bgcolor="#fff7e8" style="height: 20px;">제목</td>
 			<td>
-				<input type="text" name="subject" id="subject" num=""; class="form-control" required="required" style="width: 500px;">
+				<input type="text" name="subject" id="subject" num=""; class="form-control" required="required" style="width: 500px;"
+					value="<%=rdto.getSubject() %>">
 			</td>
 		</tr>
 		<tr>
 			<td bgcolor="#fff7e8" style="height: 40px;">내용</td>
 			<td>
-			<textarea name="content" id="content" class="form-control" required="required" style="width: 500px; height: 150px;"></textarea>
+			<textarea name="content" id="content" class="form-control" required="required" style="width: 500px; height: 150px;">
+			<%=rdto.getContent() %>
+			</textarea>
 			</td>
 		</tr>
 		<tr>
 			<td bgcolor="#fff7e8" style="height: 40px;">사진첨부</td>
 			<td>
-				<input type="file" name="image" id="image" class="form-control" style="width: 300px;">
+				<input type="file" name="image" id="image" class="form-control" style="width: 300px;" value="<%=dao.getPhoto(rdto.getH_num()) %>">
 			</td>
 		</tr>
 	<br>
 	<br>
 	</table>
-	<button type="submit" class="btnq" id="btnq" style="margin-left: 1000px;">등록</button><br><br><br><br><br><br>
+	<button type="button" style="width: 120px; margin-left: 900px; color: white;" class="btnlist"
+onclick="location.href='main.jsp?go=review/review.jsp?pageNum=<%=pageNum%>'">목록</button>
+	<button type="submit" class="btnupdate" id="btnupdate" style="width: 120px; color: white;">수정</button><br><br><br><br><br><br>
 </form>	
 <script type="text/javascript">
 $("#rtpye").change(function() {
@@ -115,19 +122,6 @@ $("#rtpye").change(function() {
 	$("#type").val(p);
 	});
 </script>
-	
-	<%
-}else{
-	%>
-	<script type="text/javascript">
-		alert("로그인이 필요합니다.");
-		location.href="main.jsp?go=login/loginform.jsp";
-	</script>
-	<%
-}
-
-%>
-
 
 </body>
 </html>

@@ -1,9 +1,11 @@
+<%@page import="com.sun.jdi.Location"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="google-signin-scope" content="profile email">
 <meta name = "google-signin-client_id"content = "849640206590-4vnb51rrj4f1qauq29dhecmp8bpaoqu1.apps.googleusercontent.com">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -83,7 +85,7 @@ else
 		<tr>
 			<td colspan="2" >
 				<br>
-				<div class="g-signin2" data-onsuccess="onSignIn" style="margin-left: 250px;"></div>
+				<div class="g-signin2" data-onsuccess="onSignIn" style="margin-left: 250px;"></div>			
 				<br>
 			</td>
 		</tr>
@@ -131,7 +133,38 @@ else
 		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 		  console.log('Name: ' + profile.getName());
 		  console.log('Image URL: ' + profile.getImageUrl());
-		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.		  
+		  
+		  var google= profile.getId().toString();
+		  var name=profile.getName();
+		  var email=profile.getEmail();
+			
+		  
+		   //구글아이디로 로그인한 적이 있는 지 체크
+		  $.ajax({
+			 type:"get",
+			 dataType:"json",
+			 url:"login/goocheckid.jsp",
+			 data:{"google":google},
+			 success:function(d){
+				 var googleok=d.googleok;
+	
+				 if(googleok=="no"){
+					//아이디가 없을 경우 회원가입 창으로
+					 location.href="main.jsp?go=member/memberform.jsp?google="+google+"&email="+email+"&name="+name+"&ech=yes";
+					
+				 }else if(googleok=="yes"){
+					 //아이디가 있을 경우 로그인					
+					 location.href="login/googleloginaction.jsp?google="+google;
+					 
+				 }
+				
+				
+			 }
+			 
+			 
+		  }); 
+		  
 }
 </script>
 </body>

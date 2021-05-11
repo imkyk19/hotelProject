@@ -172,7 +172,7 @@ String id=session.getAttribute("id").toString();
 		<tr>
 			<td>주소</td>
 			<td>
-				<input type="text" name="addr" id="addr" class="input" style="width: 400px;"value="<%=dto.getAddr() %>">
+				<input type="text" name="addr" id="addr" class="input" style="width: 300px;"value="<%=dto.getAddr() %>">
 			</td>
 		</tr>
 	</table>

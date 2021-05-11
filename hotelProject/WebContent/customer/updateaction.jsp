@@ -3,12 +3,12 @@
     pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("utf-8");
-String num=request.getParameter("num");
+String h_num=request.getParameter("h_num");
 String subject=request.getParameter("subject");
 String content=request.getParameter("content");
 String pageNum=request.getParameter("pageNum");
 QuestionDao dao=new QuestionDao();
-dao.updateContent(num, subject, content);
+dao.updateContent(h_num, subject, content);
 
 response.sendRedirect("../main.jsp?go=customer/questioncheck.jsp?pageNum="+pageNum);
 %>
