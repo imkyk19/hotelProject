@@ -51,7 +51,7 @@
 </head>
 <%
 	//아이디값 얻기
-	String id=request.getParameter("mana");
+	String id=(String)session.getAttribute("mana");
 	String num=request.getParameter("num");
 %>
 
@@ -194,6 +194,14 @@
                                     </div>
                                 </form>
                             </div>
+                        </li>
+                        
+                         <!-- Nav Item -preHotel Page -->
+                        <li class="nav-item dropdown no-arrow prehotel">
+                            <a class="nav-link dropdown-toggle" href="../main.jsp" >
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">&nbsp;<i class="fas fa-arrow-left"></i> <i class="fas fa-hotel"></i> Grace Page</span>
+                              
+                            </a>                          
                         </li>
 
                         <!-- Nav Item - Alerts -->
@@ -439,7 +447,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button type="button" class="btn btn-primary" onclick="location.href='logoutaction.jsp'">Logout</button>
                 </div>
             </div>
         </div>

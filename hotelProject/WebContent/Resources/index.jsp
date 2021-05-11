@@ -20,10 +20,22 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
       
+ <style type="text/css">
+ 	li.prehotel{
+ 		text-align: center;
+ 	}
+ 	a.prehotel{
+ 		text-decoration: none;
+ 		margin-top: 10px;
+ 	}
+ </style>
 </head>
 <%
-	//아이디값 얻기
-	String id=request.getParameter("mana");
+	//아이디값 얻기(mana값이 null값이면 로그인 폼 띄우기)
+	String id=(String)session.getAttribute("mana");
+	if(id==null){
+		response.sendRedirect("loginform.jsp");
+	}
 %>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -161,6 +173,14 @@
                                     </div>
                                 </form>
                             </div>
+                        </li>						
+						
+						  <!-- Nav Item -preHotel Page -->
+                        <li class="nav-item dropdown no-arrow prehotel">
+                            <a class="nav-link dropdown-toggle" href="../main.jsp" >
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">&nbsp;<i class="fas fa-arrow-left"></i> <i class="fas fa-hotel"></i> Grace Page</span>
+                              
+                            </a>                          
                         </li>
 
                         <!-- Nav Item - Alerts -->
@@ -213,6 +233,7 @@
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
+                        
 
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -288,7 +309,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=id  %>님</span>
                                 <img class="img-profile rounded-circle"
-                                    src="Resources/img/undraw_profile.svg">
+                                    src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -674,6 +695,25 @@
     </a>
 
 
+ <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='logoutaction.jsp'">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
  <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
