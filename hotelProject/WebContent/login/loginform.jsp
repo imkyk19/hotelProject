@@ -148,16 +148,14 @@ else
 			 data:{"google":google},
 			 success:function(d){
 				 var googleok=d.googleok;
-				 if(googleok=="yes"){
-					 //아이디가 있을 경우 로그인
-					<%
-					session.setAttribute("id", id);
-					session.setAttribute("loginok", "ok");
-					%>
-					 location.href="main.jsp";
-				 }else{
-					 //아이디가 없을 경우 회원가입 창으로
+	
+				 if(googleok=="no"){
+					//아이디가 없을 경우 회원가입 창으로
 					 location.href="main.jsp?go=member/memberform.jsp?google="+google+"&email="+email+"&name="+name+"&ech=yes";
+					
+				 }else if(googleok=="yes"){
+					 //아이디가 있을 경우 로그인					
+					 location.href="login/googleloginaction.jsp?google="+google;
 					 
 				 }
 				
