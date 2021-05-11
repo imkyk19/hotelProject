@@ -43,6 +43,13 @@ button{
 	float: left;
 }
 
+div.btnbox{
+	position: absolute;
+	width: 900px;
+	height: 100px;
+	margin-left: 1200px;
+}
+
 </style>
 </head>
 <%
@@ -57,6 +64,7 @@ button{
 	
 	//로그인 되어있는지 체크
 	String loginok=(String)session.getAttribute("loginok");
+	System.out.print("loginok:"+loginok);
 	
 	//db처리 위한 dao 선언
 	reviewDao dao=new reviewDao();
@@ -89,17 +97,6 @@ button{
 		currentPage=Integer.parseInt(pageNum);
 %>
 
-<%
-if(loginok!=null && id.equals(gdto.getId())){
-	%>
-	<button type="button" style="width: 120px; margin-left:1200px; color: white;"" class="btnupdate"
-		onclick="location.href='main.jsp?go=review/updateform.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=pageNum%>'">수정</button>
-	<button type="button" style="width: 120px;  color: white;" class="btndelete"
-		onclick="location.href='main.jsp?go=review/delete.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=pageNum%>'">삭제</button>	
-	<%
-}else{
-	%>
-
 <body>
 <div class="reviewform">
 	<div class="reviewmenu">
@@ -119,7 +116,7 @@ if(loginok!=null && id.equals(gdto.getId())){
 		//System.out.println("클릭되어있으면1 안되어있으면0:"+thumbs);
 		%>
 		<caption><b class="glyphicon glyphicon-thumbs-up thumbs" style="float: right; color: red;" 
-				h_num="<%=dto.getH_num() %>" pageNum="<%=pageNum%>" subject="<%=dto.getSubject()%>" id="<%=id%>" thumbs="<%=thumbs %>"></b></caption>
+				h_num="<%=dto.getH_num() %>" pageNum="<%=pageNum%>" subject="<%=dto.getSubject()%>" id="<%=id%>" thumbs="<%=thumbs %>" loginok="<%=loginok%>"></b></caption>
 		<%
 	}else{
 		%>
@@ -169,9 +166,19 @@ if(loginok!=null && id.equals(gdto.getId())){
 <button type="button" style="width: 120px; margin-left: 1000px; color: white;" class="btnlist"
 onclick="location.href='main.jsp?go=review/review.jsp?pageNum=<%=pageNum%>'">목록</button>
 
+<%
+if(loginok!=null && id.equals(gdto.getId())){
+	%>
+	<div class="btnbox" >
+		<button type="button" style="width: 120px; color: white; margin-right: 20px;" class="btnupdate"
+		onclick="location.href='main.jsp?go=review/updateform.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=pageNum%>'">수정</button>
+	<button type="button" style="width: 120px;  color: white;" class="btndelete"
+		onclick="location.href='main.jsp?go=review/delete.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=pageNum%>'">삭제</button>	
+	</div>
 	<%
 }
 %>
+
 
 <br><br><br><br><br>
 
@@ -187,12 +194,15 @@ $("b.thumbs").click(function() {
 	var subject=$(this).attr("subject");
 	var id=$(this).attr("id");
 	var thumbs=$(this).attr("thumbs");
+	var loginok=$(this).attr("loginok");
+	console.log(loginok);
 	
 	//클릭시	
 	if(click){
 		//미로그인시 로그인폼 이동
-		if(id=="null"){
+		if(loginok!="ok"){
 			alert("로그인이 필요합니다.");
+			return;
 		}if(thumbs==1){
 			alert("이미 추천을 누르신 게시글입니다.");
 		}else{

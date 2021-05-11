@@ -1,3 +1,4 @@
+<%@page import="answer.db.AnswerDao"%>
 <%@page import="java.util.Date"%>
 <%@page import="jdk.internal.util.xml.impl.Input"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -169,20 +170,35 @@
 							//현재날짜 게시글만 new 띄우기
 							Date day=new Date();
 							String today=sdf.format(day);
+							AnswerDao adao=new AnswerDao();
+							int acount=adao.getAnswerList(String.valueOf(dto.getNum())).size();
 							if(today.equals(sdf.format(dto.getWriteday()))){
 								%>
 								<a href="<%=path %>" style="color: black; cursor: pointer;" num="<%=dto.getNum()%>" pass="<%=dto.getPass()%>">
 								<%=dto.getSubject() %></a>&nbsp;<img src="image/new.png" style="width: 15px;" height="15px;">
+								<%
+								if(acount>0){
+									%>
+									<span style="margin-left: 5px; color: gray; font-size: 0.8em; font-weight: bold;">[답변완료]</span>
+									<%
+									}
+									%>								
 								<%
 							}else{
 								%>
 								<a href="<%=path %>" style="color: black; cursor: pointer;" num="<%=dto.getNum()%>" pass="<%=dto.getPass()%>">
 								<%=dto.getSubject() %>
 								</a>
+								<%
+								if(acount>0){
+									%>
+									<span style="margin-left: 5px; color: gray; font-size: 0.8em; font-weight: bold;">[답변완료]</span>
+									<%
+									}
+									%>	
 								<% 
 							}
 						%>
-
 						</td>
 						<td>
 						<%=dto.getName() %>
