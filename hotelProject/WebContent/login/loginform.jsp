@@ -1,3 +1,4 @@
+<%@page import="com.sun.jdi.Location"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -152,9 +153,8 @@ else
 					<%
 					session.setAttribute("id", id);
 					session.setAttribute("loginok", "ok");
-					response.sendRedirect("../main.jsp?go=layout/body.jsp");
 					%>
-					 
+					 location.href="main.jsp";
 				 }else{
 					 //아이디가 없을 경우 회원가입 창으로
 					 location.href="main.jsp?go=member/memberform.jsp?google="+google+"&email="+email+"&name="+name+"&ech=yes";
