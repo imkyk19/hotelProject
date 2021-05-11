@@ -96,10 +96,12 @@ $(function(){
 
 
 
-<%
+<% 
+
 ReservationDao dao=new ReservationDao();
 ReservationDto dto=new ReservationDto();
-List<ReservationDto> list=dao.getReservationList();
+//List<ReservationDto> list=dao.getReservationList(g_num);
+//dto=dao.getIndividualReservation(g_num);
 
 GuestDao gdao=new GuestDao();
 GuestDto gdto=new GuestDto();
@@ -129,7 +131,7 @@ if(id!=null &&loginok!=null){
 	<hr style="border:2px solid black;width:200px;margin-left:0px;">
 	<br>
 	<ul>
-		<li><a style="text-decoration: none;" href="main.jsp?go=reserve/reservecheckpage.jsp">
+		<li><a style="text-decoration: none;" href="main.jsp?go=reservecheck/reservecheckpage.jsp">
 		예약 확인/취소
 		</a></li>
 	</ul>
@@ -162,7 +164,7 @@ if(id!=null &&loginok!=null){
 
 
 
-	<h2 style="font-size: 1.8em;color:#8C4C27;"> 예약확인/취소</h2>
+	<h2 style="font-size: 1.8em;color:#8C4C27;"> 예약 확인/취소</h2>
 	<hr style="border:2px solid black;width:720px;margin-right:600px;">
 
 
@@ -186,7 +188,8 @@ if(id!=null &&loginok!=null){
 		<h2 style="font-size: 1.2em;font-weight: bold;">객실/패키지예약</h2>
 
 	  <hr style="border:1px solid black;width:700px;margin-left:0px;">
-
+	
+	<div id="show">show</div>
 </div>	
 
 	<%

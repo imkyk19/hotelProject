@@ -14,11 +14,12 @@
 	PreparedStatement pstmt=null;
 	ResultSet rs=null;
 	
-	String sql="select * from reservation order by room_num";        
+	String sql="select * from reservation where g_num=? order by num";
 	//db연결
 	conn=db.getCommonConnection();
 	try{
 		 pstmt=conn.prepareStatement(sql);
+		 //pstmt.setString(1, g_num);  
 		 rs=pstmt.executeQuery(sql);
 		 while(rs.next())
 		 {
