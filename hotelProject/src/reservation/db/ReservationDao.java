@@ -16,6 +16,7 @@ import review.db.reveiwDto;
 public class ReservationDao {
 	DbConnect db = new DbConnect();
 	
+	//회원전용
 	public void insertReservation(ReservationDto dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -44,7 +45,33 @@ public class ReservationDao {
 		
 	}
 	
-
+	public boolean isReservationCheck(int g_num, String checkin_date, String checkout_date) {
+		boolean t=false;     
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select * from reservation where g_num=? and checkin_date=? and checkout_date=?";
+		conn=db.getCommonConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, g_num);
+			pstmt.setString(2, checkin_date);
+			pstmt.setString(3, checkout_date);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				t=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbColse(rs, pstmt, conn);
+		}
+		return t;
+	}
+	
+	//비회원전용
 	public void insertReservation2(NonMemberReservationDto dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
