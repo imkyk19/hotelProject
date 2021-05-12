@@ -121,6 +121,7 @@
 <div class="reviewform">
 	<div class="reviewmenu">
 	<h2>후기</h2><br>
+	<span class="contact" onclick="location.href='main.jsp?go=review/review.jsp'">후기글 목록</span><br><br>
 	<span class="contact" onclick="location.href='main.jsp?go=review/reviewform.jsp'">후기글 작성</span><br><br>
 	<span class="question" onclick="location.href='main.jsp?go=review/myreview.jsp'">나의 후기글</span><br><br>
 	</div>
@@ -339,7 +340,7 @@ $("#numtype").change(function() {
 
 });
 
-
+//검색 입력
 $("#inputsearch").change(function() {
 	//선택값 얻기
 	var p=$(this).val();
@@ -348,20 +349,66 @@ $("#inputsearch").change(function() {
 	//btn에 넣기
 	$("#btnsearch").attr("search", p);
 	});
-	
+
+//검색 버튼
 $("#btnsearch").click(function() {
 	var search=$(this).attr("search");
 	var h_num=$("#alink").attr("h_num");
 	var pageNum=$("#alink").attr("pageNum");
 	var start=$(this).attr("start");
 	var end=$(this).attr("end");
-	
+
 	$.ajax({
 		type:"get",
-		dataType:"html",
+		dataType:"xml",
 		data:{"h_num":h_num,"pageNum":pageNum,"search":search,"start":start,"end":end},
-		url:"review/searchSubject.",
+		url:"review/searchSubject.jsp",
 		success:function(data){
+			$("#inputsearch").val("");
+			var s="";
+			s+="<table class='table table-hover' style='width: 900px;'>";
+			s+="<tr bgcolor='#fff7e8'>";
+			s+='<th width="50" style="text-align: center;" >번호</th>';
+			s+='<th width="80" style="text-align: center;" >후기유형</th>';
+			s+='<th width="300">제목</th>';
+			s+='<th width="70" style="text-align: center;" >작성자</th>';			
+			s+='<th width="100" style="text-align: center;" >작성일</th>';			
+			s+='<th width="60" style="text-align: center;" >조회수</th>';			
+			s+='<th width="60" style="text-align: center;" >추천</th>';	
+			s+='</tr>';
+			var m=1;
+			$(data).find("answer").each(function(i, element) {
+				var n=$(this);
+				//속성으로 넣은 값 attr로 얻기, 컬럼으로 넣은 값 find로 찾기
+				var h_num=n.attr("h_num");
+				var g_num=n.attr("g_num");
+				var type=n.find("type").text();
+				var subject=n.find("subject").text();
+				var content=n.find("content").text();
+				var readcount=n.find("readcount").text();
+				var likes=n.find("likes").text();
+				var writeday=n.find("writeday").text();
+				var name=n.find("name").text();
+				var path="main.jsp?go=review/content.jsp?h_num="+h_num;
+				
+					s+='<tr align="center">';
+					s+='<td>';
+					s+=m++;
+					s+='</td>';	
+					s+='<td>'+type+'</td>';
+					s+='<td align="left">';
+					s+='<a style="color: black; cursor: pointer;" href='+path+'>'+subject+'</a>';
+					s+='</td>';
+					s+='<td>'+name+'</td>';
+					s+='<td>'+writeday+'</td>';
+					s+='<td>'+readcount+'</td>';
+					s+='<td>'+likes+'</td>';
+					s+='</tr>';
+
+			});
+			s+='</table>';
+			//div에 html로 출력
+			$("div.arraylist").html(s);			
 		}
 	});	
 });

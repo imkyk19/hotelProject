@@ -8,11 +8,12 @@
     pageEncoding="UTF-8"%>
 <data>
 <%
+request.setCharacterEncoding("utf-8");
 //num읽기
 String num=request.getParameter("num");
 
 //list출력을 위한 dao선언
-AnswerDao dao=new AnswerDao();;
+AnswerDao dao=new AnswerDao();
 
 List<AnswerDto> list=dao.getAnswerList(num);
 

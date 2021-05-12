@@ -104,7 +104,7 @@
 if(loginok!=null && id.equals("manager")){
 	%>
 	
-	<div style="width: 800px; background-color: #FAEBD0;" class="form-inline">
+	<div style="width: 700px; background-color: #FAEBD0;" class="form-inline">
 		<b>관리자 <%=id %> : </b>
 		<input type="text" class="form-control" name="reple" id="reple" style="width: 500px;">
 		<button type="button" name="btnreple" id="btnreple" style="color: white;">입력</button>
@@ -158,7 +158,7 @@ onclick="location.href='main.jsp?go=customer/questioncheck.jsp?pageNum=<%=pageNu
 					//관리자 계정 로그인시 삭제 가능
 					if(loginok!=null && id.equals("manager")){
 						%>
-						s+="<span class='adel glyphicon glyphicon-minus' idx="+idx+"></span>";
+						s+="<span class='adel glyphicon glyphicon-trash' idx="+idx+"></span>";
 						<%		
 					}
 					%>
@@ -175,7 +175,7 @@ onclick="location.href='main.jsp?go=customer/questioncheck.jsp?pageNum=<%=pageNu
 		var num=$("#num").val();
 		var pageNum=$("#pageNum").val();
 		var content=$("#reple").val();
-		
+		$("#reple").val("");
 		$.ajax({
 			type:"post",
 			dataType:"html",
@@ -196,10 +196,19 @@ onclick="location.href='main.jsp?go=customer/questioncheck.jsp?pageNum=<%=pageNu
 		var idx=$(this).attr("idx");
 		var num=$("#num").val();
 		var pageNum=$("#pageNum").val();
-		console.log("idx:"+idx);
-		console.log("num:"+num);
-		console.log("pageNum:"+pageNum);
+		$.ajax({
+			type:"get",
+			dataType:"html",
+			url:"customer/deleteanswer.jsp",
+			data:{"num":num,"pageNum":pageNum,"idx":idx},
+			success:function(d){
+				//목록 재출력
+				list();
+			}
+			,error:function(request,status,error){
+			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
 
+		});
 		
 	});
 </script>

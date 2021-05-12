@@ -1,17 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<%@page import="guest.db.GuestDto"%>
+<%@page import="guest.db.GuestDao"%>
 <%@page import="review.db.reviewDao"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%
-request.setCharacterEncoding("utf-8");
+<%@page import="review.db.reveiwDto"%>
+<%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
 
+<%@ page language="java" contentType="text/xml; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<data>
+<%
+//num읽기
+String subject=request.getParameter("search");
 String h_num=request.getParameter("h_num");
 String pageNum=request.getParameter("pageNum");
-String subject=request.getParameter("search");
-int start=Integer.parseInt(request.getParameter("start"));
-int end=Integer.parseInt(request.getParameter("end"));
+String start=request.getParameter("start");
+String end=request.getParameter("end");
 
+//list출력을 위한 dao선언
 reviewDao dao=new reviewDao();
-dao.getSearchList(subject, start, end);
 
-response.sendRedirect("../main.jsp?go=review/review.jsp?pageNum="+pageNum);
+//날짜 표기를 위한 선언
+SimpleDateFormat sdf=new SimpleDateFormat("MM-dd");
+
+//검색 정렬 메서드 호출
+List<reveiwDto> list=dao.getSearchList(subject, start, end);
+
+//데이터 출력
+	for(reveiwDto dto:list){
+		GuestDao gdao=new GuestDao();
+		GuestDto gdto=gdao.getId(dto.getG_num());
+		String name=gdto.getName();
+		%>
+		<answer h_num="<%=dto.getH_num()%>" g_num="<%=dto.getG_num()%>">
+			<type><%=dto.getType() %></type>
+			<subject><%=dto.getSubject() %></subject>
+			<content><%=dto.getContent() %></content>
+			<readcount><%=dto.getReadcount() %></readcount>
+			<likes><%=dto.getLikes() %></likes>
+			<writeday><%=sdf.format(dto.getWriteday())%></writeday>
+			<name><%=name %></name>
+		</answer>
+		<%
+}
 %>
+</data>

@@ -69,8 +69,6 @@ div.btnbox{
 	
 	//로그인 되어있는지 체크
 	String loginok=(String)session.getAttribute("loginok");
-	System.out.println("loginok:"+loginok);
-	System.out.println("id:"+id);
 	
 	//db처리 위한 dao 선언
 	reviewDao dao=new reviewDao();
