@@ -21,8 +21,6 @@ String likes="2";
 
 //list출력을 위한 dao선언
 reviewDao dao=new reviewDao();
-reveiwDto rdto=dao.getData(h_num);
-
 
 
 //날짜 표기를 위한 선언
@@ -31,12 +29,12 @@ SimpleDateFormat sdf=new SimpleDateFormat("MM-dd");
 if(number.equals(readcount)){
 	String array="readcount";
 	List<reveiwDto> list=dao.getArrayList(array, start, end);
-	//이름 얻기
-	GuestDao gdao=new GuestDao();
-	GuestDto gdto=gdao.getId(rdto.getG_num());
-	String name=gdto.getName();
+	
 	//데이터 출력
 	for(reveiwDto dto:list){
+		GuestDao gdao=new GuestDao();
+		GuestDto gdto=gdao.getId(dto.getG_num());
+		String name=gdto.getName();
 		%>
 		<answer h_num="<%=dto.getH_num()%>" g_num="<%=dto.getG_num()%>">
 			<type><%=dto.getType() %></type>
@@ -53,12 +51,12 @@ if(number.equals(readcount)){
 }else if(number.equals(likes)){
 	String array="likes";
 	List<reveiwDto> list=dao.getArrayList(array, start, end);
-	//이름 얻기
-	GuestDao gdao=new GuestDao();
-	GuestDto gdto=gdao.getId(rdto.getG_num());
-	String name=gdto.getName();
+	
 	//데이터 출력
 	for(reveiwDto dto:list){
+		GuestDao gdao=new GuestDao();
+		GuestDto gdto=gdao.getId(dto.getG_num());
+		String name=gdto.getName();
 		%>
 		<answer h_num="<%=dto.getH_num()%>" g_num="<%=dto.getG_num()%>">
 			<type><%=dto.getType() %></type>
@@ -75,12 +73,12 @@ if(number.equals(readcount)){
 }else{
 	String array="writeday";
 	List<reveiwDto> list=dao.getArrayList(array, start, end);
-	//이름 얻기
-	GuestDao gdao=new GuestDao();
-	GuestDto gdto=gdao.getId(rdto.getG_num());
-	String name=gdto.getName();
+
 	//데이터 출력
 	for(reveiwDto dto:list){
+		GuestDao gdao=new GuestDao();
+		GuestDto gdto=gdao.getId(dto.getG_num());
+		String name=gdto.getName();
 		%>
 		<answer h_num="<%=dto.getH_num()%>" g_num="<%=dto.getG_num()%>">
 			<type><%=dto.getType() %></type>
