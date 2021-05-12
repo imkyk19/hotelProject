@@ -63,7 +63,7 @@
 	GuestDao gdao = new GuestDao();
 	gdto = gdao.getData(id);
 	
-	double memberPrice = ((double)dto.getPrice()/100)*90;
+	int memberPrice = (dto.getPrice()/100)*90;
 	//System.out.println("memberPrice = " + memberPrice);
 	//로그인된 아이디 세션 값 얻기
 	
@@ -92,8 +92,8 @@
 					<td><h4>Room Number: <%=roomNum%></h4>
 					<input type="hidden" name = "room_num" id = "room_num" value = "<%=roomNum%>">
 					</td>
-					<td align="right"><h4><b style="color: red;">Price: <%=memberPrice%> 원</b></h4>
-					<input type = "hidden" name = "price" id ="price" value = "<%=dto.getPrice()%>">
+					<td align="right"><h4><b>Price: <s><%=dto.getPrice()%></s></b> <b style="color: red;"><%=memberPrice%> 원</b></h4>
+					<input type = "hidden" name = "price" id ="price" value = "<%=memberPrice%>">
 					</td>
 				</tr>
 				<tr>
@@ -182,7 +182,7 @@
 					data: data,
 					success: function(data){
 						alert("예약 성공!!!");
-						location.href = "main.jsp";
+						location.href = "main.jsp?go=reservecheck/reservecheckpage.jsp";
 					}
 				});
 			});
