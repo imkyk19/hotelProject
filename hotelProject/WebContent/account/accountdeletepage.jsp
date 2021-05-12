@@ -1,3 +1,4 @@
+<%@page import="reservation.db.ReservationDao"%>
 <%@page import="guest.db.GuestDto"%>
 <%@page import="guest.db.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -46,6 +47,7 @@ div.accountdelete{
 
 </style>
 </head>
+
 <%
 
 
@@ -103,7 +105,7 @@ String id=session.getAttribute("id").toString();
 		<tr>
 			<td>아이디</td>
 			<td>
-			<input type="text" name="mid" style="width: 150px;"
+			<input type="text" name="id" style="width: 150px;"
 			class="form-control input-sm"
 			 required="required" readonly="readonly" value="<%=dto.getId()%>">
 			 </td>
@@ -112,7 +114,7 @@ String id=session.getAttribute("id").toString();
 			<td>비밀번호</td>
 
 			<td>
-				<input type="password" id="pass" name="pass" style="width: 150px;"
+				<input type="password" id="Pw" name="Pw" style="width: 150px;"
 			class="form-control input-sm"
 			required="required">
 			</td>

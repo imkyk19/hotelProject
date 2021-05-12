@@ -221,13 +221,13 @@ if(id!=null &&loginok!=null){
 <div class="reservecheck">
 <table class="table table-bordered" style="width: 700px;">
 	<tr bgcolor="#FAEBD0"  >
-		<th>객실번호</th>
-		<th>객실수</th>
-		<th>인원수</th>
-		<th>체크인</th>
-		<th>체크아웃</th>
-		<th>가격</th>
-		<th>예약취소하기</th>
+		<th style="text-align:center;">객실번호</th>
+		<th style="text-align:center;">객실수</th>
+		<th style="text-align:center;">인원수</th>
+		<th style="text-align:center;">체크인</th>
+		<th style="text-align:center;">체크아웃</th>
+		<th style="text-align:center;">가격</th>
+		<th style="text-align:center;">예약취소하기</th>
 	</tr>
 	<%
 		if(totalCount==0){

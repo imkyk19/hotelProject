@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="guest.db.GuestDto"%>
 <%@page import="guest.db.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -49,7 +50,6 @@ div.passwordupdate{
 </style>
 </head>
 <%
-
 
 String id=session.getAttribute("id").toString();
 
@@ -112,6 +112,7 @@ String id=session.getAttribute("id").toString();
 		<tr>
 			<td>새 비밀번호</td>
 			<td>
+				<input type="hidden" id="password" name="password">
 				<input type="password" class="form-control input-sm"
 					style="width: 200px;"
 					id="new_pw" name="newPw" required="required";
@@ -127,8 +128,5 @@ String id=session.getAttribute("id").toString();
 	 onclick="history.back()"id="btncancel">취소</button> 	
 </div>
 </form>	 
-	  	
-
-
 </body>
 </html>
