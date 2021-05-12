@@ -73,7 +73,9 @@
 		</tr>
 		<tr>
 			<td style="width:150px; height: 40px; line-height: 40px;" bgcolor="#fff7e8">E-mail</td>
-			<td style="height: 40px; line-height: 40px;">hotelgrace@hotelgrace.com</td>
+			<td style="height: 40px; line-height: 40px;">
+			<a href="mailto:hotelgrace@hotelgrace.com" style="color: black; text-decoration: none;">hotelgrace@hotelgrace.com</a><br> 
+			</td>
 		</tr>
 	</table>
 	<b>* 객실예약 운영시간 : 평일(월~금요일) 09:00~20:00, 주말(토~일요일) 및 공휴일 09:00~18:00</b>

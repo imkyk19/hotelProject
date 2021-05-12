@@ -59,13 +59,17 @@ public class RoomDao {
 		ResultSet rs = null;
 		//checkout_date 옆에는 체크인 날짜, checkin_date 옆에는 체크아웃 날짜를 넣어라
 		String sql = "SELECT * FROM room r WHERE r.capacity >= ? and r.room_num NOT IN (SELECT b.room_num FROM reservation b "
-				+ "WHERE NOT (b.CHECKOUT_DATE <= ? OR b.CHECKIN_DATE >= ?))ORDER BY r.ROOM_NUM";		
+				+ "WHERE NOT (b.CHECKOUT_DATE <= ? OR b.CHECKIN_DATE >= ?)) AND r.room_num NOT IN (SELECT c.room_num FROM reservation2 c "
+				+ "WHERE NOT (c.CHECKOUT_DATE <= ? OR c.CHECKIN_DATE >= ?)) ORDER BY r.ROOM_NUM";		
 		conn = db.getCommonConnection();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, capacity);
 			pstmt.setString(2, checkin_date);
 			pstmt.setString(3, checkout_date);
+			pstmt.setString(4, checkin_date);
+			pstmt.setString(5, checkout_date);
+			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

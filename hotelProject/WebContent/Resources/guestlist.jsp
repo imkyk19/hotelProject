@@ -65,7 +65,7 @@
 					type:"get",
 					data:{"num":g_num},
 					dataType:"html",
-					url:"../admin/delguestaction.jsp",
+					url:"delguestaction.jsp",
 					success:function(){
 						//새로고침
 						location.reload();
@@ -75,6 +75,65 @@
 			} 
 			
 			
+		});
+		
+		//회원 체크박스 삭제 이벤트
+		$("span.delguestch").click(function(){
+			
+			//체크된 값 배열에 넣기
+			var chk_arr=[];
+			$("input[name=delguestch]:checked").each(function() {
+				var chk=$(this).attr("idd");
+				chk_arr.push(chk);
+			});
+			
+		
+			
+			  var chnum = {
+                      "ch" : chk_arr     //과일배열 저장
+                  };
+			  console.log(chnum);
+			
+			//값 삭제 ajax
+			var t=confirm("정말 "+chk_arr.length+"개의 정보를 삭제하시겠습니까?");
+			if(t){
+				$.ajax({
+					type:"post",
+					data:chnum,
+					dataType:"html",
+					url:"chdelguestaction.jsp",
+					traditional:true,
+					success:function(){
+						//알림
+						alert("삭제되었습니다.");
+						//새로고침
+						location.reload();
+					}
+				});
+			}else{
+				//체크상자 체크 풀기
+				$("input[name=delguestch]").each(function(){
+					$(this).attr("checked",false);
+				});
+				
+				$("input[name=entirecheck]").prop("checked",false);
+			}
+			
+		});
+		
+		//전체 선택 눌렀을 때
+		$("input[name=entirecheck]").change(function(){
+			if($(this).is(":checked")){
+				//체크 됐을 때
+				$("input[name=delguestch]").each(function(){
+					$(this).attr("checked",true);
+				});
+			}else{
+				//체크 풀었을 때
+				$("input[name=delguestch]").each(function(){
+					$(this).attr("checked",false);
+				});
+			}
 		});
 		
 	
@@ -429,41 +488,36 @@
                     <h1 class="h3 mb-2 text-gray-800">회원 목록</h1>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" style="width: 1200px;">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">                           	
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="1100px" cellspacing="0">
                                 
                                     <thead>
-                                    <div style="text-align: right;"><span style="margin-right: 30px;" class="addguest"><i class="fas fa-user-plus" style="color: #074A59;"></i>회원 추가</span></div>
+                                    <div style="text-align: right;"><span style="margin-right: 30px;" class="addguest"><i class="fas fa-user-plus" style="color: #074A59;"></i>회원 추가</span>
+                                    	 <span class="delguestch" num=""><i class="fas fa-user-minus" style="color: red;" ></i>삭제</span>
+                                    </div>
+                                   
                                         <tr>
+                                        	<th><input type="checkbox" name="entirecheck" ></th>
                                         	<th>no</th>
-                                            <th>성명</th>
-                                            <th>생년월일</th>
-                                            <th>이메일</th>
-                                            <th>연락처</th>
-                                            <th>주소</th>
-                                            <th>아이디</th>
-                                            <th>비밀 번호</th>
-                                            <th>고유 번호</th>
+                                        	<th>아이디</th>
+                                            <th>성명</th>                                         
+                                            <th>연락처</th>                                           
                                             <th>관리</th>
                                            
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                        	<th></th>
                                            	<th>no</th>
-                                            <th>성명</th>
-                                            <th>생년월일</th>
-                                            <th>이메일</th>
-                                            <th>연락처</th>
-                                            <th>주소</th>
-                                            <th>아이디</th>
-                                            <th>비밀 번호</th>
-                                            <th>고유 번호</th>
+                                        	<th>아이디</th>
+                                            <th>성명</th>                                         
+                                            <th>연락처</th>                                           
                                             <th>관리</th>
                                         </tr>
                                     </tfoot>
@@ -477,22 +531,18 @@
                                     	for(GuestDto d:list){%>
                                     	<!-- 회원목록 출력 -->	
                                     	<tr>
-                                            <th><%= ++no %></th>
-                                            <th><%= d.getName() %></th>
-                                            <th><%= d.getBirth().substring(0,10) %></th>
-                                           	<th><%= d.getEmail()%></th>
-                                            <th><%= d.getHp() %></th>
-                                            <th><%= d.getAddr() %></th>
-                                           	<th><%= d.getId() %></th>
-                                            <th><%= d.getPass() %></th>
-                                            <th><%= d.getG_num() %></th>
-                                            <th>
+                                    		<th style="width: 20px;"><input type="checkbox" name=delguestch idd="<%=d.getId()%>"></th>
+                                            <th style="width: 20px;"><%= ++no %></th>
+                                            <th><%= d.getId() %></th>
+                                            <th><%= d.getName() %></th>                                           
+                                            <th><%= d.getHp() %></th>                                          
+                                            <th style="width: 20px;">
                                             	<span class="delguest" num="<%= d.getG_num() %>"><i class="fas fa-user-minus" style="color: red;" ></i></span>
                                             </th>
                                         </tr>		
                                     	<%}
                                     %>
-                                        
+                                         
                                     </tbody>
                                 </table>
                             </div>
@@ -500,6 +550,7 @@
                     </div>
 
                 </div>
+               
                 <!-- /.container-fluid -->
 
             </div>

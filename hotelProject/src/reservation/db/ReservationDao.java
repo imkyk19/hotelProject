@@ -44,7 +44,40 @@ public class ReservationDao {
 		
 	}
 	
+
+	public void insertReservation2(NonMemberReservationDto dto) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "insert into reservation2 values (seq_q.nextval,?,?,?,?,?,?,?,?,?)";
+		
+		conn = db.getCommonConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getGuest_name());
+			pstmt.setString(2, dto.getHp());
+			pstmt.setString(3, dto.getAddr());
+			pstmt.setInt(4, dto.getGuest_qty());
+			pstmt.setInt(5, dto.getBooking_qty());
+			pstmt.setInt(6, dto.getTotal_price());
+			pstmt.setInt(7, dto.getRoom_num());
+			pstmt.setString(8, dto.getCheckin_date());
+			pstmt.setString(9, dto.getCheckout_date());
+			
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbColse(pstmt, conn);
+		}
+		
+	}
+	
+	
+
 	public ReservationDto getIndividualReservation(String g_num) {
+
 		ReservationDto dto = new ReservationDto();
 		Connection conn = null;
 		PreparedStatement pstmt = null;

@@ -76,7 +76,24 @@
 	}
   
   </style>
-
+<script type="text/javascript">
+$(function(){
+	var date = new Date();
+	
+	var day = date.getDate();
+	var month = date.getMonth()+1;
+	var year = date.getFullYear();
+	
+	if(month<10)
+		month = "0" + month;
+	if(day<10)
+		day = "0" + day;
+	
+	var today = year + "-" + month + "-" + day;
+	$("#checkin_date").attr("value", today);
+	
+	
+</script>
 </head>
 <body>
 
@@ -147,32 +164,20 @@
 			</thead>
 			<br>
 			<tbody class="bookingform">
-				<tr>
-					<%-- <td >
-						<label for = "room">Rooms: </label>
-						<select name = "room" id = "room">
-						<%
-							for(int i = 0; i <= 3; i++){
-								%>
-								<option><%=i%></option>
-								<%
-							}
-						%>
-						</select>
-					</td> --%>
+				<tr style="height: 100px;">
 					<td>
 						<label for = "checkin_date">Check In: </label>
 						
-						<input type="date" id = "checkin_date" name = "checkin_date" required="required">
+						<input type="date" id = "checkin_date" name = "checkin_date" >
 						
 						
 					</td>
 					<td>
 						<label for = "checkout_date">Check Out: </label>
-						<input type="date" id = "checkout_date" name = "checkout_date" required="required">
+						<input type="date" id = "checkout_date" name = "checkout_date" >
 						
 					</td>
-					<td >
+					<!-- <td >
 						<label for = "adult">Adults: </label>
 						<select name = "adult" id = "adult" required="required" class = "people">
 							<option value = "select" selected="selected">--Select--</option>
@@ -188,7 +193,7 @@
 							<option value = 0>0</option>
 							<option value = 1>1</option>
 						</select>
-					</td>
+					</td> -->
 				</tr>
 			</tbody>
 			<tfoot>
@@ -197,7 +202,7 @@
 					
 					<input type="hidden" name = "ckin_date" id = "ckin_date" value = "">
 					<input type="hidden" name = "ckout_date" id = "ckout_date" value = "">
-					<input type="hidden" name = "capacity" id = "capacity" value = "">
+					<!-- <input type="hidden" name = "capacity" id = "capacity" value = ""> -->
 					
 						<button style="margin-top: 10px; margin-bottom:10px; width: 200px; height: 50px;" type="submit" id = "btnBodySearch" class="btn btn-success btn-lg">Search</button>
 						
@@ -207,7 +212,21 @@
 		</table>
 </form>
 </div> 
+<script type="text/javascript">
 
+
+		$("#checkin_date").change(function() {
+		var checkin_date = $(this).val();
+		$("#ckin_date").attr("value",checkin_date);
+		});
+		
+		$("#checkout_date").change(function() {
+		var checkout_date = $(this).val();
+		$("#ckout_date").attr("value",checkout_date);
+		});
+		
+		
+</script>
 <br><br>
 <!-- 호텔 리워즈 -->
 <div class="rewards">
