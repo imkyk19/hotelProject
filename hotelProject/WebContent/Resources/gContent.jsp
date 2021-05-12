@@ -1,3 +1,11 @@
+<%@page import="java.io.File"%>
+<%@page import="review.db.reveiwDto"%>
+<%@page import="review.db.reviewDao"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="question.db.QuestionDto"%>
+<%@page import="question.db.QuestionDao"%>
+<%@page import="room.db.RoomDto"%>
+<%@page import="room.db.RoomDao"%>
 <%@page import="java.util.List"%>
 <%@page import="guest.db.GuestDto"%>
 <%@page import="guest.db.GuestDao"%>
@@ -17,8 +25,7 @@
     <title>Grace 관리</title>
     
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <SCRIPT src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></SCRIPT>
-    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,166 +38,118 @@
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/style.css">
 
 	<style type="text/css">
-		span.addguest{
+		tr.showcontent:hover{
 			cursor: pointer;
+		}
+		span.updateguest{
+			cursor: pointer;			
 		}
 		span.delguest{
 			cursor: pointer;
 		}
-		tr.showcontent{
-			cursor: pointer;
+		span.updateguest:hover{
+			color: black;		
 		}
+		span.delguest:hover{
+			color: black;
+		}
+		
+	
 	</style>
-	<%
-	//아이디값 얻기(mana값이 null값이면 로그인 폼 띄우기)
-	String id=(String)session.getAttribute("mana");
-	if(id==null){
-		response.sendRedirect("loginform.jsp");
-	}
-%>
+	
 <script type="text/javascript">
+<%
+//아이디값 얻기
+String id=(String)session.getAttribute("mana");
+String num=request.getParameter("num");
+%>
 	$(function(){
-		//회원추가 버튼을 클릭했을때 
-		$("span.addguest").click(function(){
-			$("#myModal").modal();
-		});
-		
-		//회원 삭제 이벤트
+		//삭제 이벤트
 		$("span.delguest").click(function(){
-			var g_num=$(this).attr("num");
+			
 			var t=confirm("정말 삭제하시겠습니까?");
-			
-			 if(t){
-				//관리자가 예를 눌렀을 때
-				$.ajax({
-					type:"get",
-					data:{"num":g_num},
-					dataType:"html",
-					url:"delguestaction.jsp",
-					success:function(){
-						//새로고침
-						location.reload();
-					}
-				});
-				
-			} 
-			
-			
-		});
-		
-		//회원 체크박스 삭제 이벤트
-		$("span.delguestch").click(function(){
-			
-			//체크된 값 배열에 넣기
-			var chk_arr=[];
-			$("input[name=delguestch]:checked").each(function() {
-				var chk=$(this).attr("idd");
-				chk_arr.push(chk);
-			});
-			
-		
-			
-			  var chnum = {
-                      "ch" : chk_arr     //과일배열 저장
-                  };
-			  console.log(chnum);
-			
-			//값 삭제 ajax
-			var t=confirm("정말 "+chk_arr.length+"개의 정보를 삭제하시겠습니까?");
 			if(t){
 				$.ajax({
-					type:"post",
-					data:chnum,
+					type:"get",
+					data:{"num":num},
 					dataType:"html",
-					url:"chdelguestaction.jsp",
-					traditional:true,
+					url:"delguest.jsp",
 					success:function(){
-						//알림
-						alert("삭제되었습니다.");
-						//새로고침
-						location.reload();
+						location.reload();						
 					}
 				});
-			}else{
-				//체크상자 체크 풀기
-				$("input[name=delguestch]").each(function(){
-					$(this).attr("checked",false);
-				});
-				
-				$("input[name=entirecheck]").prop("checked",false);
 			}
+			
+		
+		});
+		
+		//수정 이벤트
+		$("span.updateguest").click(function(){
+			
+			//값얻어와서 집어 넣기
+			$.ajax({
+				type:"get",
+				dataType:"json",
+				data:{"num":<%=num%>},
+				url:"getguest.jsp",
+				success:function(d){
+					var hp1=d.hp1;
+					var hp2=d.hp2;
+					var hp3=d.hp3;					
+					var email1=d.email1;
+					var email2=d.email2;				
+					var year=d.year;
+					var month=d.month;
+					var day=d.day;
+					var name=d.name;
+					var id=d.id;
+					var pass=d.pass;
+					var addr=d.addr;					
+					
+					$("input[name=name]").val(name);
+					$("select[name=year]").val(year);
+					$("select[name=month]").val(month);
+					$("select[name=day]").val(day);
+					$("input[name=email1]").val(email1);
+					$("input[name=email2]").val(email2);
+					$("input[name=addr1]").val(addr);
+					$("input[name=idsel]").val(id);
+					$("input[name=pass]").val(pass);
+					$("input[name=hp1]").val(hp1);
+					$("input[name=hp2]").val(hp2);
+					$("input[name=hp3]").val(hp3);
+					
+				}
+			});
+			
+			$("#myModal").modal();	
+			
 			
 		});
 		
-		//전체 선택 눌렀을 때
-		$("input[name=entirecheck]").change(function(){
-			if($(this).is(":checked")){
-				//체크 됐을 때
-				$("input[name=delguestch]").each(function(){
-					$(this).attr("checked",true);
-				});
-			}else{
-				//체크 풀었을 때
-				$("input[name=delguestch]").each(function(){
-					$(this).attr("checked",false);
-				});
-			}
+		//문의 내역 클릭했을 때
+		$("span.questionlist").click(function(){
+			<%
+				QuestionDao qdao=new QuestionDao();
+				List<QuestionDto>list =qdao.getList();
+			%>
 		});
 		
-		//회원 상세보기 이벤트
-		$("tr.showcontent").click(function(){
-			var num= $(this).attr("num");
-			location.href="gContent.jsp?num="+num;
-		});
-	
 	});
-	
-	//주소창 띄우기 사용자 함수
-	 function openaddr() {
-      new daum.Postcode({
-          oncomplete: function(data) {
-              // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-              // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-              // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-              var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-              var extraRoadAddr = ''; // 도로명 조합형 주소 변수
-
-              // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-              // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-              if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                  extraRoadAddr += data.bname;
-              }
-              // 건물명이 있고, 공동주택일 경우 추가한다.
-              if(data.buildingName !== '' && data.apartment === 'Y'){
-                 extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-              }
-              // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-              if(extraRoadAddr !== ''){
-                  extraRoadAddr = ' (' + extraRoadAddr + ')';
-              }
-              // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-              if(fullRoadAddr !== ''){
-                  fullRoadAddr += extraRoadAddr;
-              }
-
-              // 우편번호와 주소 정보를 해당 필드에 넣는다.
-              document.getElementById('zip').value = data.zonecode; //5자리 새우편번호 사용
-              document.getElementById('addr1').value = fullRoadAddr;
-              document.getElementById('addr2').focus();
-          }
-      }).open();
-  }
 </script>
 </head>
+
 
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
+        <!-- Sidebar -->
        <!-- 사이드바 -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -232,7 +191,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="char">
+                <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>예약관리</span></a>
             </li>
@@ -251,7 +210,7 @@
                     <span>문의 사항</span></a>
             </li>
             
-              <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="reviewlist.jsp">
                     <i class="fas fa-fw fa-table"></i>
                     <span>후기글 관리</span></a>
@@ -493,82 +452,99 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">회원 목록</h1>
+                    <h1 class="h3 mb-2 text-gray-800">회원 정보</h1>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4" style="width: 1200px;">
+                    <div class="card shadow mb-4" style="width: 800px;">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"></h6>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">                           	
-                                <table class="table table-bordered" id="dataTable" width="1100px" cellspacing="0">
-                                
-                                    <thead>
-                                    <div style="text-align: right;"><span style="margin-right: 30px;" class="addguest"><i class="fas fa-user-plus" style="color: #074A59;"></i>회원 추가</span>
-                                    	 <span class="delguestch" num=""><i class="fas fa-user-minus" style="color: red;" ></i>삭제</span>
-                                    </div>
-                                   
-                                        <tr>
-                                        	<th><input type="checkbox" name="entirecheck" ></th>
-                                        	<th>no</th>
-                                        	<th>아이디</th>
-                                            <th>성명</th>                                         
-                                            <th>연락처</th>                                           
-                                            <th>관리</th>
-                                           
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                        	<th></th>
-                                           	<th>no</th>
-                                        	<th>아이디</th>
-                                            <th>성명</th>                                         
-                                            <th>연락처</th>                                           
-                                            <th>관리</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    <%
-                                    	GuestDao dao=new GuestDao();
-                                    	GuestDto dto= new GuestDto();
-                                    	List<GuestDto> list= dao.getGuestList();
-                                    	//순서 변수
-                                    	int no=0;
-                                    	for(GuestDto d:list){%>
-                                    	<!-- 회원목록 출력 -->	
-                                    	<tr class="showcontent" num="<%=d.getG_num()%>">
-                                    		<th style="width: 20px;"><input type="checkbox" name=delguestch idd="<%=d.getId()%>"></th>
-                                            <th style="width: 20px;"><%= ++no %></th>
-                                            <th><%= d.getId() %></th>
-                                            <th><%= d.getName() %></th>                                           
-                                            <th><%= d.getHp() %></th>                                          
-                                            <th style="width: 20px;">
-                                            	<span class="delguest" num="<%= d.getG_num() %>"><i class="fas fa-user-minus" style="color: red;" ></i></span>
-                                            </th>
-                                        </tr>		
-                                    	<%}
-                                    %>
-                                         
-                                    </tbody>
+                        <div class="card-body" style="width: 800px;">
+                            <div class="table-responsive">
+                             <div style="text-align: left;">
+                            	<span class="reservationlist" style="margin-right: 10px;color: #4e73df;"><i class="fas fa-bed" style="color: #4e73df;"></i></i>Reservation</span>
+                            	&nbsp;<span class="questionlist" style="margin-right: 10px;color: #36b9cc;">&nbsp;<i class="fas fa-question" style="color: #36b9cc;"></i></i>&nbsp;Question</span> 
+                            	&nbsp;<span class="reviewlist" style="color: #1cc88a;"><i class="fas fa-child" style="color: #1cc88a;"></i>&nbsp;Review</span>                            	
+                            </div>
+                            <div style="text-align: right;">
+                            	<span class="updateguest"><i class="fas fa-user-edit"></i></span>
+                            	<span class="delguest"><i class="fas fa-user-minus"></i></span>                           	
+                            </div>
+                                <table class="table table-bordered" id="dataTable"  cellspacing="0">                                  	
+	                                <%
+	                                	GuestDao dao=new GuestDao();
+	                                	GuestDto dto=dao.getData2(num);
+	                                
+	                                	
+	                                	
+	                                	
+	                                %>   
+	                                
+	                                	
+	                                                                                         
+                                    
+                                    <tr>
+                                    	<th width="120px;">이름</th>
+                                    	<td><%=dto.getName() %></td>
+                                    	<td width="70px;"><i class="fab fa-google" style="color: blue;"></i>oogle</td>
+                                    	<%
+                                    		
+                                    	
+                                    		if(dto.getGoogle().equals("no")){%>
+                                    			<td style="width: 30px;"><i class="fas fa-times"></i></td>
+                                    		<% }else{%>
+                                    			<td style="width: 30px;"><i class="fas fa-check"></i></td>
+                                    		<% }
+                                    	%>
+                                    			
+                                    		
+                                    	
+                                    </tr>
+                                     <tr>
+                                    	<th width="80px;">아이디</th>
+                                    	<td colspan="3"><%=dto.getId() %></td>
+                                    </tr>
+                                     <tr>
+                                    	<th width="80px;">생년월일</th>
+                                    	<td colspan="3"><%=dto.getBirth().substring(0,10) %></td>
+                                     </tr>
+                                     <tr>
+                                    	<th width="80px;"> 연락처</th>
+                                    	<td colspan="3"><%=dto.getHp() %></td>
+                                     </tr>
+                                      <tr>
+                                    	<th width="80px;">주소</th>
+                                    	<td colspan="3"><%=dto.getAddr() %></td>
+                                     </tr>
+                                     <tr>
+                                    	<th width="80px;">비밀번호</th>
+                                    	<td colspan="3"><%=dto.getPass() %></td>
+                                     </tr>
+                                     
+                                                                          
                                 </table>
+                               
                             </div>
                         </div>
                     </div>
 
                 </div>
-               
+                <!-- listform -->
+                <div class="listform">
+            	
+           	 </div>
                 <!-- /.container-fluid -->
 
             </div>
+             
             <!-- End of Main Content -->
+          
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Grace Hotel 2020</span>
+                        <span>Copyright &copy; Grace</span>
                     </div>
                 </div>
             </footer>
@@ -579,13 +555,15 @@
 
     </div>
     <!-- End of Page Wrapper -->
+     
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    
 
-  <!-- Logout Modal-->
+   <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -605,6 +583,7 @@
         </div>
     </div>
     
+   
      <!-- Modal 사진 클릭시 다이얼로그 형태로 보이게 하기 위한 코드-->
   <div class="modal fade" id="myModal" role="dialog" >
     <div class="modal-dialog modal-lg">
@@ -612,15 +591,16 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" >
-        <h4 class="modal-title imgname">회원 추가</h4>
+        <h4 class="modal-title imgname">회원 정보 수정</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           
         </div>
         <div class="modal-body">
-          <form action="addguest.jsp">
+          <form action="updateguest.jsp">
+          <input type="hidden" name="num" value="<%=num%>">
           	<table>
           		<tr>
-					<th style="width: 100px;">성명</th>
+					<th style="width: 100px;">이름</th>
 					<td>&nbsp;&nbsp;<input type="text" name="name" class="input" required id="name"></td>
 				</tr>
 				<tr>
@@ -705,7 +685,34 @@
 					</td>
 				</tr>
           	</table>
-          		<div style="text-align: center;"><button type="submit" class="btn btn-warning" >추가</button></div>
+          		<div style="text-align: center;"><button type="submit" class="btn btn-warning updateguestbtn" >수정</button></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  	<!-- modal끝 -->
+  	
+  	<!-- Modal Question-->
+  <div class="modal fade" id="questionModal" role="dialog" >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header" >
+        <h4 class="modal-title imgname">문의 내역</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+          <form action="#">
+          
+          	<table class="table table-hover">
+          		
+          	</table>
+          		
           </form>
         </div>
         <div class="modal-footer">
