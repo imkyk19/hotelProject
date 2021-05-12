@@ -63,41 +63,17 @@
 	GuestDao gdao = new GuestDao();
 	gdto = gdao.getData(id);
 	
+	double memberPrice = ((double)dto.getPrice()/100)*90;
+	//System.out.println("memberPrice = " + memberPrice);
 	//로그인된 아이디 세션 값 얻기
 	
 	String loginok=(String)session.getAttribute("loginok");
+	//System.out.println("로그인 체크: " + loginok);
 	//System.out.print("id:"+id);
 
 	//미로그인시 로그인폼 이동
-	if(loginok=="loginok" && id!=null){
+	if(loginok=="ok" && id!=null){
 %>
-	<script type="text/javascript">
-		$(function(){
-			$("#btnPay").click(function(e) {
-				e.preventDefault();
-				data = $("#payfrm").serialize();
-				//alert(data);
-				
-				var card = $("input.card").val();
-				if(card.length == 0){
-					alert("카드 번호를 입력하세요");
-					return;
-				}
-				
-				$.ajax({
-					type: "post",
-					dataType: "html",
-					url: "reservation/insertreservationaction.jsp",
-					data: data,
-					success: function(data){
-						alert("예약 성공!!!");
-						location.href = "main.jsp";
-					}
-				});
-			});
-		});
-	
-	</script>
 	<div class="pay">
 		<form id = "payfrm">
 		<table class = 'table table-bordered pay'>
@@ -116,7 +92,7 @@
 					<td><h4>Room Number: <%=roomNum%></h4>
 					<input type="hidden" name = "room_num" id = "room_num" value = "<%=roomNum%>">
 					</td>
-					<td align="right"><h4><b>Price: <%=dto.getPrice() %> 원</b></h4>
+					<td align="right"><h4><b style="color: red;">Price: <%=memberPrice%> 원</b></h4>
 					<input type = "hidden" name = "price" id ="price" value = "<%=dto.getPrice()%>">
 					</td>
 				</tr>
@@ -186,36 +162,36 @@
 		</table>
 		</form>
 	</div>
+	<script type="text/javascript">
+		
+			$("#btnPay").click(function(e) {
+				e.preventDefault();
+				data = $("#payfrm").serialize();
+				//alert(data);
+				
+				var card = $("input.card").val();
+				if(card.length == 0){
+					alert("카드 번호를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type: "post",
+					dataType: "html",
+					url: "reservation/insertreservationaction.jsp",
+					data: data,
+					success: function(data){
+						alert("예약 성공!!!");
+						location.href = "main.jsp";
+					}
+				});
+			});
+		
+	</script>
 <%
 } else {
 %>
-<script type="text/javascript">
-	$(function(){
-		$("#btnNonMemberPay").click(function(e) {
-			e.preventDefault();
-			data = $("#nonmemberpayfrm").serialize();
-			//alert(data);
-			
-			var card = $("input.card").val();
-			if(card.length == 0){
-				alert("카드 번호를 입력하세요");
-				return;
-			}
-			
-			$.ajax({
-				type: "post",
-				dataType: "html",
-				url: "reservation/insertnonmemberbooking.jsp",
-				data: data,
-				success: function(data){
-					alert("비회원 예약 성공!!!");
-					location.href = "main.jsp";
-				}
-			});
-		});
-	});
 
-</script>
 <div class="pay">
 		<form id = "nonmemberpayfrm">
 		<table class = 'table table-bordered pay'>
@@ -307,7 +283,33 @@
 		</table>
 		</form>
 	</div>
+	
 <script type="text/javascript">
+
+//비회원 결제 버튼 누를 시 액션
+$("#btnNonMemberPay").click(function(e) {
+	e.preventDefault();
+	data = $("#nonmemberpayfrm").serialize();
+	//alert(data);
+	
+	var card = $("input.card").val();
+	if(card.length == 0){
+		alert("카드 번호를 입력하세요");
+		return;
+	}
+	
+	$.ajax({
+		type: "post",
+		dataType: "html",
+		url: "reservation/insertnonmemberbooking.jsp",
+		data: data,
+		success: function(data){
+			alert("비회원 예약 성공!!!");
+			location.href = "main.jsp";
+		}
+	});
+});
+
 //주소창 띄우기 사용자 함수
 function openaddr() {
    new daum.Postcode({
