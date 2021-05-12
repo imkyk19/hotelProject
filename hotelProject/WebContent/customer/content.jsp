@@ -44,7 +44,6 @@
 	span.adel{
 		margin-left: 3px;
 		cursor: pointer;
-		font-size: 1.2em;
 	}
 	
 	span.adel:active{
@@ -138,7 +137,7 @@ onclick="location.href='main.jsp?go=customer/questioncheck.jsp?pageNum=<%=pageNu
 	function list(){
 		var num=$("#num").val();
 		$.ajax({
-			type:"get",
+			type:"post",
 			dataType:"xml",
 			url:"customer/answerlist.jsp",
 			data:{"num":num},
@@ -159,7 +158,7 @@ onclick="location.href='main.jsp?go=customer/questioncheck.jsp?pageNum=<%=pageNu
 					//관리자 계정 로그인시 삭제 가능
 					if(loginok!=null && id.equals("manager")){
 						%>
-						s+="<span class='adel glyphicon glyphicon-trash' idx="+idx+"></span>";
+						s+="<span class='adel glyphicon glyphicon-minus' idx="+idx+"></span>";
 						<%		
 					}
 					%>
@@ -186,17 +185,20 @@ onclick="location.href='main.jsp?go=customer/questioncheck.jsp?pageNum=<%=pageNu
 				//목록 재출력
 				list();
 				//입력값 지우기
-				$("#reple").val(" ");
+				$("#reple").val("");
 			}
 		});
 	});
 	
 	//삭제버튼 클릭 이벤트
 	$(document).on("click","span.adel", function() {
+		alert("ss");
 		var idx=$(this).attr("idx");
 		var num=$("#num").val();
 		var pageNum=$("#pageNum").val();
-		console.log(idx);
+		console.log("idx:"+idx);
+		console.log("num:"+num);
+		console.log("pageNum:"+pageNum);
 
 		
 	});

@@ -11,6 +11,7 @@ import java.util.Vector;
 import guest.db.GuestDto;
 import oracle.db.DbConnect;
 import question.db.QuestionDto;
+import review.db.reveiwDto;
 
 public class ReservationDao {
 	DbConnect db = new DbConnect();
@@ -108,89 +109,19 @@ public class ReservationDao {
 		return dto;
 	}
 	
-	
-	//페이징처리에 필요한 리스트만 보내기
-			public List<ReservationDto> getList(int start, int end) {
-				
-				List<ReservationDto> list=new Vector<ReservationDto>();
-				
-				Connection conn=null;
-				PreparedStatement pstmt=null;
-				ResultSet rs=null;
-				
-				conn=db.getCommonConnection();
-				String sql="select a.* from (select ROWNUM as RNUM,b.* from "
-						+ "(select * from reservation order by num desc)b)a where a.RNUM>=? and a.RNUM<=?";
-				
-				try {
-					pstmt=conn.prepareStatement(sql);
-					//바인딩
-					pstmt.setInt(1, start);
-					pstmt.setInt(2, end);
-					//실행
-					rs=pstmt.executeQuery();
-					//데이터 넣기
-					while(rs.next()) {
-						ReservationDto dto=new ReservationDto();
-						
-						dto.setNum(rs.getInt("num"));
-						dto.setg_num(rs.getInt("g_num"));
-						dto.setGuestQty(rs.getInt("guest_qty"));
-						dto.setBookingQty(rs.getInt("booking_qty"));
-						dto.setTotalPrice(rs.getInt("total_price"));
-						dto.setRoomNum(rs.getInt("room_num"));
-						dto.setCheckInDate(rs.getString("checkin_date"));
-						dto.setCheckOutDate(rs.getString("checkout_date"));
-						//list에 추가
-						list.add(dto);
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally {
-					db.dbColse(rs, pstmt, conn);
-				}
-				return list;
-			}
-		
-		
-		//글의 개수 구하는 메서드
-			public int getTotalCount()
-			{
-				Connection conn=null;
-				PreparedStatement pstmt=null;
-				ResultSet rs=null;
-				
-				conn=db.getCommonConnection();
-				String sql="select count(*) from reservation";
-				int n=0;
-				try {
-					pstmt=conn.prepareStatement(sql);
-					rs=pstmt.executeQuery();
-					if(rs.next())
-						n=rs.getInt(1);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally {
-					db.dbColse(rs, pstmt, conn);
-				}
-				
-				return n;
-			}
-			
-			
-			public List<ReservationDto> getReservationList()
+			//예약출력
+			public List<ReservationDto> getReservationList(String g_num)
 			{
 				List<ReservationDto> list=new Vector<ReservationDto>();
 				Connection conn=null;
 				PreparedStatement pstmt=null;
 				ResultSet rs=null;
-				String sql="select * from reservation order by g_num";
-				conn=db.getConnection();
+				String sql="select * from reservation where g_num=? order by num desc";
+				conn=db.getCommonConnection();
 				
 				try {
 					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, g_num);
 					rs=pstmt.executeQuery();
 					while(rs.next())
 					{
@@ -218,5 +149,31 @@ public class ReservationDao {
 				return list;
 			}
 	
+			
+			
+			//예약건수확인
+			public int getTotalCount(String g_num) {
+				Connection conn=null;
+				PreparedStatement pstmt=null;
+				ResultSet rs=null;
+				
+				conn=db.getCommonConnection();
+				String sql="select count(*) from reservation where g_num=?";
+				int n=0;
+				
+				try {
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, g_num);
+					rs=pstmt.executeQuery();
+					if(rs.next())
+						n=rs.getInt(1);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					db.dbColse(rs, pstmt, conn);
+				}
+				return n;
+			}
 	
 }

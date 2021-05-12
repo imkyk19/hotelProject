@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="review.db.reveiwDto"%>
 <%@page import="review.db.reviewDao"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -383,16 +384,18 @@
                     <h1 class="h3 mb-2 text-gray-800">후기 관리</h1>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4" style="width: 65%;">
+                    <div class="card shadow mb-4" style="width: 1000px;">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary"></h6>
                         </div>
-                        <div class="card-body" style="width: 60%;">
+                        <div class="card-body" style="width: 800px;">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable"  cellspacing="0">   
 	                                <%
 	                                	reviewDao dao=new reviewDao();
 	                                	reveiwDto dto=dao.getData(num);
+	                                	
+	                                	
 	                                	
 	                                %>   
 	                                
@@ -401,11 +404,11 @@
                                     <tr style="width: 580px;">
                                     	<th width="80px;">평가</th>
                                     	<td><%=dto.getType() %></td>
-                                    	<td><span style="text-align: left;"><b>좋아요</b> <%=dto.getLikes() %></span></td>
-	                                	<td><span style="text-align: right;"><b>조회수</b> <%=dto.getReadcount() %></span></td>
+                                    	<td><span style="text-align: left;"><b><i class="far fa-thumbs-up"></i></b> <%=dto.getLikes() %></span></td>
+	                                	<td><span style="text-align: right;"><b><i class="fas fa-eye"></i></b> <%=dto.getReadcount() %></span></td>
                                     </tr>
                                     <tr>
-                                    	<th width="80px;">작성자(아이디)</th>
+                                    	<th width="120px;">작성자(아이디)</th>
                                     	<td colspan="3"><%=dto.getName()+"("+dto.getId()+")" %></td>
                                     </tr>
                                      <tr>
@@ -413,13 +416,21 @@
                                     	<td colspan="3"><%=dto.getSubject() %></td>
                                     </tr>
                                      <tr>
-                                    	<th width="80px;">내용</th>
-                                    	<td colspan="3"><textarea style="width: 500px;height: 300px;"><%=dto.getContent() %></textarea></td>
-                                    </tr>
-                                      <tr>
-                                    	<th width="80px;">이미지</th>
-                                    	<td colspan="3"><textarea style="width: 500px;height: 300px;"><%=dto.getImage() %></textarea></td>
-                                    </tr>
+                                    	<th style="height: 300px;">내용</th>
+                                    	<td colspan="3">
+	                                    	<div></div><span style="width: 500px;height: 300px;"><%=dto.getContent() %></span></div>
+	                                    	<div>
+	                                    	<%if(dto.getImage()==null){
+	                                    		//이미지가 없는 경우%>
+	                                    		
+	                                    	<%}else{
+	                                    		//이미지가 있는 경우%>
+	                                    		<img src="../image/<%=dto.getImage()==null?" ":dto.getImage()%>">
+	                                    	<%}%>
+	                                    	</div>
+                                    	
+                                    	</td>
+                                    </tr>                                     
                                 </table>
                                 <div style="text-align: center;"><button type="button" class="btn btn-danger delreview" num="<%=dto.getH_num()%>">삭제</button></div>
                             </div>
