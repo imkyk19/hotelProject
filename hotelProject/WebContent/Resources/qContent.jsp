@@ -421,7 +421,7 @@
                                     		
                                     		%>
                                     		<tr>
-                                    			<th width="80px;">답글</th>
+                                    			<td></td>
                                     			<td><span style="width: 100px;text-align: left;" class="answer"><%=ad.getContent() %></span>                                  
                                     			</td>
                                     			<td><span class="delanswer" num="<%=ad.getIdx()%>"><i class="far fa-trash-alt"></i></span>&nbsp;<span class="updateanswer" num="<%=ad.getIdx()%>"><i class="fas fa-edit"></i></span></td>
