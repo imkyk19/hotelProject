@@ -50,6 +50,11 @@ div.btnbox{
 	margin-left: 1200px;
 }
 
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #FAEBD0;
+ }
+
 </style>
 </head>
 <%
@@ -64,7 +69,8 @@ div.btnbox{
 	
 	//로그인 되어있는지 체크
 	String loginok=(String)session.getAttribute("loginok");
-	System.out.print("loginok:"+loginok);
+	System.out.println("loginok:"+loginok);
+	System.out.println("id:"+id);
 	
 	//db처리 위한 dao 선언
 	reviewDao dao=new reviewDao();
@@ -106,71 +112,67 @@ div.btnbox{
 	</div>
 </div>
 
-<table class="table table-bordered content" >
-	<caption><b style="font-size: 2em; color: #524630; font-weight: bold;'">후기글</b></caption>
-	<%
+<table class="table table-striped content" >
+	<caption><b style="color: #524630; font-weight: bold;'">후기>후기글</b></caption>
+		<tr>
+		<td style="height: 50px;">
+			<b style="font-size:2em; font-weight: bold; color: #524630;"><%=dto.getSubject() %></b>
+			<br>
+			<b style="color: gray;"><%=name %>(<%=gdto.getId() %>)</b>
+			<b style="color: gray;"><%=sdf.format(dto.getWriteday())%></b>
+			<b style="float: right;">조회  <%=dto.getReadcount() %></b>
+			<br>
+			<br>
+		</td> 
+	</tr>
+	<tr style="border: 1px solid #FAEBD0;">
+		<td style="height: 200px; color: #524630;">
+			<h4><%=dto.getContent().replace("\n", "<br>")%></h4>
+			<%
+			//해당 사진이 개인톰켓서버에 존재
+			if(myPhoto==null){
+				%>
+				<br><img alt="" src="image/logo.png" class="myphoto" align="center;" style="width: 400px; height: 300px;" ><br>
+				<%
+			}else{
+			//해당 사진이 개인톰켓서버에 미존재
+				%>
+				
+				<br><img alt="" src="image/<%=myPhoto%>" class="myphoto" style="width: 400px; height: 300px;" align="center;" ><br>
+				<%
+			}
+			%>
+				<%
 	LIkesDao ldao=new LIkesDao();
 	if(ldao.likeData(id, dto.getSubject(), h_num)!=0){
 		int thumbs=ldao.likeData(id, dto.getSubject(), h_num);
 		//System.out.println("로그인된 아이디:"+id);
 		//System.out.println("클릭되어있으면1 안되어있으면0:"+thumbs);
 		%>
-		<caption><b class="glyphicon glyphicon-thumbs-up thumbs" style="float: right; color: red;" 
-				h_num="<%=dto.getH_num() %>" pageNum="<%=pageNum%>" subject="<%=dto.getSubject()%>" id="<%=id%>" thumbs="<%=thumbs %>" loginok="<%=loginok%>"></b></caption>
+		<b style="margin-left: 400px; font-size: 3em;"><%=dto.getLikes()%></b>
+		<b class="glyphicon glyphicon-thumbs-up thumbs" style="text-align:center; color: red;" thumbs="<%=thumbs %>" loginok="<%=loginok%>"
+				h_num="<%=dto.getH_num() %>" pageNum="<%=pageNum%>" subject="<%=dto.getSubject()%>" id="<%=id%>" style="font-size: 3em;"></b>
 		<%
 	}else{
 		%>
-		<caption><b class="glyphicon glyphicon-thumbs-up thumbs" style="float: right; " 
-				h_num="<%=dto.getH_num() %>" pageNum="<%=pageNum%>" subject="<%=dto.getSubject()%>" id="<%=id%>"></b></caption>
+		<b style="margin-left: 400px; font-size: 3em;"><%=dto.getLikes()%></b>
+		<b class="glyphicon glyphicon-thumbs-up thumbs" loginok="<%=loginok%>" h_num="<%=dto.getH_num() %>" pageNum="<%=pageNum%>" 
+		subject="<%=dto.getSubject()%>" id="<%=id%>" style="font-size: 3em;" ></b>
 		<%
 	}
 	%>
-	
-	<tr>
-		<td style="height: 30px;">
-			<b style="font-size:1.3em; color: #524630;"><%=name %>(<%=gdto.getId() %>) 고객님</b>
-			<span style="color: gray; float: right;">
-			<%=sdf.format(dto.getWriteday())%>
-			</span>
-		</td>
-	</tr>
-	<tr>
-		<td style="height: 50px;">
-			<b style="font-size:2em; font-weight: bold; color: #524630;"><%=dto.getSubject() %></b>
-		</td> 
-	</tr>
-	<tr>
-		<td style="height: 200px; color: #524630;">
-			<%=dto.getContent().replace("\n", "<br>")%>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<%
-			//해당 사진이 개인톰켓서버에 존재
-			if(photo!=null){
-				%>
-				<img alt="" src="image/<%=myPhoto%>" class="myphoto" style="width: 600px;" align="center;" >
-				<%
-			}else{
-			//해당 사진이 개인톰켓서버에 미존재시 임시이미지 출력
-				%>
-				<b>첨부하신 사진이 없습니다.</b>
-				<%
-			}
-			%>
 		</td>
 	</tr>
 </table>
 <br>
-<button type="button" style="width: 120px; margin-left: 1000px; color: white;" class="btnlist"
+<button type="button" style="width: 120px; margin-left: 1100px; color: white;" class="btnlist"
 onclick="location.href='main.jsp?go=review/review.jsp?pageNum=<%=pageNum%>'">목록</button>
 
 <%
 if(loginok!=null && id.equals(gdto.getId())){
 	%>
 	<div class="btnbox" >
-		<button type="button" style="width: 120px; color: white; margin-right: 20px;" class="btnupdate"
+		<button type="button" style="width: 120px; color: white; margin-left:150px; margin-right:10px;" class="btnupdate"
 		onclick="location.href='main.jsp?go=review/updateform.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=pageNum%>'">수정</button>
 	<button type="button" style="width: 120px;  color: white;" class="btndelete"
 		onclick="location.href='main.jsp?go=review/delete.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=pageNum%>'">삭제</button>	

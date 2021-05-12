@@ -149,7 +149,7 @@
 	</select>
 <br><br>
 <div class="arraylist">
-<table class="table table-bordered" style="width: 900px;">
+<table class="table table-hover" style="width: 900px;">
 	<tr bgcolor="#fff7e8"  >
 		<th width="50" style="text-align: center;" >번호</th>
 		<th width="80" style="text-align: center;" >후기유형</th>
@@ -291,7 +291,7 @@ $("#numtype").change(function() {
 		data:{"number":number,"pageNum":pageNum,"h_num":h_num,"start":start,"end":end},
 		success:function(data){
 			var s="";
-			s+="<table class='table table-bordered' style='width: 900px;'>";
+			s+="<table class='table table-hover' style='width: 900px;'>";
 			s+="<tr bgcolor='#fff7e8'>";
 			s+='<th width="50" style="text-align: center;" >번호</th>';
 			s+='<th width="80" style="text-align: center;" >후기유형</th>';

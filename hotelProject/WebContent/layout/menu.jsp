@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
 	table.menu td{
 		width: 100px;
 	}
@@ -23,15 +24,25 @@
 		text-decoration: none;
 		cursor: pointer;
 	}
+	
+	table.tableform td.mainLogo {
+		width: 800px; 
+		font-family: 'Forum', cursive;  
+		font-size: 3em; 
+		text-align: center; 
+		cursor:pointer;
+		color: #594C3C;
+		
+	}
 </style>
 </head>
 <body>
 <table class="tableform">
 	<tr>
 		<td style="width: 300px; font-size: 2em;text-align: center;">
-			<span onclick="location.href='main.jsp?go=reservation/bookingform.jsp'" style="line-height: 80px; cursor: pointer;color: #594C3C;">예약<span class="glyphicon glyphicon-calendar"></span></span>
+			<span onclick="location.href='main.jsp?go=reservation/bookingform.jsp'" style="line-height: 80px; cursor: pointer;color: #594C3C;">예약<span style="margin-left: 20px;" class="glyphicon glyphicon-calendar"></span></span>
 		</td>
-		<td style="width: 800px; font-size: 3em; text-align: center; cursor:pointer;color: #594C3C;"><span onclick="location.href='main.jsp'">Hotel GRACE</span></td>
+		<td class = "mainLogo"><span onclick="location.href='main.jsp'">Hotel GRACE</span></td>
 
 		<td style="width: 300px;">
 			<table class="menu" style="float: right; text-align: left;line-height: 40px;">

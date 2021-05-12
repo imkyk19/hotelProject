@@ -50,6 +50,11 @@
 		color: red;
 	}
 	
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #FAEBD0;
+ }
+	
 </style>
 </head>
 <body>
@@ -76,29 +81,16 @@
 	<span class="question" onclick="location.href='main.jsp?go=customer/questioncheck.jsp'">문의확인</span>
 	</div>
 <div class="content">
-<table class="table table-bordered content" >
-	<caption><b style="font-size: 2em; color: #524630; font-weight: bold;'">문의글</b></caption>
-	<tr>
-		<td align="right" style="height: 10px; border:1px solid white;">
-	<button type="button" style="width: 120px; color: white;" class="btnupdate"
-	onclick="location.href='main.jsp?go=customer/updateform.jsp?num=<%=num%>&pageNum=<%=pageNum%>'">수정</button>
-	<button type="button" style="width: 120px; color: white;" class="btndel"
-	onclick="location.href='customer/delete.jsp?num=<%=num%>&pageNum=<%=pageNum%>'">삭제</button>
-		</td>
-	</tr>
-	<tr>
-		<td style="height: 30px;">
-			<b style="font-size:1.3em; color: #524630;">"<%=dto.getName() %>" 고객님</b>
-			<span style="color: gray; float: right;">
-			<%=sdf.format(dto.getWriteday())%>
-			</span>
-		</td>
-	</tr>
+<table class="table table-striped content">
+	<caption><b style=" color: #524630; font-weight: bold;'">고객센터>문의확인>문의글</b></caption>
 	<tr>
 		<td style="height: 50px;">
-			<b style="font-size:2em; font-weight: bold; color: #524630;"><%=dto.getSubject() %></b>
+			<b style="font-size:2em; font-weight: bold; color: #524630;"><%=dto.getSubject() %></b><br>
+			<b style="font-size:1.3em; color: gray;"><%=dto.getName() %></b>
+			<b style="color: gray;"><%=sdf.format(dto.getWriteday())%></b>
 		</td> 
 	</tr>
+
 	<tr>
 		<td style="height: 200px; color: #524630;">
 			<%=dto.getContent().replace("\n", "<br>")%>
@@ -112,7 +104,7 @@
 if(loginok!=null && id.equals("manager")){
 	%>
 	
-	<div style="width: 800px;"" class="form-inline">
+	<div style="width: 800px; background-color: #FAEBD0;" class="form-inline">
 		<b>관리자 <%=id %> : </b>
 		<input type="text" class="form-control" name="reple" id="reple" style="width: 500px;">
 		<button type="button" name="btnreple" id="btnreple" style="color: white;">입력</button>
@@ -122,8 +114,16 @@ if(loginok!=null && id.equals("manager")){
 }
 %>
 <div class="list"></div><br><br>
-<button type="button" style="width: 120px; margin-left: 300px; color: white;" class="btnlist"
+<button type="button" style="width: 120px;  color: white;" class="btnlist"
 onclick="location.href='main.jsp?go=customer/questioncheck.jsp?pageNum=<%=pageNum%>'">목록</button>
+	<tr>
+		<td align="right" style="height: 10px; border:1px solid white;">
+	<button type="button" style="width: 120px; margin-left: 300px; color: white;" class="btnupdate"
+	onclick="location.href='main.jsp?go=customer/updateform.jsp?num=<%=num%>&pageNum=<%=pageNum%>'">수정</button>
+	<button type="button" style="width: 120px; color: white;" class="btndel"
+	onclick="location.href='customer/delete.jsp?num=<%=num%>&pageNum=<%=pageNum%>'">삭제</button>
+		</td>
+	</tr>
 <br><br><br><br><br>
 </div>
 

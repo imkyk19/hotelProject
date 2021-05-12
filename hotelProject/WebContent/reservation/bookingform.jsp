@@ -118,6 +118,8 @@
 	<%
 		String checkin_date = request.getParameter("checkin_date");
 		String checkout_date = request.getParameter("checkout_date");
+		String id = (String)session.getAttribute("id");
+		String loginok=(String)session.getAttribute("loginok");
 		/* int adult = Integer.parseInt(request.getParameter("adult"));
 		int children = Integer.parseInt(request.getParameter("children"));
 		int capacity = adult + children; */
@@ -150,7 +152,7 @@
 		$("#btnsearch").click(function(e) {
 			e.preventDefault();
 			data=$("#reservefrm").serialize();
-			alert(data);
+			//alert(data);
 			//list();
 			var adultvalue = $("select[name=adult] option").filter(":selected").val();
 			var childvalue = $("select[name=children] option").filter(":selected").val();

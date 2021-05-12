@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
+
 body *{
-	font-family: 'µ¸¿ò';
+	font-family: "Forum";
 }
 
 div.main>div{

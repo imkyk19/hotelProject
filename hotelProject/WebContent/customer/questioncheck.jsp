@@ -138,7 +138,7 @@
 	onclick="location.href='main.jsp?go=customer/question.jsp'">
 	<span class="glyphicon glyphicon-pencil"></span><br>
 </button>
-<table class="table table-bordered" style="width: 900px;">
+<table class="table table-hover" style="width: 900px;">
 	<tr bgcolor="#fff7e8"  >
 		<th width="50" style="text-align: center;" >번호</th>
 		<th width="80" style="text-align: center;" >후기유형</th>

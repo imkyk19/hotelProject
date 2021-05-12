@@ -9,6 +9,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>
+  @import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
+  
   .carousel-inner > .item > img,
   .carousel-inner > .item > a > img {
     width: 70%;
@@ -128,7 +130,7 @@ $(function(){
 	 	<img alt="객실" src="image/객실.jpg" id="img">
 	 	<div class="carousel-caption">
 	 		 <h3>Rooms</h3>
-	 		<p>Deluxe | Business Deluxe | Superior Suite | Corner Suite</p>
+	 		<p>Standard Double | Premier Triple | Deluxe Suite </p>
 	 	</div>
 	 </div>	
 	 
@@ -157,8 +159,8 @@ $(function(){
 		<table class="booking2">
 			<thead class="title">
 				<tr>
-					<td colspan="5" style="height: 100px; background-color: #FAEBD0;">
-						Reservation
+					<td colspan="5" style="height: 100px; background-color: #FAEBD0; font-family: 'Forum', cursive;">
+						RESERVATION
 					</td>
 				</tr>
 			</thead>
