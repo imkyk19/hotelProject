@@ -73,8 +73,10 @@ div.reservecheck{
 String id=(String)session.getAttribute("id");
 String loginok=(String)session.getAttribute("loginok");
 
+
 ReservationDao dao=new ReservationDao();
 GuestDao gdao=new GuestDao();
+boolean t= gdao.isIdCheck(id);
 GuestDto gdto=gdao.getData(id);
 String name=gdao.getName(id);
 String g_num=gdto.getG_num();
@@ -215,16 +217,17 @@ if(id!=null &&loginok!=null){
 	
 
 </div>	
+
 <div class="reservecheck">
 <table class="table table-bordered" style="width: 700px;">
-	<tr bgcolor="#fff7e8"  >
+	<tr bgcolor="#FAEBD0"  >
 		<th>객실번호</th>
 		<th>객실수</th>
 		<th>인원수</th>
 		<th>체크인</th>
 		<th>체크아웃</th>
 		<th>가격</th>
-		<th>예약취소</th>
+		<th>예약취소하기</th>
 	</tr>
 	<%
 		if(totalCount==0){
@@ -247,8 +250,9 @@ if(id!=null &&loginok!=null){
 						<td><%=dto.getCheckInDate()%></td>
 						<td><%=dto.getCheckOutDate()%></td>
 						<td><%=dto.getTotalPrice()%></td>
-						<td>
-							<a href="main.jsp?go=reservecheck/reservecancel.jsp?num=<%=dto.getNum()%>&pageNum=<%=currentPage%>"
+						<td> 
+						
+					<a href="main.jsp?go=reservecheck/reservecancel.jsp?num=<%=dto.getNum()%>&pageNum=<%=currentPage%>"
 							style="text-decoration: none; color:black;">예약취소</a>
 						</td>
 					</tr>
@@ -258,6 +262,7 @@ if(id!=null &&loginok!=null){
 	%>
 </table>
 </div>
+
 </body>		
 	<%
 }else{

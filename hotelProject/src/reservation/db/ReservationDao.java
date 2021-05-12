@@ -142,5 +142,24 @@ public class ReservationDao {
 				}
 				return n;
 			}
+			
+			//예약취소
+			public void deleteReservation(String num) {
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				conn = db.getCommonConnection();
+				String sql = "delete from Reservation where num=?";
+				try {
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, num);
+					pstmt.execute();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					db.dbColse(pstmt, conn);
+				}
+			}
+			
 	
 }

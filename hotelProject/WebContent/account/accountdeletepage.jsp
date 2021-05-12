@@ -112,7 +112,7 @@ String id=session.getAttribute("id").toString();
 			<td>비밀번호</td>
 
 			<td>
-				<input type="password" name="pass" style="width: 150px;"
+				<input type="password" id="pass" name="pass" style="width: 150px;"
 			class="form-control input-sm"
 			required="required">
 			</td>
@@ -121,12 +121,10 @@ String id=session.getAttribute("id").toString();
 	</table>
 	
 	<button type="submit" style="color:white; width: 200px;"
-	  		id="btnsubmit">	확인</button>
+	  		id="btnsubmit">탈퇴하기</button>
 	 <button type="button" style="color:white; width: 200px;"
 onclick="history.back()" id="btncancel">취소</button> 	
 </div>
 </form>
- 
-
 </body>
 </html>   
