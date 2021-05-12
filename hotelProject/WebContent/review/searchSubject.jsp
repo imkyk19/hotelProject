@@ -32,7 +32,7 @@ List<reveiwDto> list=dao.getSearchList(subject, start, end);
 		GuestDto gdto=gdao.getId(dto.getG_num());
 		String name=gdto.getName();
 		%>
-		<answer h_num="<%=dto.getH_num()%>" g_num="<%=dto.getG_num()%>">
+		<answer h_num="<%=dto.getH_num()%>" g_num="<%=dto.getG_num()%>" pageNum="<%=pageNum%>">
 			<type><%=dto.getType() %></type>
 			<subject><%=dto.getSubject() %></subject>
 			<content><%=dto.getContent() %></content>

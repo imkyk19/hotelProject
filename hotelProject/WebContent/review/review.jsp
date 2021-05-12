@@ -315,7 +315,7 @@ $("#numtype").change(function() {
 				var likes=n.find("likes").text();
 				var writeday=n.find("writeday").text();
 				var name=n.find("name").text();
-				var path="main.jsp?go=review/content.jsp?h_num="+h_num;
+				var path="main.jsp?go=review/content.jsp?h_num="+h_num+"&pageNum="+pageNum;
 				
 					s+='<tr align="center">';
 					s+='<td>';
@@ -389,7 +389,7 @@ $("#btnsearch").click(function() {
 				var likes=n.find("likes").text();
 				var writeday=n.find("writeday").text();
 				var name=n.find("name").text();
-				var path="main.jsp?go=review/content.jsp?h_num="+h_num;
+				var path="main.jsp?go=review/content.jsp?h_num="+h_num+"&pageNum="+pageNum;
 				
 					s+='<tr align="center">';
 					s+='<td>';

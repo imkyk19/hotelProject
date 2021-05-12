@@ -105,6 +105,7 @@ div.btnbox{
 <div class="reviewform">
 	<div class="reviewmenu">
 	<h2>후기</h2><br>
+	<span class="contact" onclick="location.href='main.jsp?go=review/review.jsp'">후기글 목록</span><br><br>
 	<span class="contact" onclick="location.href='main.jsp?go=review/reviewform.jsp'">후기글 작성</span><br><br>
 	<span class="question" onclick="location.href='main.jsp?go=review/myreview.jsp'">나의 후기글</span><br><br>
 	</div>
