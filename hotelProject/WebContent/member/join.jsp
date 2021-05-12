@@ -34,7 +34,7 @@
 	<h2 style="color: #8C4C27;">그레이스 가입</h2>
 	<hr style="height: 2px;background: gray;">
 	<h2 style="color: #8C4C27;text-align: center;">감사합니다</h2>
-	<h3 style="text-align: center;"><%= name %>님께서는 그레이스에 정상적으로 가입되셨습니다.</h3>
+	<h3 style="text-align: center;">그레이스에 정상적으로 가입되셨습니다.</h3>
 	<div class="joinsuccess2">
 		<br><br><br>
 		<span><b style="font-size: 2em;color: #A6A6A6;">아이디 | </b></span><span><b style="font-size: 2em;color:#8C4C27; ">  <%= id %></b></span>
