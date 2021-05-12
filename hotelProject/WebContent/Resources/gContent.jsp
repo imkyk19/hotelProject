@@ -132,10 +132,10 @@ String num=request.getParameter("num");
 		});
 		
 		//문의 내역 클릭했을 때
-		$("span.questionlist").click(function(){
+		$("span.reviewlist").click(function(){
 			<%
-				QuestionDao qdao=new QuestionDao();
-				List<QuestionDto>list =qdao.getList();
+				reviewDao rdao=new reviewDao();
+				List<reveiwDto>list =rdao.getUserList(num);
 			%>
 		});
 		
@@ -462,8 +462,7 @@ String num=request.getParameter("num");
                         <div class="card-body" style="width: 800px;">
                             <div class="table-responsive">
                              <div style="text-align: left;">
-                            	<span class="reservationlist" style="margin-right: 10px;color: #4e73df;"><i class="fas fa-bed" style="color: #4e73df;"></i></i>Reservation</span>
-                            	&nbsp;<span class="questionlist" style="margin-right: 10px;color: #36b9cc;">&nbsp;<i class="fas fa-question" style="color: #36b9cc;"></i></i>&nbsp;Question</span> 
+                            	<span class="reservationlist" style="margin-right: 10px;color: #4e73df;"><i class="fas fa-bed" style="color: #4e73df;"></i></i>Reservation</span>                           	 
                             	&nbsp;<span class="reviewlist" style="color: #1cc88a;"><i class="fas fa-child" style="color: #1cc88a;"></i>&nbsp;Review</span>                            	
                             </div>
                             <div style="text-align: right;">
@@ -697,23 +696,21 @@ String num=request.getParameter("num");
   </div>
   	<!-- modal끝 -->
   	
-  	<!-- Modal Question-->
-  <div class="modal fade" id="questionModal" role="dialog" >
+  	<!-- Modal review-->
+  <div class="modal fade" id="reviewModal" role="dialog" >
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header" >
-        <h4 class="modal-title imgname">문의 내역</h4>
+        <h4 class="modal-title imgname">후기 내역</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           
         </div>
-        <div class="modal-body">
-          <form action="#">
-          
+        <div class="modal-body">        
           	<table class="table table-hover">
-          		
-          	</table>
-          		
-          </form>
+          		<tr>
+          			<td></td>
+          		</tr>
+          	</table>         	
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
