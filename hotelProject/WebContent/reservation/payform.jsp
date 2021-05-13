@@ -1,3 +1,7 @@
+<%@page import="reservation.db.ReservationDao"%>
+<%@page import="org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="guest.db.GuestDao"%>
 <%@page import="guest.db.GuestDto"%>
@@ -12,6 +16,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <SCRIPT src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></SCRIPT>
 <style type="text/css">
 	table.pay {
@@ -56,6 +61,8 @@
 	
 	RoomDao dao = new RoomDao();
 	RoomDto dto = new RoomDto();
+	ReservationDao rdao = new ReservationDao();
+	
 	dto = dao.getRoomInfo(roomNum);
 	
 	String id = (String)session.getAttribute("id");
@@ -64,6 +71,15 @@
 	gdto = gdao.getData(id);
 	
 	int memberPrice = (dto.getPrice()/100)*90;
+	
+	DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	Date dateFormCheckIn = format.parse(checkin_date);
+	Date dateFormCheckOut = format.parse(checkout_date);
+	long dateDifference = ((dateFormCheckOut.getTime() - dateFormCheckIn.getTime())/(1000*60*60*24));
+	
+	int memberFinalPrice = memberPrice * (int)dateDifference;
+	int nonMemberFinalPrice = dto.getPrice() * (int)dateDifference; 
+	//System.out.println("시간 차는 요거 = " + dateDifference);
 	//System.out.println("memberPrice = " + memberPrice);
 	//로그인된 아이디 세션 값 얻기
 	
@@ -92,8 +108,8 @@
 					<td><h4>Room Number: <%=roomNum%></h4>
 					<input type="hidden" name = "room_num" id = "room_num" value = "<%=roomNum%>">
 					</td>
-					<td align="right"><h4><b>Price: <s><%=dto.getPrice()%></s></b> <b style="color: red;"><%=memberPrice%> 원</b></h4>
-					<input type = "hidden" name = "price" id ="price" value = "<%=memberPrice%>">
+					<td align="right"><h4><b>Price: <s><%=nonMemberFinalPrice%></s></b> <b style="color: red;"><%=memberFinalPrice%> 원</b></h4>
+					<input type = "hidden" name = "price" id ="price" value = "<%=memberFinalPrice%>">
 					</td>
 				</tr>
 				<tr>
@@ -162,6 +178,26 @@
 		</table>
 		</form>
 	</div>
+	 <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 	<script type="text/javascript">
 		
 			$("#btnPay").click(function(e) {
@@ -174,7 +210,16 @@
 					alert("카드 번호를 입력하세요");
 					return;
 				}
+				<%
+				int g_num = Integer.parseInt(gdto.getG_num());
 				
+				boolean t = rdao.isReservationCheck(g_num, checkin_date, checkout_date);
+				if(t){
+					%>
+					$("#myModal").modal();
+					<%
+				}
+				%>
 				$.ajax({
 					type: "post",
 					dataType: "html",
@@ -210,8 +255,8 @@
 					<td><h4>Room Number: <%=roomNum%></h4>
 					<input type="hidden" name = "room_num" id = "room_num" value = "<%=roomNum%>">
 					</td>
-					<td align="right"><h4><b>Price: <%=dto.getPrice() %> 원</b></h4>
-					<input type = "hidden" name = "price" id ="price" value = "<%=dto.getPrice()%>">
+					<td align="right"><h4><b>Price: <%=nonMemberFinalPrice%> 원</b></h4>
+					<input type = "hidden" name = "price" id ="price" value = "<%=nonMemberFinalPrice%>">
 					</td>
 				</tr>
 				<tr>
