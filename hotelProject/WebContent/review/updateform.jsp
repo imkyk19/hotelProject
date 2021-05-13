@@ -74,7 +74,7 @@ String g_num=dto.getG_num();
 			<b style="color: gray;">후기유형</b>
 			<br>
 			<b>
-				<input type="hidden" name="type" id="type">
+				<input type="hidden" name="type" id="type" value="칭찬">
 					<select name="rtype" id="rtpye" class="form-control" style="width: 100px;">
 						<option disabled hidden selected>선택</option>
 						<option value="칭찬">칭찬</option>
@@ -87,16 +87,13 @@ String g_num=dto.getG_num();
 			<b style="color: gray;">제목</b>
 			<br>
 				<input type="text" name="subject" id="subject" num=""; class="form-control" required="required" style="width: 500px;"
-				value="<%=rdto.getSubject() %>"><br>
+				value="<%=rdto.getSubject()%>"><br>
 			
 		
 			<b style="color: gray;">내용</b>
 			<br>
-			<textarea name="content" id="content" class="form-control" required="required" style="width: 500px; height: 150px;">
-			<%=rdto.getContent() %>
-			</textarea>
+			<textarea name="content" id="content" class="form-control" required="required" style="width: 500px; height: 150px;"><%=rdto.getContent()%></textarea>
 			<br>
-
 			<b style="color: gray;">사진첨부</b>
 				<input type="file" name="image" id="image" class="form-control" style="width: 300px;" value="<%=dao.getPhoto(rdto.getH_num()) %>">
 			<br><br><br>

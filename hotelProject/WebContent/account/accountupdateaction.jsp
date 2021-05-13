@@ -6,13 +6,13 @@
 
 
 
-<%
+<%    
 
 	request.setCharacterEncoding("utf-8");
 
 	String id=session.getAttribute("id").toString();
-	
-	GuestDto dto=new GuestDto();
+	          
+	GuestDto dto=new GuestDto();  
 	GuestDao dao=new GuestDao();
 	
 	String name=request.getParameter("name");
@@ -21,8 +21,13 @@
 	String hp=request.getParameter("hp");
 	String addr=request.getParameter("addr");
 	
+	%>
+	<script type="text/javascript">
+	alert("회원정보가 수정되었습니다");
+	location.href="../main.jsp?go=mypage/mypagemain.jsp";
+	</script>
 
-	
+	<%
 	dto.setId(id);
 	dto.setName(name);
 	dto.setBirth(birth);
@@ -36,9 +41,9 @@
 	
 
 	
-		String go="../main.jsp?go=mypage/mypagemain.jsp";
+		//String go="../main.jsp?go=mypage/mypagemain.jsp";
 
-		response.sendRedirect(go);
+		//response.sendRedirect(go);
 
 	%>
 

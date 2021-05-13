@@ -9,17 +9,17 @@ request.setCharacterEncoding("utf-8");
 	String pass=request.getParameter("Pw");
 
 	GuestDao dao=new GuestDao();
-	
+	  
 	String newpass=dao.getPass(id);
 	
-	boolean b=dao.isPassCheck(id, pass);
+	boolean b=dao.isPassCheck(id, pass);  
 	
 	
 	if(b && pass.equals(newpass)){	
 	
 	%>
 	<script type="text/javascript">
-	alert("탈퇴되었습니다");
+	alert("회원탈퇴처리가 완료되었습니다");
 	location.href="../main.jsp";
 	</script>
 	
@@ -33,7 +33,7 @@ request.setCharacterEncoding("utf-8");
 	}else{%>  
 	<script type="text/javascript">
 		alert("비밀번호가 틀립니다.");  
-		location.href="../main.jsp?go=mypage/mypagemain.jsp";
+		location.href="../main.jsp?go=account/accountdeletepage.jsp";
 	</script>
 <%}
 %>

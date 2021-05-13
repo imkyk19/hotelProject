@@ -14,31 +14,39 @@
 		width: 1200px;
 		margin-left: auto;
 		margin-right: auto;
+		margin-top: 50px;
 	}
 	
 	thead.title tr td {
-		border: 3px solid gray; 
+		border-bottom: 3px solid gray; 
 		width: 1200px; 
-		height: 200px;
+		height: 150px;
 		text-align: center;
 		font-size: 5em;
+		/* background-color: #FAEBD0; */
+		color: #594C3C;
 	}
 	
 	tbody.bookingform{
 		margin-top: 100px;
-		border: 2px solid blue;
+		border: 0px solid blue;
 	}
 	
 	tbody.bookingform tr td {
-		border: 3px solid gray;
+		border: 0px solid gray;
 		text-align: center;
 		width: 200px;
 		height: 50px;
 	}
 	
+	tbody.bookingform label {
+		font-size: 1.4em;
+		margin-right: 10px;
+	}
+	
 	div.roomlist {
 		width: 1200px; 
-		height: 2200px;
+		height: 2350px;
 		margin-bottom: 50px;
 		text-align: center;
 		font-size: 1em;
@@ -55,6 +63,7 @@
 	
 	table.roomlist {
 		border: 2px solid gray;
+		margin-top: 30px;
 	}
 	
 	table.roomlist td.text {
@@ -90,7 +99,7 @@
 					
 					s += "<table class = 'table table-bordered roomlist'>";
 					s += "<tr><td rowspan = '4'><img class = 'click' style = 'width:300px;' src = '" +photo+"'></td>";
-					s += "<td>Room "+roomNum+"</td><td>"+price+"</td></tr>";
+					s += "<td><b style = 'font-size: 1.2em;'>Room "+roomNum+"</b></td><td><b style = 'font-size: 1.2em;'>"+price+"</b></td></tr>";
 					s += "<tr><td>"+capacity+"인용</td><td><a class = 'pay' href = 'main.jsp?go=reservation/payform.jsp?roomNum="+roomNum+"&checkin_date="+$("#checkin_date").val()+"&checkout_date="+$("#checkout_date").val()+"'>결제</a></td></tr>";
 					s += "<tr><td class = 'text' colspan = '2' rowspan = '2'>" + text+ "</td></tr>";
 					s += "</table>";
@@ -261,7 +270,7 @@
 					<input type="hidden" name = "ckout_date" id = "ckout_date" value = "">
 					<input type="hidden" name = "capacity" id = "capacity" value = "">
 					
-						<button style="margin-top: 10px; margin-bottom:10px; width: 200px; height: 50px;" type="submit" id = "btnsearch" class="btn btn-success btn-lg">Search</button>
+						<button style="margin-top: 30px; margin-bottom:10px; width: 200px; height: 50px; background-color:#260B01; line-height:20px; color: white; font-size: 1.5em; text-align: center;" type="submit" id = "btnsearch" class="btn btn-default btn-lg">Search</button>
 						
 					</td>
 				</tr>

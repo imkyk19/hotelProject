@@ -11,17 +11,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8">  
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
 	div.reviewmenu{
 		position: absolute;
-		width: 300px;
-		height: 250px;
-		margin-top: 50px;
+		width: 250px;
+		height: 400px;
+		margin-top: 30px;
 		margin-left: 300px;
+		margin-bottom:200px;
 		font-size: 1.3em;
 		cursor: pointer;
 		background-color: #FAEBD0;
@@ -31,7 +32,9 @@
 	div.check{
 	width: 900px;
 	margin-top: 70px;
-	margin-left: 700px;
+	margin-left: 650px;
+	margin-bottom: 150px;
+
 	}
 	
 	ul {
@@ -130,9 +133,10 @@
 <div class="reviewform">
 	<div class="reviewmenu">
 	<h2>후기</h2><br>
-	<span class="contact" onclick="location.href='main.jsp?go=review/review.jsp'">후기글 목록</span><br><br>
-	<span class="contact" onclick="location.href='main.jsp?go=review/reviewform.jsp'">후기글 작성</span><br><br>
-	<span class="question" onclick="location.href='main.jsp?go=review/myreview.jsp'">나의 후기글</span><br><br>
+	<hr style="border:2px solid black;width:200px;margin-top:0px;margin-left: 0px;">
+	<span class="contact" onclick="location.href='main.jsp?go=review/review.jsp'"style="color: #8C4C27;">후기글 목록</span><br><br>
+	<span class="contact" onclick="location.href='main.jsp?go=review/reviewform.jsp'"style="color: #8C4C27;">후기글 작성</span><br><br>
+	<span class="question" onclick="location.href='main.jsp?go=review/myreview.jsp'"style="color: #8C4C27;">나의 후기글</span><br><br>
 	</div>
 </div>
 
@@ -214,7 +218,7 @@
 							style="text-decoration: none; color: black;">수정하기</a>
 						</td>
 						<td>
-							<a href="main.jsp?go=review/delete.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=currentPage%>"
+							<a href="main.jsp?go=review/delete.jsp?h_num=<%=dto.getH_num()%>"
 							style="text-decoration: none; color:black;">삭제하기</a>
 						</td>
 					</tr>

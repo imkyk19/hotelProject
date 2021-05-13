@@ -142,10 +142,10 @@
 	<tr bgcolor="#fff7e8"  >
 		<th width="50" style="text-align: center;" >번호</th>
 		<th width="80" style="text-align: center;" >문의유형</th>
-		<th width="300">제목</th>
-		<th width="70" style="text-align: center;" >상태</th>
+		<th width="300">제목</th>=
 		<th width="70" style="text-align: center;" >작성자</th>
 		<th width="100" style="text-align: center;" >작성일</th>
+		<th width="70" style="text-align: center;" >상태</th>
 	</tr>
 	<%
 		if(totalCount==0){
@@ -204,22 +204,22 @@
 						%>
 						</td>
 						<td>
+						<%=dto.getName() %>
+						</td>
+						<td><%=sdf.format(dto.getWriteday()) %></td>
+						<td>
 						<%
 						if(acount>0){
 							%>
-							<img alt="" src="image/완료.png" style="width: 40px;">
+							<img alt="" src="image/finished.png" style="width: 40px;">
 							<%
 						}else{
 							%>
-							<img alt="" src="image/대기중.png" style="width: 40px;">
+							<img alt="" src="image/waiting.png" style="width: 40px;">
 							<%
 						}
 						%>
 						</td>
-						<td>
-						<%=dto.getName() %>
-						</td>
-						<td><%=sdf.format(dto.getWriteday()) %></td>
 					</tr>
 				<%
 			}
@@ -233,7 +233,7 @@
 	if(totalCount>0)
 	{
 		%>
-		<div style="width: 900px; text-align: center; margin-left: 670px; margin-top: 30px;">
+		<div style="width: 900px; text-align: center; margin-left: 670px; margin-top: 50px;">
 			<ul >
 			<%
 			if(startPage>1)

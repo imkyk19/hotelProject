@@ -97,6 +97,14 @@
 			</td>
 		</tr>
 		<tr>
+			<td style="border-right:none; border-left:hidden;">
+			<br><br>
+			<b style="font-size: 2em; color: #524630; font-weight: bold;'">개인정보</b>
+			<br>
+			</td>
+		</tr>
+		
+		<tr>
 			<td bgcolor="#fff7e8" style="height: 20px;">성명</td>
 			<td>
 			<input type="text" name="name" id="name" class="form-control" required="required" style="width: 200px;">
@@ -105,7 +113,7 @@
 		<tr>
 			<td bgcolor="#fff7e8" style="height: 20px;">비밀번호</td>
 			<td>
-			<input type="password" name="pass" id="pass" class="form-control" required="required" style="width: 200px; float: left;">*숫자 4자리 입력
+			<input type="password" name="pass" id="pass" class="form-control" required="required" style="width: 200px; float: left;"> *숫자 4자리 입력
 			</td>
 		</tr>
 		<tr>
@@ -194,6 +202,13 @@
 			<td>
 			 <div id="editor"></div>
 			<textarea name="content" id="content" class="form-control" required="required" style="width: 500px; height: 150px;"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-right:none; border-left:hidden;">
+			<br><br>
+			<b style="font-size: 2em; color: #524630; font-weight: bold;'">개인정보</b>
+			<br>
 			</td>
 		</tr>
 		<tr>
