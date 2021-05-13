@@ -26,7 +26,7 @@
 div.mymain{
 	width:240px;
 	height:500px;
-	margin-top: 70px;
+	margin-top: 50px;
 	margin-left: 300px;
 	margin-bottom: 100px;
 	background-color: #FAEBD0;
@@ -145,7 +145,7 @@ if(id!=null &&loginok!=null){
 <div class="mymain">
 	<br>
 	<h3 style="margin-top:10px;margin-left: 20px;">마이 페이지</h3>
-	<hr style="border:2px solid black;width:200px;margin-left:0px;">
+	<hr style="border:2px solid black;width:200px;">
 	<br>
 	<ul>
 		<li><a style="text-decoration: none;" href="main.jsp?go=reservecheck/reservecheckpage.jsp">
@@ -214,7 +214,7 @@ if(id!=null &&loginok!=null){
 
 <div class="reservecheck">
 <table class="table table-bordered" style="width: 700px;">
-	<tr bgcolor="#FAEBD0"  >
+	<tr style=background-color:#fff7e8;"  >
 		<th style="text-align:center;">객실번호</th>
 		<th style="text-align:center;">객실수</th>
 		<th style="text-align:center;">인원수</th>

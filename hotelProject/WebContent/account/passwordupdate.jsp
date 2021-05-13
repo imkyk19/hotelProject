@@ -14,7 +14,7 @@
 div.mymain{
 	width:240px;
 	height:500px;
-	margin-top: 70px;
+	margin-top: 50px;
 	margin-left: 300px;
 	margin-bottom: 100px;
 	background-color: #FAEBD0;
@@ -62,7 +62,7 @@ String id=session.getAttribute("id").toString();
 <div class="mymain">
 	<br>
 	<h3 style="margin-top:10px;margin-left: 20px;">마이 페이지</h3>
-	<hr style="border:2px solid black;width:200px;margin-left:0px;">
+	<hr style="border:2px solid black;width:200px;">
 	<br>
 	<ul>
 		<li><a style="text-decoration: none;" href="main.jsp?go=reservecheck/reservecheckpage.jsp">
@@ -101,20 +101,20 @@ String id=session.getAttribute("id").toString();
 	
 	<table style="width:400px;"class="table table-bordered">
 		<tr>
-			<td>현재 비밀번호</td>
+			<td style="background-color:#fff7e8;">현재 비밀번호</td>
 			<td>
-				<input type="password" class="form-control input-sm"
-					style="width: 200px;"
+				<input type="password"  class="form-control input-sm"
+					style="width: 150px;"
 					id="pw"  name="Pw" required="required"; 
 					>				
 			</td>
 		</tr>	
 		<tr>
-			<td>새 비밀번호</td>
+			<td style="background-color:#fff7e8;">새 비밀번호</td>
 			<td>
 				<input type="hidden" id="password" name="password">
 				<input type="password" class="form-control input-sm"
-					style="width: 200px;"
+					style="width: 150px;"
 					id="new_pw" name="newPw" required="required";
 					>				
 			</td>

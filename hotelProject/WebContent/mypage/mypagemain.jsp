@@ -13,7 +13,7 @@
 div.mymain{
 	width:240px;
 	height:500px;
-	margin-top: 70px;
+	margin-top: 50px;
 	margin-left: 300px;
 	margin-bottom: 100px;
 	background-color: #FAEBD0;
@@ -65,7 +65,7 @@ String id=session.getAttribute("id").toString();
 <div class="mymain">
 	<br>
 	<h3 style="margin-top:10px;margin-left: 20px;">마이 페이지</h3>
-	<hr style="border:2px solid black;width:200px;margin-left:0px;">
+	<hr style="border:2px solid black;width:200px;">
 	<br>
 	<ul>
 		<li><a style="text-decoration: none;" href="main.jsp?go=reservecheck/reservecheckpage.jsp">
@@ -107,20 +107,20 @@ String id=session.getAttribute("id").toString();
 	<table style="width:600px;"class="table table-bordered">
 		<caption>기본정보</caption>
 		<tr>
-				<td style="width:70px;">아이디</td>
+				<td style="width:70px;background-color:#fff7e8;text-align: center;">아이디</td>
 			<td>
 				<%=dto.getId()%>
 			</td>
 		</tr>
 		<tr>
-			<td style="width:70px;">성명</td>
+			<td style="width:70px;background-color:#fff7e8;text-align: center;">성명</td>
 			<td>
 				<%=dto.getName()%>		
 			</td>
 		</tr>
 		
 		<tr>
-			<td style="width:100px;">생년월일</td>
+			<td style="width:100px;background-color:#fff7e8;text-align: center;">생년월일</td>
 			<td>
 				<%=dto.getBirth().substring(0, 10)%>
 			</td>
@@ -128,21 +128,21 @@ String id=session.getAttribute("id").toString();
 
 
 		<tr>
-			<td style="width:70px;">이메일</td>
+			<td style="width:70px;background-color:#fff7e8;text-align: center;">이메일</td>
 			<td>
 				<%=dto.getEmail() %>
 			</td>
 		</tr>
 
 		<tr>
-			<td style="width:70px;">휴대전화</td>
+			<td style="width:70px;background-color:#fff7e8;text-align: center;">휴대전화</td>
 			<td>
 	 			<%=dto.getHp() %>
 	 		</td>  
 		</tr>
 
 		<tr>
-			<td style="width:70px;">주소</td>
+			<td style="width:70px;background-color:#fff7e8;text-align: center;">주소</td>
 			<td>
 				<%=dto.getAddr() %>
 			</td>

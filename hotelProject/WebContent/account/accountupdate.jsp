@@ -26,7 +26,7 @@
 div.mymain{
 	width:240px;
 	height:500px;
-	margin-top: 70px;
+	margin-top: 50px;
 	margin-left: 300px;
 	margin-bottom: 100px;
 	background-color: #FAEBD0;
@@ -78,7 +78,7 @@ String id=session.getAttribute("id").toString();
 <div class="mymain">
 	<br>
 	<h3 style="margin-top:10px;margin-left: 20px;">마이 페이지</h3>
-	<hr style="border:2px solid black;width:200px;margin-left:0px;">
+	<hr style="border:2px solid black;width:200px;">
 	<br>
 	<ul>
 		<li><a style="text-decoration: none;" href="main.jsp?go=reservecheck/reservecheckpage.jsp">
@@ -129,50 +129,54 @@ String id=session.getAttribute("id").toString();
 		<caption>정보수정</caption>
 
 		<tr>
-			<td>아이디</td>
+			<td style="width:70px;background-color:#fff7e8;text-align: center;">아이디</td>
 			<td>
 			<%=dto.getId()%>
 			</td>
 		</tr>
 		
 		<tr>
-			<td>성명</td>
+			<td style="width:70px;background-color:#fff7e8;text-align: center;">성명</td>
 			<td>
 				<input type="text" class="form-control input-sm"
 					style="width: 150px;"
-					 name="name" required="required"
+					 id="name" name="name" required="required"
 					value="<%=dto.getName()%>">			
 			</td>
 		</tr>
 		
 		<tr>
-			<td>생년월일</td>
+			<td style="width:100px;background-color:#fff7e8;text-align: center;">생년월일</td>
 			<td>
-			<input type="text" id="birth" name="birth" style="width: 150px;"
+			<input type="text"  class="form-control input-sm"
+			id="birth" name="birth" style="width: 150px;"
 			value="<%=dto.getBirth().substring(0, 10)%>" >
 			</td>
 		</tr>
            
 		<tr>
-			<td>이메일</td>
+			<td style="width:70px;background-color:#fff7e8;text-align: center;">이메일</td>
 			<td>
-			<input type="text" name="email" style="width: 150px;" class="input" value="<%=dto.getEmail() %>">
+			<input type="text" class="form-control input-sm"
+			id="email" name="email" style="width: 150px;" class="input" value="<%=dto.getEmail() %>">
 			</td>
 		</tr>
 
 		<tr>
-			<td>휴대전화</td>
+			<td style="width:70px;background-color:#fff7e8;text-align: center;">휴대전화</td>
 			<td>
 
-	 		<input type="text" id="hp" name="hp" maxlength="13"
+	 		<input type="text" class="form-control input-sm"
+	 		id="hp" name="hp" maxlength="13"
 	 			style="width: 150px;" required="required" value="<%=dto.getHp()%>" >
 	 		</td>  
 		</tr>
 		
 		<tr>
-			<td>주소</td>
+			<td style="width:70px;background-color:#fff7e8;text-align: center;">주소</td>
 			<td>
-				<input type="text" name="addr" id="addr" class="input" style="width: 300px;"value="<%=dto.getAddr() %>">
+				<input type="text" class="form-control input-sm"
+				name="addr" id="addr" class="input" style="width: 300px;"value="<%=dto.getAddr() %>">
 			</td>
 		</tr>
 	</table>
