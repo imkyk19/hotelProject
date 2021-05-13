@@ -18,7 +18,7 @@ public class NonMemberReservationDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		conn=db.getCommonConnection();
+		conn=db.getCommonConnection();  
 		String sql="select count(*) from reservation2 where guest_name=? and hp=?";
 		
 		int r=0;

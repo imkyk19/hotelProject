@@ -15,7 +15,7 @@ String pageNum=request.getParameter("pageNum");
 	location.href="main.jsp?go=reservecheck/reservecheckpage.jsp";
 	</script>
 	<% dao.deleteReservation(num);
-	
+	  
 	
 	//String go="main.jsp";
 	//response.sendRedirect(go);
