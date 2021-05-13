@@ -17,11 +17,13 @@
 	}
 	
 	thead.title tr td {
-		border: 3px solid gray; 
+		border: 2px solid gray; 
 		width: 1200px; 
 		height: 200px;
 		text-align: center;
 		font-size: 5em;
+		background-color: #FAEBD0;
+		color: #594C3C;
 	}
 	
 	tbody.bookingform{
@@ -30,10 +32,15 @@
 	}
 	
 	tbody.bookingform tr td {
-		border: 3px solid gray;
+		border: 2px solid gray;
 		text-align: center;
 		width: 200px;
 		height: 50px;
+	}
+	
+	tbody.bookingform label {
+		font-size: 1.4em;
+		margin-right: 10px;
 	}
 	
 	div.roomlist {
@@ -90,7 +97,7 @@
 					
 					s += "<table class = 'table table-bordered roomlist'>";
 					s += "<tr><td rowspan = '4'><img class = 'click' style = 'width:300px;' src = '" +photo+"'></td>";
-					s += "<td>Room "+roomNum+"</td><td>"+price+"</td></tr>";
+					s += "<td><b style = 'font-size: 1.2em;'>Room "+roomNum+"</b></td><td><b style = 'font-size: 1.2em;'>"+price+"</b></td></tr>";
 					s += "<tr><td>"+capacity+"인용</td><td><a class = 'pay' href = 'main.jsp?go=reservation/payform.jsp?roomNum="+roomNum+"&checkin_date="+$("#checkin_date").val()+"&checkout_date="+$("#checkout_date").val()+"'>결제</a></td></tr>";
 					s += "<tr><td class = 'text' colspan = '2' rowspan = '2'>" + text+ "</td></tr>";
 					s += "</table>";

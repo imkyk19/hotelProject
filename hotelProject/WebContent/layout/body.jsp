@@ -39,7 +39,7 @@
 	thead.title tr td {
 		border: 3px solid gray; 
 		width: 1200px; 
-		height: 200px;
+		height: 80px;
 		text-align: center;
 		font-size: 5em;
 	}
@@ -159,7 +159,7 @@ $(function(){
 		<table class="booking2">
 			<thead class="title">
 				<tr>
-					<td colspan="5" style="height: 100px; background-color: #FAEBD0; font-family: 'Forum', cursive;">
+					<td colspan="5" style=" background-color: #FAEBD0; font-family: 'Forum', cursive; font-size: 4em;">
 						RESERVATION
 					</td>
 				</tr>
@@ -168,14 +168,15 @@ $(function(){
 			<tbody class="bookingform">
 				<tr style="height: 100px;">
 					<td>
-						<label for = "checkin_date">Check In: </label>
+						<label style="font-size: 1.5em; width: 100px;" for = "checkin_date">Check In: </label>
 						
 						<input type="date" id = "checkin_date" name = "checkin_date" >
 						
 						
 					</td>
 					<td>
-						<label for = "checkout_date">Check Out: </label>
+						<label style="font-size: 1.5em; width: 100px;" for = "checkout_date">Check Out: </label>
+						
 						<input type="date" id = "checkout_date" name = "checkout_date" >
 						
 					</td>
@@ -206,7 +207,7 @@ $(function(){
 					<input type="hidden" name = "ckout_date" id = "ckout_date" value = "">
 					<!-- <input type="hidden" name = "capacity" id = "capacity" value = ""> -->
 					
-						<button style="margin-top: 10px; margin-bottom:10px; width: 200px; height: 50px;" type="submit" id = "btnBodySearch" class="btn btn-success btn-lg">Search</button>
+						<button style="margin-top: 10px; margin-bottom:10px; width: 200px; height: 50px; background-color:#260B01; line-height:20px; color: white; font-size: 1.5em; text-align: center;" type="submit" id = "btnBodySearch" class="btn btn-default btn-lg">Search</button>
 						
 					</td>
 				</tr>
