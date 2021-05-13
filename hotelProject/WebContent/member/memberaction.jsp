@@ -7,6 +7,7 @@
     pageEncoding="UTF-8"%>
 <%
 	
+	
 	String name=request.getParameter("name");	
 	//날짜 저장
 	String birth=request.getParameter("year")+"-"+request.getParameter("month")+"-"+request.getParameter("day");	
@@ -41,8 +42,10 @@
 	dto.setGoogle(google);
 	
 	GuestDao dao=new GuestDao();
+	
 	dao.insertGuest(dto);
-	response.sendRedirect("../main.jsp?go=member/join.jsp&name="+name+"&id="+id);
+	request.setCharacterEncoding("utf-8");
+	response.sendRedirect("../main.jsp?go=member/join.jsp?name="+dto.getName()+"&id="+id);
 %>
 
 

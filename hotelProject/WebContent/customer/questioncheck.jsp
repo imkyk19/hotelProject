@@ -141,7 +141,7 @@
 <table class="table table-hover" style="width: 900px;">
 	<tr bgcolor="#fff7e8"  >
 		<th width="50" style="text-align: center;" >번호</th>
-		<th width="80" style="text-align: center;" >후기유형</th>
+		<th width="80" style="text-align: center;" >문의유형</th>
 		<th width="300">제목</th>
 		<th width="70" style="text-align: center;" >작성자</th>
 		<th width="100" style="text-align: center;" >작성일</th>

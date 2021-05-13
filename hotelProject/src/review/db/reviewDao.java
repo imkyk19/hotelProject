@@ -514,4 +514,49 @@ public class reviewDao {
 			}
 			return list;
 		}
+		
+		//검색 정렬 리스트
+		public List<reveiwDto> getSearchList(String subject,String start, String end) {
+			
+			List<reveiwDto> list=new Vector<reveiwDto>();
+			
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			
+			conn=db.getCommonConnection();
+			String sql="select a.* from (select ROWNUM as RNUM,b.* from "
+					+ "(select * from review  where subject like '%"+subject+"%' order by writeday desc)b)a where a.RNUM>=? and a.RNUM<=?";
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				//바인딩
+				pstmt.setString(1, start);
+				pstmt.setString(2, end);
+				//실행
+				rs=pstmt.executeQuery();
+				//데이터 넣기
+				while(rs.next()) {
+					reveiwDto dto=new reveiwDto();
+					
+					dto.setH_num(rs.getString("h_num"));
+					dto.setType(rs.getString("type"));
+					dto.setG_num(rs.getString("g_num"));
+					dto.setSubject(rs.getString("subject"));
+					dto.setContent(rs.getString("content"));
+					dto.setImage(rs.getString("image"));
+					dto.setReadcount(rs.getInt("readcount"));
+					dto.setLikes(rs.getInt("likes"));
+					dto.setWriteday(rs.getTimestamp("writeday"));
+					//list에 추가
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbColse(rs, pstmt, conn);
+			}
+			return list;
+		}
 }

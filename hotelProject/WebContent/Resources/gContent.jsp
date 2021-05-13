@@ -133,10 +133,22 @@ String num=request.getParameter("num");
 		
 		//문의 내역 클릭했을 때
 		$("span.reviewlist").click(function(){
-			<%
-				reviewDao rdao=new reviewDao();
-				List<reveiwDto>list =rdao.getUserList(num);
-			%>
+			$("#reviewModal").modal();	
+		});
+		//문의 내역 상세보기로 이동
+		$("tr.goreview").click(function(){
+			var num=$(this).attr("num");
+			location.href="rContent.jsp?num="+num;
+		});
+		
+		//예약 내역 클릭했을 때
+		$("span.reservationlist").click(function(){
+			$("#reservationModal").modal();	
+		});
+		//예약 내역 상세보기로 이동
+		$("tr.goreservation").click(function(){
+			var num=$(this).attr("num");
+			location.href="rvContent.jsp?num="+num;
 		});
 		
 	});
@@ -708,8 +720,24 @@ String num=request.getParameter("num");
         <div class="modal-body">        
           	<table class="table table-hover">
           		<tr>
-          			<td></td>
+          			<td>no</td><td>문의 종류</td><td>제목</td><td>작성일</td><td>추천수</td><td>조회수</td>
           		</tr>
+          		<%
+				reviewDao rdao=new reviewDao();
+				List<reveiwDto>list =rdao.getUserList(num);
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+				int no=0;
+					for(reveiwDto d:list){%>
+						<tr num="<%=d.getH_num()%>" class="goreview">
+						<th><%=++no %></th>
+						<th><%=d.getType() %></th>
+						<th><%=d.getSubject() %></th>
+						<th><%=sdf.format(d.getWriteday()) %></th>
+						<th><%=d.getLikes() %></th>
+						<th><%=d.getReadcount() %></th>
+						</tr>
+					<%}
+				%>
           	</table>         	
         </div>
         <div class="modal-footer">
