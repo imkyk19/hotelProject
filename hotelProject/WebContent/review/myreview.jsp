@@ -22,6 +22,7 @@
 		height: 400px;
 		margin-top: 30px;
 		margin-left: 300px;
+		margin-bottom:200px;
 		font-size: 1.3em;
 		cursor: pointer;
 		background-color: #FAEBD0;

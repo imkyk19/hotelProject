@@ -14,7 +14,7 @@
 
 div.mymain{
 	width:240px;
-	height:500px;
+	height:450px;
 	margin-top: 50px;
 	margin-left: 300px;   
 	margin-bottom: 100px;
