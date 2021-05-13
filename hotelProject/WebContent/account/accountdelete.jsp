@@ -9,10 +9,10 @@ request.setCharacterEncoding("utf-8");
 	String pass=request.getParameter("Pw");
 
 	GuestDao dao=new GuestDao();
-	
+	  
 	String newpass=dao.getPass(id);
 	
-	boolean b=dao.isPassCheck(id, pass);
+	boolean b=dao.isPassCheck(id, pass);  
 	
 	
 	if(b && pass.equals(newpass)){	

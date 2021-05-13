@@ -17,7 +17,7 @@
 	String newpass=dao.getPass(id);
 
 	if(pass.equals(newpass)){
-		
+		       
 		%>
 		<script type="text/javascript">
 		alert("비밀번호가 변경되었습니다");

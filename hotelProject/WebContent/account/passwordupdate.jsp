@@ -12,7 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
 div.mymain{
-	width:240px;
+	width:240px;    
 	height:500px;
 	margin-top: 50px;
 	margin-left: 300px;

@@ -6,13 +6,13 @@
 
 
 
-<%
+<%    
 
 	request.setCharacterEncoding("utf-8");
 
 	String id=session.getAttribute("id").toString();
-	
-	GuestDto dto=new GuestDto();
+	          
+	GuestDto dto=new GuestDto();  
 	GuestDao dao=new GuestDao();
 	
 	String name=request.getParameter("name");
