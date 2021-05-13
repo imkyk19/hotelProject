@@ -57,7 +57,7 @@ div.reservecheckmain{
 div.reservecheck{
 	position:absolute;
 	left:600px;
-	top:300px;
+	top:280px;
 
 }
 </style>
@@ -192,12 +192,6 @@ if(id!=null &&loginok!=null){
 			 <%=name%>님의 객실및 패키지 예약 내역을 확인하실수있습니다.
 		</td>    
 	</tr>
-	<tr>
-		<td>
-	 	<input type="date" id="checkin_date" value="">~<input type="date" id="checkout_date" value="">
-	 	<button type="button" id="searchbtn" style="color:white;">조회</button>
-	 	</td>
-	 </tr>	
 	 </table>
 
 	

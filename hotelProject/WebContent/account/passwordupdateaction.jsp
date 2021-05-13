@@ -17,16 +17,23 @@
 	String newpass=dao.getPass(id);
 
 	if(pass.equals(newpass)){
-		dto.setId(id);
+		
+		%>
+		<script type="text/javascript">
+		alert("수정되었습니다");
+		location.href="../main.jsp?go=mypage/mypagemain.jsp";
+		</script>
+		
+		<% dto.setId(id);
 		dto.setPass(newPw);
 		dao.passUpdate(dto);	
-		String go="../main.jsp?go=mypage/mypagemain.jsp";
-		response.sendRedirect(go);
+		//String go="../main.jsp";
+		//response.sendRedirect(go);  
 	
 	}else{%>
 		<script type="text/javascript">
 			alert("비밀번호가 틀립니다.");
-			location.href="../main.jsp?go=account/passwordupdate.jsp";
+			location.href="../main.jsp?go=mypage/mypagemain.jsp";
 		</script>
 	<%}
 		
