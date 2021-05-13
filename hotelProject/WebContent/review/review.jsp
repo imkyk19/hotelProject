@@ -316,14 +316,14 @@ $("#numtype").change(function() {
 				var writeday=n.find("writeday").text();
 				var name=n.find("name").text();
 				var path="main.jsp?go=review/content.jsp?h_num="+h_num+"&pageNum="+pageNum;
-				
+ 			
 					s+='<tr align="center">';
 					s+='<td>';
 					s+=m++;
 					s+='</td>';	
 					s+='<td>'+type+'</td>';
 					s+='<td align="left">';
-					s+='<a style="color: black; cursor: pointer;" href='+path+'>'+subject+'</a>';
+				    s+='<a style="color: black; cursor: pointer;" href='+path+'>'+subject+'</a>';
 					s+='</td>';
 					s+='<td>'+name+'</td>';
 					s+='<td>'+writeday+'</td>';
