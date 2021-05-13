@@ -7,7 +7,7 @@
 <%
 MultipartRequest multi=null;
 //업로드할 경로
-String realFolder=getServletContext().getRealPath("/save");
+String realFolder=getServletContext().getRealPath("/upload");
 
 
 try{
