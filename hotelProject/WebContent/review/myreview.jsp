@@ -214,7 +214,7 @@
 							style="text-decoration: none; color: black;">수정하기</a>
 						</td>
 						<td>
-							<a href="main.jsp?go=review/delete.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=currentPage%>"
+							<a href="main.jsp?go=review/delete.jsp?h_num=<%=dto.getH_num()%>"
 							style="text-decoration: none; color:black;">삭제하기</a>
 						</td>
 					</tr>

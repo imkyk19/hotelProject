@@ -43,6 +43,7 @@ try{
 	
 	response.sendRedirect("../main.jsp?go=review/review.jsp");
 	System.out.print("image: "+image);
+	System.out.print("type: "+type);
 	
 }catch(Exception e){
 	e.printStackTrace();

@@ -207,11 +207,11 @@
 						<%
 						if(acount>0){
 							%>
-							<img alt="" src="image/완료.png" style="width: 40px;">
+							<img alt="" src="image/finished.png" style="width: 40px;">
 							<%
 						}else{
 							%>
-							<img alt="" src="image/대기중.png" style="width: 40px;">
+							<img alt="" src="image/waiting.png" style="width: 40px;">
 							<%
 						}
 						%>
@@ -233,7 +233,7 @@
 	if(totalCount>0)
 	{
 		%>
-		<div style="width: 900px; text-align: center; margin-left: 670px; margin-top: 30px;">
+		<div style="width: 900px; text-align: center; margin-left: 670px; margin-top: 50px;">
 			<ul >
 			<%
 			if(startPage>1)
