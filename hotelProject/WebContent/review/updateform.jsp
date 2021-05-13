@@ -74,7 +74,7 @@ String g_num=dto.getG_num();
 			<b style="color: gray;">후기유형</b>
 			<br>
 			<b>
-				<input type="hidden" name="type" id="type">
+				<input type="hidden" name="type" id="type" value="칭찬">
 					<select name="rtype" id="rtpye" class="form-control" style="width: 100px;">
 						<option disabled hidden selected>선택</option>
 						<option value="칭찬">칭찬</option>

@@ -174,7 +174,7 @@ if(loginok!=null && id.equals(gdto.getId())){
 		<button type="button" style="width: 120px; color: white; margin-left:150px; margin-right:10px;" class="btnupdate"
 		onclick="location.href='main.jsp?go=review/updateform.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=pageNum%>'">수정</button>
 	<button type="button" style="width: 120px;  color: white;" class="btndelete"
-		onclick="location.href='main.jsp?go=review/delete.jsp?h_num=<%=dto.getH_num()%>&pageNum=<%=pageNum%>'">삭제</button>	
+		onclick="location.href='main.jsp?go=review/delete.jsp?h_num=<%=dto.getH_num()%>'">삭제</button>	
 	</div>
 	<%
 }
