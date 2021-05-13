@@ -106,7 +106,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="reservationlist.jsp">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>예약관리</span></a>
             </li>

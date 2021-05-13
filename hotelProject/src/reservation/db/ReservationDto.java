@@ -12,6 +12,12 @@ public class ReservationDto {
 	private int bookingQty;
 	private int totalPrice;
 	private int roomNum;
+	private String name;
+	private String email;
+	private String hp;
+	private String id;
+	private String photo;
+	
 	
 	public int getRoomNum() {
 		return roomNum;
@@ -67,6 +73,42 @@ public class ReservationDto {
 	}
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+	public int getG_num() {
+		return g_num;
+	}
+	public void setG_num(int g_num) {
+		this.g_num = g_num;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getHp() {
+		return hp;
+	}
+	public void setHp(String hp) {
+		this.hp = hp;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	
 	
