@@ -6,12 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
-
-
-import guest.db.GuestDto;
 import oracle.db.DbConnect;
-import question.db.QuestionDto;
-import review.db.reveiwDto;
+
 
 public class ReservationDao {
 	DbConnect db = new DbConnect();

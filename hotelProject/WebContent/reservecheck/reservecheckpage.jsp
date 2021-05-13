@@ -1,3 +1,6 @@
+<%@page import="java.util.Date"%>
+
+<%@page import="java.text.DateFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="reservation.db.ReservationDao"%>
@@ -72,7 +75,11 @@ div.reservecheck{
 
 String id=(String)session.getAttribute("id");
 String loginok=(String)session.getAttribute("loginok");
+String checkin_date = request.getParameter("checkin_date");
+String checkout_date = request.getParameter("checkout_date");
 
+System.out.println(checkin_date);
+System.out.println(checkout_date);
 
 ReservationDao dao=new ReservationDao();
 GuestDao gdao=new GuestDao();
@@ -81,7 +88,10 @@ GuestDto gdto=gdao.getData(id);
 String name=gdao.getName(id);
 String g_num=gdto.getG_num();
 
-
+/* DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+Date dateFormCheckIn = format.parse(checkin_date);
+Date dateFormCheckOut = format.parse(checkout_date);
+long dateDifference = ((dateFormCheckOut.getTime() - dateFormCheckIn.getTime())/(1000*60*60*24)); */
 
 //로그인된 아이디 세션 값 얻기
 
@@ -138,7 +148,8 @@ List<ReservationDto> list=dao.getReservationList(g_num);
 
 
 //미로그인시 로그인폼 이동
-if(id!=null &&loginok!=null){    
+if(id!=null &&loginok!=null){   
+	
 	%>
 	
 
@@ -220,6 +231,7 @@ if(id!=null &&loginok!=null){
 		<th style="text-align:center;">인원수</th>
 		<th style="text-align:center;">체크인</th>
 		<th style="text-align:center;">체크아웃</th>
+		<!-- <th style="text-align:center;">몇박몇일</th> -->
 		<th style="text-align:center;">가격</th>
 		<th style="text-align:center;">예약취소하기</th>
 	</tr>
@@ -243,6 +255,7 @@ if(id!=null &&loginok!=null){
 						<td><%=dto.getGuestQty()%></td>
 						<td><%=dto.getCheckInDate()%></td>
 						<td><%=dto.getCheckOutDate()%></td>
+						<%-- <td><%=dateDifference%>박 <%=dateDifference+1%>일</td> --%>
 						<td><%=dto.getTotalPrice()%></td>
 						<td> 
 						
@@ -259,11 +272,10 @@ if(id!=null &&loginok!=null){
 
 </body>		
 	<%
-}else{
+}else {
 	%>
 	<script type="text/javascript">
-		alert("로그인이 필요합니다.");
-		location.href="main.jsp?go=login/loginform.jsp";
+		location.href="main.jsp?go=reservecheck/nonmembercheck.jsp";
 	</script>
 	<%
 }
