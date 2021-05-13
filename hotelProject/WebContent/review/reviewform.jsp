@@ -13,7 +13,7 @@
 <style type="text/css">
 	div.reviewmenu{
 		position: absolute;
-		width: 250px;
+		width: 250px;  
 		height: 400px;
 		margin-top: 50px;
 		margin-left: 300px;
