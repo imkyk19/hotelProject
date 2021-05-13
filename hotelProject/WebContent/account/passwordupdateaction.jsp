@@ -20,7 +20,7 @@
 		
 		%>
 		<script type="text/javascript">
-		alert("수정되었습니다");
+		alert("비밀번호가 변경되었습니다");
 		location.href="../main.jsp?go=mypage/mypagemain.jsp";
 		</script>
 		
@@ -33,7 +33,7 @@
 	}else{%>
 		<script type="text/javascript">
 			alert("비밀번호가 틀립니다.");
-			location.href="../main.jsp?go=mypage/mypagemain.jsp";
+			location.href="../main.jsp?go=account/passwordupdate.jsp";
 		</script>
 	<%}
 		
