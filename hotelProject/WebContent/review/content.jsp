@@ -54,6 +54,11 @@ div.btnbox{
 .table-striped>tbody>tr:nth-child(odd)>th {
    background-color: #FAEBD0;
  }
+ 
+ div.photodiv{
+ 	width: 900px;
+ 	text-align: center;
+ }
 
 </style>
 </head>
@@ -127,7 +132,8 @@ div.btnbox{
 	<tr style="border: 1px solid #FAEBD0;">
 		<td style="height: 200px; color: #524630;">
 			<h4><%=dto.getContent().replace("\n", "<br>")%></h4>
-			<%
+			<div class="photodiv">
+						<%
 			//해당 사진이 개인톰켓서버에 존재
 			if(myPhoto==null){
 				%>
@@ -141,7 +147,9 @@ div.btnbox{
 				<%
 			}
 			%>
-				<%
+			</div>
+
+		<%
 	LIkesDao ldao=new LIkesDao();
 	if(ldao.likeData(id, dto.getSubject(), h_num)!=0){
 		int thumbs=ldao.likeData(id, dto.getSubject(), h_num);
@@ -214,6 +222,7 @@ $("b.thumbs").click(function() {
 				data:{"h_num":h_num,"pageNum":pageNum,"subject":subject},
 				url:"review/updatelikes.jsp",
 				success:function(data){
+					window.location.reload();
 					alert("추천되었습니다. 감사합니다.");	
 				}
 			});	
