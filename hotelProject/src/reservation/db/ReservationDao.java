@@ -221,5 +221,92 @@ public class ReservationDao {
 				}
 			}
 			
-	
+			//관리자 페이지-예약 내역 출력
+	         public List<ReservationDto> getReservationList()
+	         {
+	            List<ReservationDto> list=new Vector<ReservationDto>();
+	            Connection conn=null;
+	            PreparedStatement pstmt=null;
+	            ResultSet rs=null;
+	            String sql="select guest.g_num as g_num, name,email,hp,id,reservation.num as num,guest_qty,booking_qty,total_price,RESERVATION.ROOM_NUM as room_num,checkin_date,checkout_date,photo\r\n"
+	                  + "from guest,RESERVATION,ROOM\r\n"
+	                  + "where guest.G_NUM=RESERVATION.G_NUM and RESERVATION.ROOM_NUM=ROOM.ROOM_NUM";
+	            conn=db.getCommonConnection();
+	            
+	            try {
+	               pstmt=conn.prepareStatement(sql);
+	               rs=pstmt.executeQuery();
+	               while(rs.next())
+	               {
+	                  
+	                  ReservationDto dto=new ReservationDto();
+	                  
+	                  dto.setNum(rs.getInt("num"));
+	                  dto.setg_num(rs.getInt("g_num"));
+	                  dto.setGuestQty(rs.getInt("guest_qty"));
+	                  dto.setBookingQty(rs.getInt("booking_qty"));
+	                  dto.setTotalPrice(rs.getInt("total_price"));
+	                  dto.setRoomNum(rs.getInt("room_num"));
+	                  dto.setCheckInDate(rs.getString("checkin_date"));
+	                  dto.setCheckOutDate(rs.getString("checkout_date"));
+	                  
+	                  dto.setName(rs.getString("name"));
+	                  dto.setId(rs.getString("id"));
+	                  dto.setEmail(rs.getString("email"));
+	                  dto.setHp(rs.getString("hp"));
+	                  dto.setPhoto(rs.getString("photo"));
+	                  
+	                  list.add(dto);
+	               }
+	            } catch (SQLException e) {
+	               // TODO Auto-generated catch block
+	               e.printStackTrace();
+	            }finally {
+	               db.dbColse(rs,pstmt, conn);
+	            }
+	            
+	            return list;
+	         }
+	         
+	         //관리자 페이지-번호에 해당하는 값 얻기
+	         public ReservationDto getData(String num) {
+
+	            ReservationDto dto = new ReservationDto();
+	            Connection conn = null;
+	            PreparedStatement pstmt = null;
+	            ResultSet rs = null;
+	            String sql = "select guest.g_num as g_num, name,email,hp,id,reservation.num as num,guest_qty,booking_qty,total_price,RESERVATION.ROOM_NUM as room_num,checkin_date,checkout_date,photo\r\n"
+	                  + "from guest,RESERVATION,ROOM\r\n"
+	                  + "where guest.G_NUM=RESERVATION.G_NUM and RESERVATION.ROOM_NUM=ROOM.ROOM_NUM and reservation.num=?";
+	            
+	            conn = db.getCommonConnection();
+	            try {
+	               pstmt = conn.prepareStatement(sql);
+	               pstmt.setString(1, num);
+	               rs = pstmt.executeQuery();
+	               if(rs.next()) {
+	                  dto.setNum(rs.getInt("num"));
+	                  dto.setg_num(rs.getInt("g_num"));
+	                  dto.setGuestQty(rs.getInt("guest_qty"));
+	                  dto.setBookingQty(rs.getInt("booking_qty"));
+	                  dto.setTotalPrice(rs.getInt("total_price"));
+	                  dto.setRoomNum(rs.getInt("room_num"));
+	                  dto.setCheckInDate(rs.getString("checkin_date"));
+	                  dto.setCheckOutDate(rs.getString("checkout_date"));
+	                  
+	                  dto.setName(rs.getString("name"));
+	                  dto.setId(rs.getString("id"));
+	                  dto.setEmail(rs.getString("email"));
+	                  dto.setHp(rs.getString("hp"));
+	                  dto.setPhoto(rs.getString("photo"));
+	               }
+	            } catch (SQLException e) {
+	               // TODO Auto-generated catch block
+	               e.printStackTrace();
+	            } finally {
+	               db.dbColse(rs, pstmt, conn);
+	            }
+	            
+	            return dto;
+	         }
 }
