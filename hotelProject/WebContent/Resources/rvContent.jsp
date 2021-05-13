@@ -1,3 +1,6 @@
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="reservation.db.ReservationDto"%>
+<%@page import="reservation.db.ReservationDao"%>
 <%@page import="java.io.File"%>
 <%@page import="review.db.reveiwDto"%>
 <%@page import="review.db.reviewDao"%>
@@ -45,39 +48,103 @@
 		tr.showcontent:hover{
 			cursor: pointer;
 		}
-		
+		span.updatereservation{
+			cursor: pointer;			
+		}
+		span.delreservation{
+			cursor: pointer;
+		}
+		span.updatereservation:hover{
+			color: black;		
+		}
+		span.delreservation:hover{
+			color: black;
+		}
+		span.reviewlist{
+			cursor: pointer;
+		}
+		tr.goreview{
+			cursor: pointer;
+		}
+		td.chroom{
+			cursor: pointer;
+		}
 	</style>
+	
 <script type="text/javascript">
+<%
+//아이디값 얻기
+String id=(String)session.getAttribute("mana");
+String num=request.getParameter("num");
+
+ReservationDao dao=new ReservationDao();
+ReservationDto dto=dao.getData(num);
+%> 
+
 	$(function(){
-		//삭제 이벤트
-		$("button.delreview").click(function(){
-			var num=$(this).attr("num");
-			var t=confirm("정말 삭제하시겠습니까?");
-			if(t){
-				$.ajax({
-					type:"get",
-					data:{"num":num},
-					dataType:"html",
-					url:"delreview.jsp",
-					success:function(){}
-				});
-			}
+		//수정 버튼 눌렀을 때 값 모달 창 띄우기
+		$("span.updatereservation").click(function(){
+			$("select.capacity").val("<%=dto.getGuestQty()%>");
+			$("#reservationModal").modal();
 			
-		
+			//검색 버튼 띄우기
+			$("button.searchbtn").click(function(){
+				$("div.searchroom").html("");
+				//가능한 방 띄우기
+				var chi=$("input.checkin").val();
+				var cho=$("input.checkout").val();
+				var capacity=$("select.capacity").val();
+				$.ajax({
+					data:{"chi":chi,"cho":cho,"capacity":capacity},
+					type:"get",
+					dataType:"xml",
+					url:"searchroom.jsp",
+					success:function(data){
+						var s="";
+						$(data).find("room").each(function(i) {
+							var n=$(this);
+							var num=n.attr("num");
+							var photo=n.find("photo").text();
+							var roomNum=n.find("roomNum").text();
+							var price=n.find("price").text();
+							var capacity=n.find("capacity").text();
+							var text=n.find("text").text();
+							
+							s+="<table>";
+							s+="<tr>";
+							s+="<td rowspan='3'><img src='"+photo+"' style='width:200px;height:150px;'></td>"
+							s+="<td>"+roomNum+"호</td>";
+							s+="<td>"+price+"</td>";						
+							s+="</tr>";
+							s+="<tr>";						
+							s+="<td style='text_align:center;'>"+capacity+"인</td>";	
+							s+="<td style='text_align:center;' class='chroom' num='"+num+"'>선택<img src='../image/체크.png' style='width:30px;height:30px;'></td>";	
+							s+="</tr>";
+							s+="<tr>";						
+							s+="<td colspan='2' style='height:100px;'>"+text+"</td>";						
+							s+="</tr>";
+							s+="</table>";
+							
+							
+						
+						});
+						$("div.searchroom").html(s);
+						
+					}
+				});
+			});
+			
+			//방선택 버튼 눌렀을 때
+			$(document).on("click","td.chroom",function(){
+				
+			});
 		});
 		
-	
 		
-		});
-		
-	
+	});
 </script>
 </head>
-<%
-	//아이디값 얻기
-	String id=(String)session.getAttribute("mana");
-	String num=request.getParameter("num");
-%>
+
 
 <body id="page-top">
 
@@ -105,6 +172,7 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
+           
 
             
             <!-- Divider -->
@@ -387,71 +455,74 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">후기 관리</h1>
+                    <h1 class="h3 mb-2 text-gray-800">상세 예약 내역</h1>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4" style="width: 1000px;">
+                    <div class="card shadow mb-4" style="width: 800px;">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary"></h6>
                         </div>
                         <div class="card-body" style="width: 800px;">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable"  cellspacing="0">   
-	                                <%
-	                                	reviewDao dao=new reviewDao();
-	                                	reveiwDto dto=dao.getData(num);
-	                                	
-	                                	
-	                                	
-	                                %>   
-	                                
-	                                	
-	                                                                                         
-                                    <tr style="width: 580px;">
-                                    	<th width="80px;">평가</th>
-                                    	<td><%=dto.getType() %></td>
-                                    	<td><span style="text-align: left;"><b><i class="far fa-thumbs-up"></i></b> <%=dto.getLikes() %></span></td>
-	                                	<td><span style="text-align: right;"><b><i class="fas fa-eye"></i></b> <%=dto.getReadcount() %></span></td>
-                                    </tr>
-                                    <tr>
-                                    	<th width="120px;">작성자(아이디)</th>
-                                    	<td colspan="3"><%=dto.getName()+"("+dto.getId()+")" %></td>
-                                    </tr>
+                            
+                            <div style="text-align: right;">
+                            	<span class="updatereservation"><i class="fas fa-edit"></i>수정</span>
+                            	<span class="delreservation"><i class="fas fa-ban"></i>취소</span>                           	
+                            </div>
+                                <table class="table table-bordered" id="dataTable"  cellspacing="0">                                  	
+	                                 
+	                                <tr>
+	                                	<th colspan="2" style="text-align: center;"><img src="<%=dto.getPhoto()%>" style="max-width: 500px;max-height: 450px;"></th>
+	                                </tr>	                                
+	                                 <tr>
+	                                	<th style="width: 50px;">객실</th>
+	                                	<td><%=dto.getRoomNum() %></td>
+	                                </tr>
+	                                 <tr>
+	                                	<th style="width: 50px;">인원</th>
+	                                	<td><%=dto.getGuestQty() %></td>
+	                                </tr>
+	                                 <tr>
+	                                	<th style="width: 70px;">예약 날짜</th>
+	                                	<td><%=dto.getCheckInDate()+"~"+dto.getCheckOutDate() %></td>
+	                                </tr>  
                                      <tr>
-                                    	<th width="80px;">제목</th>
-                                    	<td colspan="3"><%=dto.getSubject() %></td>
-                                    </tr>
-                                     <tr>
-                                    	<th style="height: 300px;">내용</th>
-                                    	<td colspan="3">
-	                                    	<div></div><span style="width: 500px;height: 300px;"><%=dto.getContent() %></span></div>
-	                                    	<div>
-	                                    	<%if(dto.getImage()==null){
-	                                    		//이미지가 없는 경우%>
-	                                    		
-	                                    	<%}else{
-	                                    		//이미지가 있는 경우%>
-	                                    		<img src="../image/<%=dto.getImage()==null?" ":dto.getImage()%>">
-	                                    	<%}%>
-	                                    	</div>
-                                    	
-                                    	</td>
-                                    </tr>                                     
+	                                	<th style="width: 50px;">예약자</th>
+	                                	<td><%=dto.getName() %></td>
+	                                </tr>
+	                                 <tr>
+	                                	<th style="width: 50px;">아이디</th>
+	                                	<td><%=dto.getId() %></td>
+	                                </tr>
+	                                 <tr>
+	                                	<th style="width: 50px;">연락처</th>
+	                                	<td><%=dto.getHp() %></td>
+	                                </tr>
+	                                 <tr>
+	                                	<th style="width: 50px;">이메일</th>
+	                                	<td><%=dto.getEmail() %></td>
+	                                </tr>
+	                                 <tr>
+	                                	<th style="width: 50px;">요청 사항</th>
+	                                	<td></td>
+	                                </tr>                                    
                                 </table>
-                                <div style="text-align: center;"><span>                               
-                                <button type="button" class="btn btn-info" onclick="history.back()">이전</button>
-                                <button type="button" class="btn btn-danger delreview" num="<%=dto.getH_num()%>">삭제</button>
-                                <button type="button" class="btn btn-warning updatereview" num="<%=dto.getH_num()%>">수정</button>
-                                </span></div>
+                               
                             </div>
                         </div>
                     </div>
 
                 </div>
+                <!-- listform -->
+                <div class="listform">
+            	
+           	 </div>
                 <!-- /.container-fluid -->
 
             </div>
+             
             <!-- End of Main Content -->
+          
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -468,11 +539,13 @@
 
     </div>
     <!-- End of Page Wrapper -->
+     
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    
 
    <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -494,48 +567,70 @@
         </div>
     </div>
     
-   <!-- Modal updatereivew-->
-  <div class="modal fade" id="updatereviewModal" role="dialog" >
+   
+    
+  	
+  	<!-- Modal reservation-->
+  <div class="modal fade" id="reservationModal" role="dialog" >
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header" >
-        <h4 class="modal-title imgname"></h4>
+        <h4 class="modal-title imgname"><%=dto.getName() %>님의 예약내역</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           
         </div>
-        <div class="modal-body">  
-        <form action="updatereview.jsp">      
+        <div class="modal-body">        
           	<table class="table table-bordered">
-          		<input type="hidden" name="num" value="<%=dto.getH_num()%>">
-          	<% %>
-          		<tr>
-          			<td style="width: 90px;">작성자(아이디)</td>
-          			<td><%=dto.getName()+"("+dto.getId()+")" %></td>
-          		</tr>
-          		</tr>
-          			<tr>
-          			<td>제목</td>
-          			<td><input type="text" value="<%=dto.getSubject()%>" class="input subject" style="width: 400px;" name="subject"></td>
-          		</tr>
-          			<tr>
-          			<td>내용</td>
-          			<td>
-          				<div><textarea class="input content" style="width: 400px;height: 200px;" name="content" ><%=dto.getContent() %></textarea></div>
-          				<div>
-          				 	<%
-          						if(dto.getImage()==null){%>
-          							<b></b>
-          						<%}else{%>
-          							<img src="../image/<%=dto.getImage()%>" class="image" style="max-height: 300px;max-width: 300px;" >
-          						<%}
-          					%> 
-          				</div>
-          				<div><input type="checkbox" class="blind" name="blind">내용 가리기</div>
-          			</td>
-          		</tr>
-          	</table>  
-          	<div style="text-align: center;"><button type="submit" class="btn btn-warning">수정하기</button></div>  
-          	</form>     	
+          		  <tr>
+	                                	<th colspan="2" style="text-align: center;"><img src="<%=dto.getPhoto()%>" style="max-width: 500px;max-height: 450px;"></th>
+	                                </tr>	                                
+	                                <tr>
+	                                	<th style="width: 70px;">예약 날짜</th>
+	                                	<td>Check In<input type="date" class="input checkin" value="<%=dto.getCheckInDate()%>"> Check Out<input type="date" class="input checkout" value="<%=dto.getCheckOutDate()%>">
+	                                	&nbsp;인원	                                	
+	                                		<select class="input capacity" style="width: 50px;">
+	                                			<option>1</option>
+	                                			<option>2</option>
+	                                			<option>3</option>
+	                                			<option>4</option>
+	                                		</select>
+	                                		<button type="button" class="button searchbtn" style="margin-left: 30px;">검색</button>
+	                                	</td>
+	                                	
+	                                </tr> 
+	                                 <tr>
+	                                	<td colspan="2"><div class="searchroom"></div></td>
+	                                </tr>
+	                                  <tr>
+	                                	<th style="width: 50px;">객실</th>
+	                                	<td class="roomnum"><%=dto.getRoomNum() %></td>
+	                                </tr>
+	                                 <tr>
+	                                	<th style="width: 50px;">인원</th>
+	                                	<td class="capacity"><%=dto.getGuestQty() %></td>
+	                                </tr>
+                                     <tr>
+	                                	<th style="width: 50px;">예약자</th>
+	                                	<td><%=dto.getName() %></td>
+	                                </tr>
+	                                 <tr>
+	                                	<th style="width: 50px;">아이디</th>
+	                                	<td><%=dto.getId() %></td>
+	                                </tr>
+	                                 <tr>
+	                                	<th style="width: 50px;">연락처</th>
+	                                	<td><%=dto.getHp() %></td>
+	                                </tr>
+	                                 <tr>
+	                                	<th style="width: 50px;">이메일</th>
+	                                	<td><%=dto.getEmail() %></td>
+	                                </tr>
+	                                 <tr>
+	                                	<th style="width: 50px;">요청 사항</th>
+	                                	<td></td>
+	                                </tr>  
+          		
+          	</table>         	
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -545,40 +640,6 @@
     </div>
   </div>
   	<!-- modal끝 -->
-  <script type="text/javascript">
-  
-	//수정하기
-	$("button.updatereview").click(function(){
-
-		$("#updatereviewModal").modal();
-		
-		//내용 가리기를 클릭했을 때
-		$("input[name=blind]").change(function(){
-			
-			    if($(this).is(":checked")){
-				//체크 됐을 때
-				$("textarea.content").val("관리자에 의해 규제된 내용입니다.");
-				$("input.subject").val("관리자에 의해 규제된 내용입니다.");
-				 $("img.image").attr("src","");
-				
-				
-				
-			}else{
-				//체크 풀었을 때
-				$("textarea.content").val("<%=dto.getContent()%>");
-				 $("input.subject").val("<%=dto.getSubject()%>"); 
-				 $("img.image").attr("src","../image/<%=dto.getImage()%>");
-				
-				
-			}    
-			
-		});
-		
-		
-		});
-	
-	
-  </script>     
   
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

@@ -57,28 +57,7 @@
 			$("#myModal").modal();
 		});
 		
-		//회원 삭제 이벤트
-		$("span.delguest").click(function(){
-			var g_num=$(this).attr("num");
-			var t=confirm("정말 삭제하시겠습니까?");
-			
-			 if(t){
-				//관리자가 예를 눌렀을 때
-				$.ajax({
-					type:"get",
-					data:{"num":g_num},
-					dataType:"html",
-					url:"delguestaction.jsp",
-					success:function(){
-						//새로고침
-						location.reload();
-					}
-				});
-				
-			} 
-			
-			
-		});
+
 		
 		//회원 체크박스 삭제 이벤트
 		$("span.delguestch").click(function(){
@@ -140,7 +119,7 @@
 		});
 		
 		//회원 상세보기 이벤트
-		$("tr.showcontent").click(function(){
+		$("th.id").click(function(){
 			var num= $(this).attr("num");
 			location.href="gContent.jsp?num="+num;
 		});
@@ -232,7 +211,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="char">
+                <a class="nav-link" href="reservationlist.jsp">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>예약관리</span></a>
             </li>
@@ -515,7 +494,6 @@
                                         	<th>아이디</th>
                                             <th>성명</th>                                         
                                             <th>연락처</th>                                           
-                                            <th>관리</th>
                                            
                                         </tr>
                                     </thead>
@@ -525,8 +503,7 @@
                                            	<th>no</th>
                                         	<th>아이디</th>
                                             <th>성명</th>                                         
-                                            <th>연락처</th>                                           
-                                            <th>관리</th>
+                                            <th>연락처</th>                                                      
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -539,14 +516,11 @@
                                     	for(GuestDto d:list){%>
                                     	<!-- 회원목록 출력 -->	
                                     	<tr class="showcontent" num="<%=d.getG_num()%>">
-                                    		<th style="width: 20px;"><input type="checkbox" name=delguestch idd="<%=d.getId()%>"></th>
-                                            <th style="width: 20px;"><%= ++no %></th>
-                                            <th><%= d.getId() %></th>
+                                    		<th style="width: 20px;"><input type="checkbox" name="delguestch" idd="<%=d.getId()%>"></th>
+                                            <th style="width: 20px;" class="no"><%= ++no %></th>
+                                            <th class="id" num="<%=d.getG_num()%>"><%= d.getId() %></th>
                                             <th><%= d.getName() %></th>                                           
                                             <th><%= d.getHp() %></th>                                          
-                                            <th style="width: 20px;">
-                                            	<span class="delguest" num="<%= d.getG_num() %>"><i class="fas fa-user-minus" style="color: red;" ></i></span>
-                                            </th>
                                         </tr>		
                                     	<%}
                                     %>

@@ -1,11 +1,5 @@
-<%@page import="java.io.File"%>
-<%@page import="review.db.reveiwDto"%>
-<%@page import="review.db.reviewDao"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="question.db.QuestionDto"%>
-<%@page import="question.db.QuestionDao"%>
-<%@page import="room.db.RoomDto"%>
-<%@page import="room.db.RoomDao"%>
+<%@page import="reservation.db.ReservationDto"%>
+<%@page import="reservation.db.ReservationDao"%>
 <%@page import="java.util.List"%>
 <%@page import="guest.db.GuestDto"%>
 <%@page import="guest.db.GuestDao"%>
@@ -25,7 +19,8 @@
     <title>Grace 관리</title>
     
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <SCRIPT src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></SCRIPT>
+    <link rel="stylesheet" href="../css/style.css">
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,53 +33,112 @@
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    
-    <link rel="stylesheet" href="../css/style.css">
 
 	<style type="text/css">
-		tr.showcontent:hover{
+		span.addguest{
 			cursor: pointer;
 		}
-		
+		span.delguest{
+			cursor: pointer;
+		}
+		tr.showcontent{
+			border: 1px solid gray;
+		}
+		button.delreservation{
+			margin-bottom: 10px;
+		}
 	</style>
+	<%
+	//아이디값 얻기(mana값이 null값이면 로그인 폼 띄우기)
+	String id=(String)session.getAttribute("mana");
+	if(id==null){
+		response.sendRedirect("loginform.jsp");
+	}
+%>
 <script type="text/javascript">
 	$(function(){
-		//삭제 이벤트
-		$("button.delreview").click(function(){
-			var num=$(this).attr("num");
-			var t=confirm("정말 삭제하시겠습니까?");
-			if(t){
-				$.ajax({
-					type:"get",
-					data:{"num":num},
-					dataType:"html",
-					url:"delreview.jsp",
-					success:function(){}
-				});
-			}
+		//회원추가 버튼을 클릭했을때 
+		$("span.addguest").click(function(){
+			$("#myModal").modal();
+		});
+		
+		
+		//회원 체크박스 삭제 이벤트
+		$("button.delreservation").click(function(){
+			
+			//체크된 값 배열에 넣기
+			var chk_arr=[];
+			$("input[name=delreservation]:checked").each(function() {
+				var chk=$(this).attr("num");
+				chk_arr.push(chk);
+			});
 			
 		
+			
+			  var chnum = {
+                      "ch" : chk_arr     //과일배열 저장
+                  };
+			  console.log(chnum);
+			
+			//값 삭제 ajax
+			var t=confirm("정말 "+chk_arr.length+"개의 정보를 삭제하시겠습니까?");
+			if(t){
+				$.ajax({
+					type:"post",
+					data:chnum,
+					dataType:"html",
+					url:"chdelreservationaction.jsp",
+					traditional:true,
+					success:function(){
+						//알림
+						alert("삭제되었습니다.");
+						//새로고침
+						location.reload();
+					}
+				});
+			}else{
+				//체크상자 체크 풀기
+				$("input[name=delguestch]").each(function(){
+					$(this).attr("checked",false);
+				});
+				
+				$("input[name=entirecheck]").prop("checked",false);
+			}
+			
 		});
 		
-	
-		
+		//전체 선택 눌렀을 때
+		$("input[name=entirecheck]").change(function(){
+			if($(this).is(":checked")){
+				//체크 됐을 때
+				$("input[name=delreservation]").each(function(){
+					$(this).attr("checked",true);
+				});
+			}else{
+				//체크 풀었을 때
+				$("input[name=delreservation]").each(function(){
+					$(this).attr("checked",false);
+				});
+			}
 		});
 		
+		//예약 내역 상세보기 이벤트
+		$("th.showcontent").click(function(){
+			var num= $(this).attr("num");
+			location.href="rvContent.jsp?num="+num;
+		});
 	
+	});
+	
+
 </script>
 </head>
-<%
-	//아이디값 얻기
-	String id=(String)session.getAttribute("mana");
-	String num=request.getParameter("num");
-%>
 
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
        <!-- 사이드바 -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -145,7 +199,7 @@
                     <span>문의 사항</span></a>
             </li>
             
-            <li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link" href="reviewlist.jsp">
                     <i class="fas fa-fw fa-table"></i>
                     <span>후기글 관리</span></a>
@@ -387,67 +441,62 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">후기 관리</h1>
+                    <h1 class="h3 mb-2 text-gray-800">예약 관리</h1>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4" style="width: 1000px;">
+                    <div class="card shadow mb-4" style="width: 950px;">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary"></h6>
                         </div>
-                        <div class="card-body" style="width: 800px;">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable"  cellspacing="0">   
-	                                <%
-	                                	reviewDao dao=new reviewDao();
-	                                	reveiwDto dto=dao.getData(num);
-	                                	
-	                                	
-	                                	
-	                                %>   
-	                                
-	                                	
-	                                                                                         
-                                    <tr style="width: 580px;">
-                                    	<th width="80px;">평가</th>
-                                    	<td><%=dto.getType() %></td>
-                                    	<td><span style="text-align: left;"><b><i class="far fa-thumbs-up"></i></b> <%=dto.getLikes() %></span></td>
-	                                	<td><span style="text-align: right;"><b><i class="fas fa-eye"></i></b> <%=dto.getReadcount() %></span></td>
-                                    </tr>
-                                    <tr>
-                                    	<th width="120px;">작성자(아이디)</th>
-                                    	<td colspan="3"><%=dto.getName()+"("+dto.getId()+")" %></td>
-                                    </tr>
-                                     <tr>
-                                    	<th width="80px;">제목</th>
-                                    	<td colspan="3"><%=dto.getSubject() %></td>
-                                    </tr>
-                                     <tr>
-                                    	<th style="height: 300px;">내용</th>
-                                    	<td colspan="3">
-	                                    	<div></div><span style="width: 500px;height: 300px;"><%=dto.getContent() %></span></div>
-	                                    	<div>
-	                                    	<%if(dto.getImage()==null){
-	                                    		//이미지가 없는 경우%>
+                        <div class="card-body">
+                            <div class="table-responsive">                           	
+                                <table class="table table-hover" id="dataTable" width="900px" cellspacing="0">
+                                	 <thead>
+                                	 <div style="text-align: right;">
+                                	  <button type="button" class="btn btn-danger delreservation"><span class="delreservation" num=""><i class="fas fa-user-minus" ></i>예약 취소</span></button>
+                                      </div>
+                                        <tr>
+                                        	 <th style="width: 20px;"><input type="checkbox" name="entirecheck" ></th>
+                                            <th></th>
+                                           
+                                        </tr>
+                                    </thead>
+                                   
+                                    <tbody>
+                                    <%
+                                    	ReservationDao dao=new ReservationDao();
+                                    	ReservationDto dto=new ReservationDto();
+                                    	List<ReservationDto> list= dao.getReservationList();
+                                    	//순서 변수
+                                    	int no=0;
+                                    	for(ReservationDto d:list){%>
+                                    	<!-- 회원목록 출력 -->	
+                                    	<tr>
+                                    		<th><input type="checkbox" name="delreservation" num="<%=d.getNum()%>"></th>                                    		
+                                    		<th class="showcontent" num="<%=d.getNum()%>">
+	                                    		<div style="font-size: 1.3em;">
+                        						<span><img src="../image/알림.png" style="width: 30px;"></span>
+	                                    		<span><%=d.getName()+"("+d.getId()+") 님의 예약" %></span>
 	                                    		
-	                                    	<%}else{
-	                                    		//이미지가 있는 경우%>
-	                                    		<img src="../image/<%=dto.getImage()==null?" ":dto.getImage()%>">
-	                                    	<%}%>
-	                                    	</div>
-                                    	
-                                    	</td>
-                                    </tr>                                     
+	                                    		</div>     
+	                                    		<div style="font-size: 1.1em;margin-left: 30px;">
+	                                    		<span><i class="fas fa-bed" style="color: #aaa;"></i>&nbsp;<%=d.getRoomNum()%>호</span>
+	                                    		<span><i class="far fa-calendar-alt" style="color: #aaa;"></i>&nbsp;<%=d.getCheckInDate() %></span>~
+	                                    		<span><%=d.getCheckOutDate()%></span>
+	                                    		</div>  
+                                    		</th>                                 
+                                        </tr>		
+                                    	<%}
+                                    %>
+                                         
+                                    </tbody>
                                 </table>
-                                <div style="text-align: center;"><span>                               
-                                <button type="button" class="btn btn-info" onclick="history.back()">이전</button>
-                                <button type="button" class="btn btn-danger delreview" num="<%=dto.getH_num()%>">삭제</button>
-                                <button type="button" class="btn btn-warning updatereview" num="<%=dto.getH_num()%>">수정</button>
-                                </span></div>
                             </div>
                         </div>
-                    </div>
+                    </div>                     
 
                 </div>
+               
                 <!-- /.container-fluid -->
 
             </div>
@@ -457,7 +506,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Grace</span>
+                        <span>Copyright &copy; Grace Hotel 2020</span>
                     </div>
                 </div>
             </footer>
@@ -474,7 +523,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-   <!-- Logout Modal-->
+  <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -494,48 +543,108 @@
         </div>
     </div>
     
-   <!-- Modal updatereivew-->
-  <div class="modal fade" id="updatereviewModal" role="dialog" >
+     <!-- Modal 사진 클릭시 다이얼로그 형태로 보이게 하기 위한 코드-->
+  <div class="modal fade" id="myModal" role="dialog" >
     <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" >
-        <h4 class="modal-title imgname"></h4>
+        <h4 class="modal-title imgname">회원 추가</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           
         </div>
-        <div class="modal-body">  
-        <form action="updatereview.jsp">      
-          	<table class="table table-bordered">
-          		<input type="hidden" name="num" value="<%=dto.getH_num()%>">
-          	<% %>
+        <div class="modal-body">
+          <form action="addguest.jsp">
+          	<table>
           		<tr>
-          			<td style="width: 90px;">작성자(아이디)</td>
-          			<td><%=dto.getName()+"("+dto.getId()+")" %></td>
-          		</tr>
-          		</tr>
-          			<tr>
-          			<td>제목</td>
-          			<td><input type="text" value="<%=dto.getSubject()%>" class="input subject" style="width: 400px;" name="subject"></td>
-          		</tr>
-          			<tr>
-          			<td>내용</td>
-          			<td>
-          				<div><textarea class="input content" style="width: 400px;height: 200px;" name="content" ><%=dto.getContent() %></textarea></div>
-          				<div>
-          				 	<%
-          						if(dto.getImage()==null){%>
-          							<b></b>
-          						<%}else{%>
-          							<img src="../image/<%=dto.getImage()%>" class="image" style="max-height: 300px;max-width: 300px;" >
-          						<%}
-          					%> 
-          				</div>
-          				<div><input type="checkbox" class="blind" name="blind">내용 가리기</div>
-          			</td>
-          		</tr>
-          	</table>  
-          	<div style="text-align: center;"><button type="submit" class="btn btn-warning">수정하기</button></div>  
-          	</form>     	
+					<th style="width: 100px;">성명</th>
+					<td>&nbsp;&nbsp;<input type="text" name="name" class="input" required id="name"></td>
+				</tr>
+				<tr>
+					<th style="width: 100px;">생년월일</th>
+					<td>&nbsp;&nbsp;
+					<select id="year" style="width: 70px;" class="input" name="year">
+					
+					<script type="text/javascript">
+					var date=new Date();
+					var year=date.getFullYear();
+					for(var y=year;y>=1950;y--){
+					var op="<option>"+y+"</option>";
+					document.write(op);
+					}
+					</script>
+					</select>
+					년  
+					<select id="month" style="width: 70px;" class="input" name="month">
+					<script type="text/javascript">
+					//console.log(date.getMonth());
+					var curm=date.getMonth()+1;
+					for(var m=1;m<=12;m++){
+					var op="";
+					if(m==curm)
+					op="<option selected>"+m+"</option>";
+					else
+					op="<option>"+m+"</option>";
+					document.write(op);
+					} 	
+					</script>
+					</select>
+					월  
+					<select id="day" style="width: 70px;" class="input" name="day">
+					<script type="text/javascript">
+					var curd=date.getDate();
+					for(var d=1;d<=31;d++){
+					var op="";
+					if(d==curd)
+					op="<option selected>"+d+"</option>";
+					else
+					op="<option>"+d+"</option>";
+					document.write(op);
+					} 	
+					</script>
+					</select>
+					일<br>	
+					</td>
+				</tr>
+				<tr>
+					<th style="width: 100px;">이메일</th>
+					<td>
+					&nbsp;&nbsp;<input type="text" name="email1" style="width: 100px;" class="input" required id="email1">
+					@&nbsp;<input type="text" name=email2 class="email2 input" required id="email2" >&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<th style="width: 100px;">휴대전화</th>
+					<td>&nbsp;
+					<input type="text" name="hp1" style="width: 80px;" class="input hp1" required maxlength="3">-
+					<input type="text" name="hp2" style="width: 80px;" class="input hp2" required maxlength="4">-
+					<input type="text" name="hp3" style="width: 80px;" class="input hp3" required maxlength="4">
+					</td>
+				</tr>
+				<tr>
+					<th style="width: 100px;">자택 주소</th>
+					<td>&nbsp;&nbsp;<input type="text" name="zip" id="zip" class="input">
+						<button type="button" class="btn btn-info" style="color: white;" onclick="openaddr()">주소 찾기</button>
+						<br><br>&nbsp;&nbsp;<input type="text" name="addr1" id="addr1" class="input" style="width: 400px;">
+						<br>&nbsp;&nbsp;<input type="text" name="addr2" id="addr2" class="input" style="width: 400px;">
+					</td>
+				</tr>
+				<tr>
+					<th style="width: 100px;">아이디</th>
+					<td>&nbsp;&nbsp;<input type="text" name="idsel" class="input id" required>
+						
+					</td>
+				</tr>
+				<tr>
+					<th style="width: 100px;">비밀번호</th>
+					<td>&nbsp;&nbsp;<input type="text" name="pass" class="input pass1" required>
+						
+					</td>
+				</tr>
+          	</table>
+          		<div style="text-align: center;"><button type="submit" class="btn btn-warning" >추가</button></div>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -545,40 +654,6 @@
     </div>
   </div>
   	<!-- modal끝 -->
-  <script type="text/javascript">
-  
-	//수정하기
-	$("button.updatereview").click(function(){
-
-		$("#updatereviewModal").modal();
-		
-		//내용 가리기를 클릭했을 때
-		$("input[name=blind]").change(function(){
-			
-			    if($(this).is(":checked")){
-				//체크 됐을 때
-				$("textarea.content").val("관리자에 의해 규제된 내용입니다.");
-				$("input.subject").val("관리자에 의해 규제된 내용입니다.");
-				 $("img.image").attr("src","");
-				
-				
-				
-			}else{
-				//체크 풀었을 때
-				$("textarea.content").val("<%=dto.getContent()%>");
-				 $("input.subject").val("<%=dto.getSubject()%>"); 
-				 $("img.image").attr("src","../image/<%=dto.getImage()%>");
-				
-				
-			}    
-			
-		});
-		
-		
-		});
-	
-	
-  </script>     
   
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

@@ -288,7 +288,7 @@ DbConnect db=new DbConnect();
                   pstmt.setString(5, dto.getAddr());
                   pstmt.setString(6, dto.getId());
                   pstmt.setString(7, dto.getPass());
-                  pstmt.setString(8, dto.getGoogle());
+                  pstmt.setString(8, dto.getGoogle()==null?"no":dto.getGoogle());
                   
                   pstmt.execute();
                } catch (SQLException e) {

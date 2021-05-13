@@ -57,7 +57,12 @@
 		span.delguest:hover{
 			color: black;
 		}
-		
+		span.reviewlist{
+			cursor: pointer;
+		}
+		tr.goreview{
+			cursor: pointer;
+		}
 	
 	</style>
 	
@@ -131,11 +136,11 @@ String num=request.getParameter("num");
 			
 		});
 		
-		//문의 내역 클릭했을 때
+		//후기 내역 클릭했을 때
 		$("span.reviewlist").click(function(){
 			$("#reviewModal").modal();	
 		});
-		//문의 내역 상세보기로 이동
+		//후기 내역 상세보기로 이동
 		$("tr.goreview").click(function(){
 			var num=$(this).attr("num");
 			location.href="rContent.jsp?num="+num;
@@ -203,7 +208,7 @@ String num=request.getParameter("num");
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="reservationlist.jsp">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>예약관리</span></a>
             </li>
@@ -713,20 +718,25 @@ String num=request.getParameter("num");
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header" >
-        <h4 class="modal-title imgname">후기 내역</h4>
+        <h4 class="modal-title imgname"><%=dto.getName() %>님의 후기 내역</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           
         </div>
         <div class="modal-body">        
           	<table class="table table-hover">
           		<tr>
-          			<td>no</td><td>문의 종류</td><td>제목</td><td>작성일</td><td>추천수</td><td>조회수</td>
+          			<td>no</td><td>평가</td><td>제목</td><td>작성일</td><td>추천수</td><td>조회수</td>
           		</tr>
           		<%
 				reviewDao rdao=new reviewDao();
 				List<reveiwDto>list =rdao.getUserList(num);
 				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 				int no=0;
+				if(list.size()==0){%>
+					<tr><th colspan="6" style="text-align: center;">문의 내역이 없습니다.</th></tr>
+				<%}else{
+					
+				
 					for(reveiwDto d:list){%>
 						<tr num="<%=d.getH_num()%>" class="goreview">
 						<th><%=++no %></th>
@@ -737,6 +747,7 @@ String num=request.getParameter("num");
 						<th><%=d.getReadcount() %></th>
 						</tr>
 					<%}
+				}
 				%>
           	</table>         	
         </div>
