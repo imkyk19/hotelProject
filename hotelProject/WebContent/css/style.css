@@ -23,8 +23,10 @@ div.main div.body{
 
 div.main div.info{
 	top: 1000px;
-	height: 200px;
+	height: 100px;
 	width: 100%;
+	text-align: center;
+	line-height: 100px;
 	background-color: #FAEBD0;
 	
 }

@@ -28,7 +28,7 @@
 	table.tableform td.mainLogo {
 		width: 800px; 
 		font-family: 'Forum', cursive;  
-		font-size: 3em; 
+		font-size: 4em; 
 		text-align: center; 
 		cursor:pointer;
 		color: #594C3C;
