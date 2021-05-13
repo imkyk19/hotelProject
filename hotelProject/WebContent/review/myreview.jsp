@@ -33,6 +33,7 @@
 	width: 900px;
 	margin-top: 70px;
 	margin-left: 650px;
+	margin-bottom: 150px;
 
 	}
 	
