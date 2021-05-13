@@ -51,13 +51,13 @@ public class ReservationDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select * from reservation where g_num=? and checkin_date=? and checkout_date=?";
+		String sql="select * from reservation where g_num=? and checkin_date < ? and checkout_date > ?";
 		conn=db.getCommonConnection();
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, g_num);
-			pstmt.setString(2, checkin_date);
-			pstmt.setString(3, checkout_date);
+			pstmt.setString(2, checkout_date);
+			pstmt.setString(3, checkin_date);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				t=true;

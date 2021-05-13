@@ -14,25 +14,26 @@
 		width: 1200px;
 		margin-left: auto;
 		margin-right: auto;
+		margin-top: 50px;
 	}
 	
 	thead.title tr td {
-		border: 2px solid gray; 
+		border-bottom: 3px solid gray; 
 		width: 1200px; 
-		height: 200px;
+		height: 150px;
 		text-align: center;
 		font-size: 5em;
-		background-color: #FAEBD0;
+		/* background-color: #FAEBD0; */
 		color: #594C3C;
 	}
 	
 	tbody.bookingform{
 		margin-top: 100px;
-		border: 2px solid blue;
+		border: 0px solid blue;
 	}
 	
 	tbody.bookingform tr td {
-		border: 2px solid gray;
+		border: 0px solid gray;
 		text-align: center;
 		width: 200px;
 		height: 50px;
@@ -45,7 +46,7 @@
 	
 	div.roomlist {
 		width: 1200px; 
-		height: 2200px;
+		height: 2350px;
 		margin-bottom: 50px;
 		text-align: center;
 		font-size: 1em;
@@ -62,6 +63,7 @@
 	
 	table.roomlist {
 		border: 2px solid gray;
+		margin-top: 30px;
 	}
 	
 	table.roomlist td.text {
@@ -268,7 +270,7 @@
 					<input type="hidden" name = "ckout_date" id = "ckout_date" value = "">
 					<input type="hidden" name = "capacity" id = "capacity" value = "">
 					
-						<button style="margin-top: 10px; margin-bottom:10px; width: 200px; height: 50px;" type="submit" id = "btnsearch" class="btn btn-success btn-lg">Search</button>
+						<button style="margin-top: 30px; margin-bottom:10px; width: 200px; height: 50px; background-color:#260B01; line-height:20px; color: white; font-size: 1.5em; text-align: center;" type="submit" id = "btnsearch" class="btn btn-default btn-lg">Search</button>
 						
 					</td>
 				</tr>

@@ -6,7 +6,7 @@ body *{
 
 div.main>div{
 	position: absolute;
-	border:  0px solid black;
+	
 }
 
 div.main div.menu{
@@ -22,12 +22,12 @@ div.main div.body{
 }
 
 div.main div.info{
+	padding: 0;
 	top: 1000px;
-	height: 100px;
 	width: 100%;
 	text-align: center;
-	line-height: 100px;
-	background-color: #FAEBD0;
+	background-color: #FAEBD0; 
+	
 	
 }
 
@@ -40,7 +40,6 @@ div.main div.info{
 	}
 	.input:focus{
 		outline: 1px solid #808080;
-		
 	}
 	button{
 		cursor: pointer;

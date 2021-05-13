@@ -113,7 +113,7 @@ $(function(){
 	 <div class="item active">
 	 	<img alt="호텔" src="image/호텔.jpg" id="img">
 	 	<div class="carousel-caption">
-	 		<h3>Hotel GRACE♡</h3>
+	 		<h3>Hotel GRACE</h3>
 	 		<p>사랑하는 사람들과 행복한 추억을 만들어보세요</p>
 	 	</div>
 	 </div>
@@ -232,7 +232,7 @@ $(function(){
 </script>
 <br><br>
 <!-- 호텔 리워즈 -->
-<div class="rewards">
+<div class="rewards" style="margin-bottom: 50px;">
 <br>
 	<h2 style="text-align: center;">그레이스 리워즈</h2>
 	<hr style="text-align: center;border: 1px solid #A68863;width: 300px;">

@@ -47,6 +47,7 @@
 	
 	tbody.card input {
 		float: left;
+		margin-right: 5px;
 	}
 </style>
 </head>
@@ -115,7 +116,7 @@
 				<tr>
 					<td><%=dto.getCapacity()%> 인용</td>
 					
-					<td align="right"><h4><b>예약 날짜: <%=checkin_date%> ~ <%=checkout_date%></b></h4>
+					<td align="right"><h4><b>예약 날짜: <%=checkin_date%> ~ <%=checkout_date%> (<%=dateDifference%>박 <%=dateDifference+1%>일)</b></h4>
 					<input type="hidden" name = "checkin_date" id ="checkin_date" value = "<%=checkin_date%>">
 					<input type="hidden" name = "checkout_date" id ="checkout_date" value = "<%=checkout_date%>">
 					
@@ -171,7 +172,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="3" align="center">
-						<button id = "btnPay" type="submit" class="btn btn-success btn-lg" style="height: 50px; width: 200px;">결제하기</button>
+						<button id = "btnPay" type="submit" class="btn btn-default btn-lg" style="height: 50px; width: 200px; background-color: #735236; color: white;">결제하기</button>
 					</td>
 				</tr>
 			</tfoot>
@@ -186,13 +187,15 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h3 class="modal-title">예약 안내</h3>
         </div>
         <div class="modal-body">
-          <p>Some text in the modal.</p>
+          <b>회원님께서 동일한 시기에 예약을 하신 이력이 있습니다. 이대로 결제 진행 하시겠습니까?</b>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	<button style="background-color: #008ee0; width:50px; color: white;" type="button" class="btn-btn-default" id = "btnProceed">결제</button>
+        	<button style="background-color: #ff5447; width:50px; color: white;" type="button" class="btn-btn-default" id = "btnCancel">취소</button>
+          	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
         </div>
       </div>
       
@@ -217,8 +220,24 @@
 				if(t){
 					%>
 					$("#myModal").modal();
+					$("#btnProceed").click(function() {
+						$.ajax({
+							type: "post",
+							dataType: "html",
+							url: "reservation/insertreservationaction.jsp",
+							data: data,
+							success: function(data){
+								alert("예약 성공!!!");
+								location.href = "main.jsp?go=reservecheck/reservecheckpage.jsp";
+							}
+						});
+					});
+					
+					$("#btnCancel").click(function() {
+						location.href = "main.jsp?go=reservation/bookingform.jsp";
+					});
 					<%
-				}
+				}else{
 				%>
 				$.ajax({
 					type: "post",
@@ -230,6 +249,9 @@
 						location.href = "main.jsp?go=reservecheck/reservecheckpage.jsp";
 					}
 				});
+				<%
+				}
+				%>
 			});
 		
 	</script>
@@ -300,10 +322,10 @@
 						<label for = "card" >신용카드: </label>
 					</td>
 					<td colspan="2">
-						<input style="width: 50px;" type="text" class="form-inline card">
-						<input style="width: 50px;" type="text" class="form-inline card">
-						<input style="width: 50px;" type="text" class="form-inline card">
-						<input style="width: 50px;" type="text" class="form-inline card">
+						<input style="width: 50px;" type="text" class="card">
+						<input style="width: 50px;" type="text" class="card">
+						<input style="width: 50px;" type="text" class="card">
+						<input style="width: 50px;" type="text" class="card">
 					</td>
 				</tr>
 				<tr>
@@ -321,7 +343,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="3" align="center">
-						<button id = "btnNonMemberPay" type="submit" class="btn btn-danger btn-lg" style="height: 50px; width: 200px;">비회원 결제하기</button>
+						<button id = "btnNonMemberPay" type="submit" class="btn btn-default btn-lg" style="height: 50px; width: 200px; background-color: #735236; color: white;">비회원 결제하기</button>
 					</td>
 				</tr>
 			</tfoot>
