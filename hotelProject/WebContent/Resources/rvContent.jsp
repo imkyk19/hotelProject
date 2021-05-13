@@ -76,12 +76,19 @@
 //아이디값 얻기
 String id=(String)session.getAttribute("mana");
 String num=request.getParameter("num");
+String re=request.getParameter("re");
 
 ReservationDao dao=new ReservationDao();
 ReservationDto dto=dao.getData(num);
+
 %> 
 
 	$(function(){
+		<%
+		if(re!=null){%>
+		window.reload();
+		<%}
+		%>
 		//수정 버튼 눌렀을 때 값 모달 창 띄우기
 		$("span.updatereservation").click(function(){
 			$("select.capacity").val("<%=dto.getGuestQty()%>");
@@ -113,11 +120,11 @@ ReservationDto dto=dao.getData(num);
 							s+="<table>";
 							s+="<tr>";
 							s+="<td rowspan='3'><img src='"+photo+"' style='width:200px;height:150px;'></td>"
-							s+="<td>"+roomNum+"호</td>";
-							s+="<td>"+price+"</td>";						
+							s+="<td class='roomnum'>"+roomNum+"</td>";
+							s+="<td class='price'>"+price+"</td>";						
 							s+="</tr>";
 							s+="<tr>";						
-							s+="<td style='text_align:center;'>"+capacity+"인</td>";	
+							s+="<td style='text_align:center;' class='capacity'>"+capacity+"인</td>";	
 							s+="<td style='text_align:center;' class='chroom' num='"+num+"'>선택<img src='../image/체크.png' style='width:30px;height:30px;'></td>";	
 							s+="</tr>";
 							s+="<tr>";						
@@ -136,6 +143,30 @@ ReservationDto dto=dao.getData(num);
 			
 			//방선택 버튼 눌렀을 때
 			$(document).on("click","td.chroom",function(){
+				
+				//선택 값을 넣어주고
+				var rnum=$(this).attr("num");
+				var room= $(this).parent().parent().find("td.roomnum").text();				
+			
+				$("td.rn").text(room);
+				$("td.ca").text($("select.capacity").val());
+				$("td.day").text($("input.checkin").val()+"~"+$("input.checkout").val());
+			
+				//초기화
+				$("div.searchroom").html("");
+				
+				
+				
+				
+			});
+			
+			//수정
+			$("button.upreservation").click(function(){
+				var room=$("td.room").text();
+				var reserday=$("td.reserday").text();
+				var capacity=$("td.capacity").text();
+				location.href="updatereservation.jsp?room="+room+"&reserday="+reserday+"&capacity="+capacity+"&num=<%=num%>";
+				
 				
 			});
 		});
@@ -579,8 +610,10 @@ ReservationDto dto=dao.getData(num);
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           
         </div>
-        <div class="modal-body">        
+        <div class="modal-body">     
+          
           	<table class="table table-bordered">
+          	<input type="hidden" num="<%=dto.getNum() %>" name="num">
           		  <tr>
 	                                	<th colspan="2" style="text-align: center;"><img src="<%=dto.getPhoto()%>" style="max-width: 500px;max-height: 450px;"></th>
 	                                </tr>	                                
@@ -603,11 +636,15 @@ ReservationDto dto=dao.getData(num);
 	                                </tr>
 	                                  <tr>
 	                                	<th style="width: 50px;">객실</th>
-	                                	<td class="roomnum"><%=dto.getRoomNum() %></td>
+	                                	<td class="rn room" name="room"><%=dto.getRoomNum() %></td>
+	                                </tr>
+	                                <tr>
+	                                	<th style="width: 80px;">예약일</th>
+	                                	<td class="day reserday" name="reserday"><%=dto.getCheckInDate()+"~"+dto.getCheckOutDate() %></td>
 	                                </tr>
 	                                 <tr>
 	                                	<th style="width: 50px;">인원</th>
-	                                	<td class="capacity"><%=dto.getGuestQty() %></td>
+	                                	<td class="ca capacity" name="capacity"><%=dto.getGuestQty() %></td>
 	                                </tr>
                                      <tr>
 	                                	<th style="width: 50px;">예약자</th>
@@ -619,18 +656,12 @@ ReservationDto dto=dao.getData(num);
 	                                </tr>
 	                                 <tr>
 	                                	<th style="width: 50px;">연락처</th>
-	                                	<td><%=dto.getHp() %></td>
-	                                </tr>
-	                                 <tr>
-	                                	<th style="width: 50px;">이메일</th>
-	                                	<td><%=dto.getEmail() %></td>
-	                                </tr>
-	                                 <tr>
-	                                	<th style="width: 50px;">요청 사항</th>
-	                                	<td></td>
-	                                </tr>  
-          		
-          	</table>         	
+	                                	<td name="hp"><%=dto.getHp() %></td>
+	                                </tr>	                                
+	                       
+          	</table>      
+          	<div style="text-align: center;"><button type="button" class="button upreservation">예약 수정</button></div>   
+          	
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

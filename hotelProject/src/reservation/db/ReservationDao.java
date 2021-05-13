@@ -305,4 +305,45 @@ public class ReservationDao {
 	            
 	            return dto;
 	         }
+	         
+	         //관리자 페이지-수정
+	            public void updateReservation(ReservationDto dto)
+
+	            {
+	                  Connection conn=null;
+
+	                  PreparedStatement pstmt=null;
+
+	                  String sql="update reservation set ROOM_NUM=?,CHECKIN_DATE=?,CHECKOUT_DATE=?,GUEST_QTY=? where num=?";
+	                  
+	                  conn=db.getCommonConnection();
+
+	                  try {
+
+	                     pstmt=conn.prepareStatement(sql);
+	                     
+	                     pstmt.setInt(1, dto.getRoomNum());
+	                     pstmt.setString(2, dto.getCheckInDate());
+	                     pstmt.setString(3, dto.getCheckOutDate());
+	                     pstmt.setInt(4, dto.getGuestQty());
+	                     pstmt.setInt(5, dto.getNum());
+	                     
+	                   
+
+
+	                     pstmt.execute();
+
+	                  } catch (SQLException e) {
+
+	                     // TODO Auto-generated catch block
+
+	                     e.printStackTrace();
+
+	                  }finally {
+
+	                     db.dbColse(pstmt, conn);
+
+	                  }
+
+	               }
 }
