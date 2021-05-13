@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
 <title>Insert title here</title>
 <style type="text/css">
 	div.infomenu{
@@ -149,6 +150,7 @@
 		//인풋태그에 넣기
 		$("#type").val(p);
 		});
+
 </script>		
 		<%
 	}else{
@@ -190,6 +192,7 @@
 		<tr>
 			<td bgcolor="#fff7e8" style="height: 40px;">내용</td>
 			<td>
+			 <div id="editor"></div>
 			<textarea name="content" id="content" class="form-control" required="required" style="width: 500px; height: 150px;"></textarea>
 			</td>
 		</tr>
@@ -247,6 +250,7 @@
 		//인풋태그에 넣기
 		$("#type").val(p);
 		});
+
 </script>		
 		<%
 	}

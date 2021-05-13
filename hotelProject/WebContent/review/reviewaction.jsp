@@ -7,7 +7,11 @@
 <%
 MultipartRequest multi=null;
 //업로드할 경로
-String realFolder=getServletContext().getRealPath("/save");
+	//업로드할 경로 구하기 (톰켓에 업로드된 프로젝트 경로 구하기)
+	ServletContext context=getServletContext();
+	//upload폴더의 실제 경로를 구하는 것
+	String realFolder=context.getRealPath("/upload");
+System.out.print(realFolder);
 
 
 try{

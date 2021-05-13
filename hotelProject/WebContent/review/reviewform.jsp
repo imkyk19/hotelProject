@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
 <title>Insert title here</title>
 <style type="text/css">
 	div.reviewmenu{
@@ -22,7 +23,7 @@
 		padding: 10px 20px;
 	}	
 	
-	table.rtable{
+	div.form{
 		width: 900px;
 		margin-top: 50px;
 		margin-left: 700px;
@@ -58,55 +59,48 @@ if(loginok!=null){
 </div>
 
 <form action="review/reviewaction.jsp" method="post" enctype="multipart/form-data">
-	<table class="table table-bordered rtable" style="width: 800px;">
-		<caption><b style="font-size: 2em; color: #524630; font-weight: bold;'">후기글 작성</b></caption>
+	<div class="form">
+		<b style="font-size: 2em; color: #524630; font-weight: bold;'">후기글 작성</b><br><br>
 		<input type="hidden" name="g_num" id="g_num" value="<%=g_num%>">
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 20px;">아이디</td>
-			<td><%=id%>
-			<input type="hidden" name="name" id="name" value="<%=id%>">
-			</td>
-		</tr>
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 20px;">성명</td>
-			<td><%=dto.getName()%>
+		
+			<b><%=dto.getName()%>
 			<input type="hidden" name="name" id="name" value="<%=dto.getName()%>">
-			</td>
-		</tr>					
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 20px;">후기유형</td>
-			<td>
+			</b>
+	
+			<b>(<%=id%>)
+			<input type="hidden" name="name" id="name" value="<%=id%>">
+			</b><br><br><br>
+		
+			<b style="color: gray;">후기유형</b>
+			<br>
+			<b>
 				<input type="hidden" name="type" id="type">
-					<select name="rtype" id="rtpye" class="form-control" style="width: 200px;">
+					<select name="rtype" id="rtpye" class="form-control" style="width: 100px;">
 						<option disabled hidden selected>선택</option>
 						<option value="칭찬">칭찬</option>
 						<option value="불만">불만</option>
 						<option value="기타">기타</option>
-					</select><br>
-			</td>
-		</tr>
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 20px;">제목</td>
-			<td>
-				<input type="text" name="subject" id="subject" num=""; class="form-control" required="required" style="width: 500px;">
-			</td>
-		</tr>
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 40px;">내용</td>
-			<td>
+					</select>
+			</b><br>
+	
+	
+			<b style="color: gray;">제목</b>
+			<br>
+				<input type="text" name="subject" id="subject" num=""; class="form-control" required="required" style="width: 500px;"><br>
+			
+		
+			<b style="color: gray;">내용</b>
+			<br>
 			<textarea name="content" id="content" class="form-control" required="required" style="width: 500px; height: 150px;"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 40px;">사진첨부</td>
-			<td>
+			<br>
+
+			<b style="color: gray;">사진첨부</b>
 				<input type="file" name="image" id="image" class="form-control" style="width: 300px;">
-			</td>
-		</tr>
-	<br>
-	<br>
-	</table>
-	<button type="submit" class="btnq" id="btnq" style="margin-left: 1100px; color: white;">등록</button><br><br><br><br><br><br>
+			<br><br><br>
+	</div>
+
+
+	<button type="submit" class="btnq" id="btnq" style="margin-left: 900px; color: white;">등록</button><br><br><br><br><br><br>
 </form>	
 <script type="text/javascript">
 $("#rtpye").change(function() {
@@ -115,6 +109,7 @@ $("#rtpye").change(function() {
 	//인풋태그에 넣기
 	$("#type").val(p);
 	});
+	
 </script>
 	
 	<%

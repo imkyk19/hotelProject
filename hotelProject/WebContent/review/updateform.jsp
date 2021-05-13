@@ -23,7 +23,7 @@
 		padding: 10px 20px;
 	}	
 	
-	table.rtable{
+	div.form{
 		width: 900px;
 		margin-top: 50px;
 		margin-left: 700px;
@@ -57,60 +57,52 @@ String g_num=dto.getG_num();
 </div>
 
 <form action="review/updateaction.jsp" method="post" enctype="multipart/form-data">
-	<table class="table table-bordered rtable" style="width: 800px;">
-		<caption><b style="font-size: 2em; color: #524630; font-weight: bold;'">후기글 수정</b></caption>
+	<div class="form">
+		<b style="font-size: 2em; color: #524630; font-weight: bold;'">후기글 수정</b><br><br>
 		<input type="hidden" name="g_num" id="g_num" value="<%=g_num%>">
 		<input type="hidden" name="h_num" id="g_num" value="<%=h_num%>">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 20px;">아이디</td>
-			<td><%=id%>
-			<input type="hidden" name="name" id="name" value="<%=id%>">
-			</td>
-		</tr>
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 20px;">성명</td>
-			<td><%=dto.getName()%>
+		
+			<b><%=dto.getName()%>
 			<input type="hidden" name="name" id="name" value="<%=dto.getName()%>">
-			</td>
-		</tr>					
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 20px;">후기유형</td>
-			<td>
+			</b>
+	
+			<b>(<%=id%>)
+			<input type="hidden" name="name" id="name" value="<%=id%>">
+			</b><br><br><br>
+		
+			<b style="color: gray;">후기유형</b>
+			<br>
+			<b>
 				<input type="hidden" name="type" id="type">
-					<select name="rtype" id="rtpye" class="form-control" style="width: 200px;">
+					<select name="rtype" id="rtpye" class="form-control" style="width: 100px;">
 						<option disabled hidden selected>선택</option>
 						<option value="칭찬">칭찬</option>
 						<option value="불만">불만</option>
 						<option value="기타">기타</option>
-					</select><br>
-			</td>
-		</tr>
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 20px;">제목</td>
-			<td>
+					</select>
+			</b><br>
+	
+	
+			<b style="color: gray;">제목</b>
+			<br>
 				<input type="text" name="subject" id="subject" num=""; class="form-control" required="required" style="width: 500px;"
-					value="<%=rdto.getSubject() %>">
-			</td>
-		</tr>
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 40px;">내용</td>
-			<td>
+				value="<%=rdto.getSubject() %>"><br>
+			
+		
+			<b style="color: gray;">내용</b>
+			<br>
 			<textarea name="content" id="content" class="form-control" required="required" style="width: 500px; height: 150px;">
 			<%=rdto.getContent() %>
 			</textarea>
-			</td>
-		</tr>
-		<tr>
-			<td bgcolor="#fff7e8" style="height: 40px;">사진첨부</td>
-			<td>
+			<br>
+
+			<b style="color: gray;">사진첨부</b>
 				<input type="file" name="image" id="image" class="form-control" style="width: 300px;" value="<%=dao.getPhoto(rdto.getH_num()) %>">
-			</td>
-		</tr>
-	<br>
-	<br>
-	</table>
-	<button type="button" style="width: 120px; margin-left: 900px; color: white;" class="btnlist"
+			<br><br><br>
+	</div>
+	
+	<button type="button" style="width: 120px; margin-left: 800px; color: white;" class="btnlist"
 onclick="location.href='main.jsp?go=review/review.jsp?pageNum=<%=pageNum%>'">목록</button>
 	<button type="submit" class="btnupdate" id="btnupdate" style="width: 120px; color: white;">수정</button><br><br><br><br><br><br>
 </form>	

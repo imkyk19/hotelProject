@@ -143,6 +143,7 @@
 		<th width="50" style="text-align: center;" >번호</th>
 		<th width="80" style="text-align: center;" >문의유형</th>
 		<th width="300">제목</th>
+		<th width="70" style="text-align: center;" >상태</th>
 		<th width="70" style="text-align: center;" >작성자</th>
 		<th width="100" style="text-align: center;" >작성일</th>
 	</tr>
@@ -200,6 +201,19 @@
 									%>	
 								<% 
 							}
+						%>
+						</td>
+						<td>
+						<%
+						if(acount>0){
+							%>
+							<img alt="" src="image/완료.png" style="width: 40px;">
+							<%
+						}else{
+							%>
+							<img alt="" src="image/대기중.png" style="width: 40px;">
+							<%
+						}
 						%>
 						</td>
 						<td>
