@@ -68,6 +68,7 @@
 <div class="total">
 	<div class="hotelinfo" >
 		<h1 style="color:#524630;">호텔 소개</h1><br>
+		<hr style="border:2px solid black;width:1000px;">
 		<img style="margin-top: 20px;" src="image/호텔.jpg">
 		<h3>저희 Hotel GRACE는 2021년 5월 개관하였습니다.</h3>
 		<h3>앞으로도 끊임없는 최상의 가치를 선사하는 명문기업으로 성장할 것을 약속 드립니다.</h3>

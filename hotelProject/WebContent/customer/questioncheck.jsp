@@ -17,8 +17,8 @@
 <style type="text/css">
 	div.infomenu{
 	position: absolute;
-	width: 300px;
-	height: 250px;
+	width: 250px;
+	height: 400px;
 	margin-top: 50px;
 	margin-left: 300px;
 	font-size: 1.3em;
@@ -117,9 +117,10 @@
 <div class="information">
 	<div class="infomenu">
 	<h2>고객센터</h2><br>
-	<span class="contact" onclick="location.href='main.jsp?go=customer/info.jsp'">연락처 및 오시는길</span><br><br>
-	<span class="question" onclick="location.href='main.jsp?go=customer/question.jsp'">문의하기</span><br><br>
-	<span class="question" onclick="location.href='main.jsp?go=customer/questioncheck.jsp'">문의확인</span>
+	<hr style="border:2px solid black;width:200px;margin-top:0px;margin-left: 0px;">
+	<span class="contact" onclick="location.href='main.jsp?go=customer/info.jsp'"style="color: #8C4C27;">연락처 및 오시는길</span><br><br>
+	<span class="question" onclick="location.href='main.jsp?go=customer/question.jsp'"style="color: #8C4C27;">문의하기</span><br><br>
+	<span class="question" onclick="location.href='main.jsp?go=customer/questioncheck.jsp'"style="color: #8C4C27;">문의확인</span>
 	</div>
 </div>
 
