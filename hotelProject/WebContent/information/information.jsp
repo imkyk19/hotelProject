@@ -78,25 +78,106 @@
 		<h1 style="margin-bottom: 50px; margin-top: 30px; color:#524630;">객실소개</h1>
 		<h2 style=" text-align: left; margin-bottom: 30px;">Standard Double</h2>
 		<img alt="" src="image/double.jpg" width="500px;" align="left" id="img1">
-		<h3 style="float: left; text-align: left;">그레이스호텔의 스탠다드 더블룸은 다른 특급 호텔의 동급 객실보다 여유로운 공간을 제공하며, 비즈니스와 여행의 여유로움을 즐길 수 있습니다.
-		고객의 다양한 취향과 감각을 고려하여 세계적인 인테리어 회사들이 디자인한 각기 다른 3가지 인테리어 스타일의 객실이 준비되어 있습니다.</h3>
-		<br>
+		<table class="table table-borderless double" style="width: 500px; text-align: left; float: right;">
+			<tr>
+				<td>
+					<ul>
+						<li>35인치 스마트 TV(위성 TV 48개 채널)</li>
+						<li>50~100Mbps 초고속 유·무선(wifi) 인터넷 무료</li>
+						<li>220V, 110V 전압 사용 가능</li>
+						<li>커피·차 티백 무료 제공</li>
+						<li>베이비 크립(무료)</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li>객실에서 즐기실 수 있는 다양한 룸서비스 메뉴가 준비되어 있습니다.</li>
+						<li>식사 및 음료 : 24시간 서비스</li>
+						<li>중식, 일식 : 점심 12:00~14:00, 저녁 18:00~21:30</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h5>그레이스호텔의 스탠다드 더블룸은 다른 특급 호텔의 동급 객실보다 여유로운 공간을 제공하며, 비즈니스와 여행의 여유로움을 즐길 수 있습니다.
+					고객의 다양한 취향과 감각을 고려하여 세계적인 인테리어 회사들이 디자인한 각기 다른 3가지 인테리어 스타일의 객실이 준비되어 있습니다.</h5>
+				</td>
+			</tr>
+		</table>
+		
+		
 	</div>
 	<br>
 	<div class="room2" style="height: 400px; margin-bottom: 100px;">
 		<h2 style=" text-align: left; margin-bottom: 30px;">Premier Triple</h2>
 		<img alt="" src="image/triple.jpg" width="500px;" align="left" id="img2">
-		<h3 style="float: left; text-align: left;">넓고 밝은 프리미어룸은 절제된 화려함과 편안함을 모두 갖춘 하이엔드 트리플 객실입니다.
-		블루와 골드, 대리석의 아름다운 조화와 함께 서울의 중심에서 품격있는 여유를 느껴보시기 바랍니다.</h3>
-		<br>
+		<table class="table table-borderless triple" style="width: 500px; text-align: left; float: right;">
+			<tr>
+				<td>
+					<ul>
+						<li>55인치 스마트 TV(위성 TV 48개 채널)</li>
+						<li>50~100Mbps 초고속 유·무선(wifi) 인터넷 무료</li>
+						<li>220V, 110V 전압 사용 가능</li>
+						<li>커피·차 티백 무료 제공</li>
+						<li>베이비 크립(무료)</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li>객실에서 즐기실 수 있는 다양한 룸서비스 메뉴가 준비되어 있습니다.</li>
+						<li>식사 및 음료 : 24시간 서비스</li>
+						<li>중식, 일식 : 점심 12:00~14:00, 저녁 18:00~21:30</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h5>넓고 밝은 프리미어룸은 절제된 화려함과 편안함을 모두 갖춘 하이엔드 트리플 객실입니다.
+					블루와 골드, 대리석의 아름다운 조화와 함께 서울의 중심에서 품격있는 여유를 느껴보시기 바랍니다.</h5>
+				</td>
+			</tr>
+		</table>
+		
+		
 	</div>
 	<br>
 	<div class="room3" style="height: 600px;">
 		<h2 style=" text-align: left; margin-bottom: 30px;">Deluxe Suite</h2>
 		<img alt="" src="image/suite.jpg" width="500px;" align="left" id="img3">
-		<h3 style="float: left; text-align: left;">"방에 들어서는 순간 모든 피로를 잊게 될 디럭스 스위트는 아름다운 서울의 야경을 감상할 수 있는 럭셔리한 객실입니다.
-		바쁜 하루를 보낸 당신에게 한 템포 쉬어갈 수 있는 도심 속 오아시스가 될 것입니다."</h3>
-		<br>
+		<table class="table table-borderless suite" style="width: 500px; text-align: left; float: right;">
+			<tr>
+				<td>
+					<ul>
+						<li>75인치 대형 스마트 TV(위성 TV 48개 채널)</li>
+						<li>50~100Mbps 초고속 유·무선(wifi) 인터넷 무료</li>
+						<li>220V, 110V 전압 사용 가능</li>
+						<li>커피·차 티백 무료 제공</li>
+						<li>베이비 크립(무료)</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li>객실에서 즐기실 수 있는 다양한 룸서비스 메뉴가 준비되어 있습니다.</li>
+						<li>식사 및 음료 : 24시간 서비스</li>
+						<li>중식, 일식 : 점심 12:00~14:00, 저녁 18:00~21:30</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h5>방에 들어서는 순간 모든 피로를 잊게 될 디럭스 스위트는 아름다운 서울의 야경을 감상할 수 있는 럭셔리한 객실입니다.
+					바쁜 하루를 보낸 당신에게 한 템포 쉬어갈 수 있는 도심 속 오아시스가 될 것입니다.</h5>
+				</td>
+			</tr>
+		</table>
+		
+		
 	</div>
 </div>
 
