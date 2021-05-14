@@ -53,8 +53,10 @@
 	}
 	
 	div.reserve {
-		margin-left: 300px;
+		margin-left: auto;
+		margin-right: auto;
 		width: 1200px;
+		
 	}
 	
 	div.body {
@@ -249,7 +251,7 @@
 					</td>
 					<td >
 						<label for = "adult">Adults: </label>
-						<select name = "adult" id = "adult" required="required" class = "people" >
+						<select name = "adult" id = "adult" required="required" class = "people" style="height: 25px;" >
 							<option value = "select" selected="selected">--Select--</option>
 							<option value = 1>1</option>
 							<option value = 2>2</option>
@@ -258,7 +260,7 @@
 					</td>
 					<td >
 						<label for = "children">Children: </label>
-						<select name = "children" id = "children" required="required" class = "people" >
+						<select name = "children" id = "children" required="required" class = "people" style="height: 25px;">
 							<option value = "select" selected="selected">--Select--</option>
 							<option value = 0>0</option>
 							<option value = 1>1</option>
