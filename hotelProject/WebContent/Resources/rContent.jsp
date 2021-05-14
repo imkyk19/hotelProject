@@ -49,6 +49,7 @@
 	</style>
 <script type="text/javascript">
 	$(function(){
+		//window.reload();
 		//삭제 이벤트
 		$("button.delreview").click(function(){
 			var num=$(this).attr("num");
@@ -59,7 +60,9 @@
 					data:{"num":num},
 					dataType:"html",
 					url:"delreview.jsp",
-					success:function(){}
+					success:function(){
+						location.href="reviewlist.jsp";
+					}
 				});
 			}
 			
