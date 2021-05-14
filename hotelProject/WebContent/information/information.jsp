@@ -40,7 +40,7 @@
 	#roomslide1{
 		position: absolute;
 		top: 1210px;
-		left: 1000px;
+		left: 55%;
 		width: 700px;
 		height: 300px;
 	}
@@ -48,7 +48,7 @@
 	#roomslide2{
 		position: absolute;
 		top: 1760px;
-		left: 1000px;
+		left: 55%;
 		width: 700px;
 		height: 300px;
 	}
@@ -56,7 +56,7 @@
 	#roomslide3{
 		position: absolute;
 		top: 2300px;
-		left: 1000px;
+		left: 55%;
 		width: 700px;
 		height: 300px;
 	}
