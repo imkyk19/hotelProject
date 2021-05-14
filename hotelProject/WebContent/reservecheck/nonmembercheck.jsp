@@ -48,7 +48,12 @@
 
 <% 
 NonMemberReservationDao dao=new NonMemberReservationDao();
+String guest_name=request.getParameter("guest_name");
+String hp=request.getParameter("hp");
 String num=request.getParameter("num");
+boolean t=dao.isReserveCheck(guest_name);
+NonMemberReservationDto dto=dao.getData(guest_name);
+
 int totalCount=dao.getTotalCount(num);//전체개수 구하기
 int totalPage;//전체 페이지
 int startPage;//각 블럭의 시작페이지
@@ -93,12 +98,11 @@ no=totalCount-(currentPage-1)*perPage;
 
 //start부터 end까지 게시글 가져오기
 List<NonMemberReservationDto> list=dao.getReservationList(num);
-
-    
+   
 	%>
 	
 
-
+<form action="reservecheck/nonmemberaction.jsp" method="post">
 <div class="nonmembermain">
 
 	<h2 style="font-size: 1.8em;color:#8C4C27;"> 비회원 예약 확인/취소</h2>
@@ -139,9 +143,9 @@ List<NonMemberReservationDto> list=dao.getReservationList(num);
 %>
 	
 	  <hr style="border:1px solid black;width:700px;margin-left:0px;">
-
-</div>	
-
+</div>
+</form>	
+<form="nonmembercheck">
 <div class="nonmembercheck">
 <table class="table table-bordered" style="width: 700px;">
 	<tr style=background-color:#fff7e8;"  >
@@ -153,7 +157,7 @@ List<NonMemberReservationDto> list=dao.getReservationList(num);
 		<th style="text-align:center;">체크아웃</th>
 		<th style="text-align:center;">가격</th>
 		<th style="text-align:center;">성함</th>
-		<th style="text-align:center;">핸드폰번호</th>
+		<th style="text-align:center;">휴대전화</th>
 		<th style="text-align:center;">주소</th>
 		<th style="text-align:center;">예약취소하기</th>
 	</tr>
@@ -169,7 +173,7 @@ List<NonMemberReservationDto> list=dao.getReservationList(num);
 		}else{
 			
 			
-			for(NonMemberReservationDto dto:list){
+			for(NonMemberReservationDto ndto:list){
 				%>
 					<tr align="center">
 						<td><%=dto.getRoom_num()%></td>
@@ -184,7 +188,7 @@ List<NonMemberReservationDto> list=dao.getReservationList(num);
 
 						<td> 
 						
-					<a href="main.jsp?go=reservecheck/reservecancel.jsp?num=<%=dto.getNum()%>&pageNum=<%=currentPage%>"
+					<a href="main.jsp?go=reservecheck/nonmembercancel.jsp?num=<%=dto.getNum()%>&pageNum=<%=currentPage%>"
 							style="text-decoration: none; color:black;">예약취소</a>
 						</td>
 					</tr>
@@ -194,7 +198,7 @@ List<NonMemberReservationDto> list=dao.getReservationList(num);
 	%>
 </table>
 </div>
-
+</form>
 </body>		
 
 	

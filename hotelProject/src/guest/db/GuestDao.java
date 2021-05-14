@@ -252,16 +252,16 @@ DbConnect db=new DbConnect();
 
          }
       //È¸¿øÅ»Åð
-      public void deleteGuest(String id) {
+      public void deleteGuest(String g_num) {
          Connection conn = null;
          PreparedStatement pstmt = null;
-         String sql = "delete from guest where id=?";
+         String sql = "delete from guest where g_num=?";
          
          conn = db.getCommonConnection();
          try {
             pstmt = conn.prepareStatement(sql);
             //System.out.println("a");
-            pstmt.setString(1, id);
+            pstmt.setString(1, g_num);
             
             pstmt.execute();
          } catch (SQLException e) {

@@ -7,10 +7,87 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 
+import guest.db.GuestDto;
 import oracle.db.DbConnect;
 
 public class NonMemberReservationDao {
 	DbConnect db = new DbConnect();
+	
+	 public boolean isReserveCheck(String guest_name) {
+         boolean t=false;     
+         Connection conn=null;
+         PreparedStatement pstmt=null;
+         ResultSet rs=null;
+         
+         String sql="select * from reservation2 where guest_name=?";
+         conn=db.getCommonConnection();
+         try {
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1, guest_name);
+            rs=pstmt.executeQuery();
+            if(rs.next()) {
+               t=true;
+            }
+         } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }finally {
+            db.dbColse(rs, pstmt, conn);
+         }
+         return t;
+      }	
+	 
+	 
+	   public NonMemberReservationDto getData(String guest_name)
+
+	      {
+		   NonMemberReservationDto dto=new NonMemberReservationDto();
+	         Connection conn=null;
+
+	         PreparedStatement pstmt=null;
+
+	         ResultSet rs=null;
+
+	         String sql="select * from reservation2 where guest_name=?";
+
+	         conn=db.getCommonConnection();
+
+	   
+
+	         try {
+
+	            pstmt=conn.prepareStatement(sql);
+	            pstmt.setString(1, guest_name);
+	            rs=pstmt.executeQuery();
+	            if(rs.next())
+
+	            {
+	            	dto.setNum(rs.getInt("num"));
+					dto.setGuest_name(rs.getString("guest_name"));
+					dto.setHp(rs.getString("hp"));
+					dto.setAddr(rs.getString("addr"));
+					dto.setGuest_qty(rs.getInt("guest_qty"));
+					dto.setBooking_qty(rs.getInt("booking_qty"));
+					dto.setTotal_price(rs.getInt("total_price"));
+					dto.setRoom_num(rs.getInt("room_num"));
+					dto.setCheckin_date(rs.getString("checkin_date"));
+					dto.setCheckout_date(rs.getString("checkout_date"));
+	            }
+
+	         } catch (SQLException e) {
+
+	            // TODO Auto-generated catch block
+
+	            e.printStackTrace();
+
+	         }finally {
+
+	            db.dbColse(rs, pstmt, conn);
+
+	         }return dto;
+	      }
+	      
+	
 	
 	 //예약했는지 체크
     public boolean isReserveCheck(String guest_name,String hp) {
@@ -46,7 +123,7 @@ public class NonMemberReservationDao {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		String sql="select * from reservation2 where guest_name=? order by num desc";
+		String sql="select * from reservation2 where num=? order by num desc";
 		conn=db.getCommonConnection();
 		
 		try {

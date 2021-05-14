@@ -3,6 +3,8 @@
     pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("utf-8");
+	
+	String g_num=request.getParameter("g_num");
 
 	String id=session.getAttribute("id").toString();
 
@@ -23,7 +25,7 @@ request.setCharacterEncoding("utf-8");
 	location.href="../main.jsp";
 	</script>
 	
-	<% dao.deleteGuest(id);
+	<% dao.deleteGuest(g_num);
 	session.removeAttribute("loginok");
 	session.removeAttribute("id");
 	//String go="../main.jsp";
