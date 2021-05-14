@@ -237,7 +237,7 @@ $("#btnsearch").click(function() {
 				var name=n.find("name").text();
 				var hp=n.find("hp").text();
 				var addr=n.find("addr").text();
-				var cancel='<a style="text-decoration: none; color:black;" href="main.jsp?go=reservecheck/reservecancel.jsp?num='+num+'">예약취소</a>';
+				var cancel='<a style="text-decoration: none; color:black;" href="main.jsp?go=reservecheck/nonmembercancel.jsp?num='+num+'">예약취소</a>';
 				
 					s+='<tr align="center">';
 					s+='<td>'+roomnum+'</td>';	
