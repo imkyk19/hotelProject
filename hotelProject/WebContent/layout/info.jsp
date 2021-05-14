@@ -53,14 +53,14 @@
 <div class="info">
 	<table class="table table-borderless info" style="border:none;">
 		<tr style="border: 0px;">
-			<td rowspan="3" style="width: 300px;">
+			<td rowspan="3" style="width: 300px; border-width: 0;">
 				<p style="font-size: 3em; line-height: 50px;">Hotel GRACE</p><br>
 				<p>SEOUL KOREA</p>
 			</td>
-			<td style="text-align: center;">
+			<td style="text-align: center; border-width: 0;">
 				<span class="bus">GRACE Shuttle Service</span>
 			</td>
-			<td rowspan="3" style="width: 300px; text-align: center; line-height: 120px;">
+			<td rowspan="3" style="width: 300px; text-align: center; line-height: 120px; border-width: 0;">
 				
 					<a href="main.jsp?go=information/information.jsp">소개</a>
 					<a href="main.jsp?go=customer/info.jsp">고객센터</a>
@@ -69,14 +69,14 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td style="border-width: 0;">
 				<span style="margin-right: 50px;">Hotel Front 02-7788-9922</span>
 				<span style="margin-right: 50px;" >Room Service 02-7788-9944</span>
 			</td>
 			
 		</tr>
 		<tr>
-			<td style="height: 20px;">
+			<td style="height: 20px; border-width: 0;">
 				<span style="margin-right: 50px;">Concierge 02-7788-9933</span>
 				<span style="margin-right: 30px;">Cleaning Service 02-7788-9955</span>
 			</td>
@@ -84,7 +84,7 @@
 		</tr>
 	</table>
 </div>
-<div class="bottomInfo" align="left" style="background-color: white; color: gary; font-size: 0.8em; ">
+<div class="bottomInfo" align="left" style="background-color: white; color: gary; font-size: 0.8em; height: 20px;">
 <p>(주) 그레이스호텔 서울특별시 서초구 강남대로 459 (서울특별시 서초구 서초동 1303-34) 사업자등록번호 123-45-78912</p>
 <p>호스팅서비스제공자 비트캠프</p>
 <p>Copyright(C) HOTEL CO.,LTD. ALL Rights Reserved.</p>

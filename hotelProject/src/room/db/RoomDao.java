@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import guest.db.GuestDto;
 import oracle.db.DbConnect;
 
 public class RoomDao {
