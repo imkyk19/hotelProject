@@ -209,7 +209,7 @@ $("#btnsearch").click(function() {
 			$("#name").val("");	
 			$("#hp").val("");
 			var s="";
-			s+='<table class="table table-bordered" style="width: 700px;">';
+			s+='<table class="table table-bordered" style="width: 1000px;">';
 			s+='<caption><b>'+name+'님의 예약현황</b></caption>';
 			s+='<tr style=background-color:#fff7e8;"  >';
 			s+='<th style="text-align:center;">객실번호</th>';
