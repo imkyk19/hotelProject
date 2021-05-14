@@ -242,7 +242,7 @@ $(function(){
 	<span><img src="image/reward2.png" style="width: 350px;text-align: center;margin-left: 100px;"></span>
 	<span><img src="image/reward3.png" style="width: 350px;text-align: center;margin-left: 100px;"></span>
 	<span>
-	<button type="button" style="width: 100px;background-color:#260B01;color: white;height: 60px;">가입하기</button>
+	<button type="button" style="width: 100px;background-color:#260B01;color: white;height: 60px;" onclick="location.href='main.jsp?go=member/memberform.jsp'">가입하기</button>
 	</span>
 	
 	<h4 style="color: #260B01;">그레이스리워즈는 포인트 혜택 및 특전을 제공하는 통합멤버쉽 서비스입니다.</h4>
