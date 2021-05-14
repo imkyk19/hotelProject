@@ -404,6 +404,11 @@
 	                                	reviewDao dao=new reviewDao();
 	                                	reveiwDto dto=dao.getData(num);
 	                                	
+	                                	//이미지출력: 개인톰켓서버 업로드는 타인이 볼 수 없으므로 해당 이미지 없을경우 임시이미지 출력
+	                                	String realPath=getServletContext().getRealPath("/upload");
+	                                	//사진 경로 얻어오기
+	                                	String myPhoto=dto.getImage();
+	                                	File photo=new File(realPath+"\\"+myPhoto);
 	                                	
 	                                	
 	                                %>   
@@ -429,14 +434,13 @@
                                     	<td colspan="3">
 	                                    	<div></div><span style="width: 500px;height: 300px;"><%=dto.getContent() %></span></div>
 	                                    	<div>
-	                                    	<%if(dto.getImage()==null){
+	                                    	<%if(myPhoto==null){
 	                                    		//이미지가 없는 경우%>
 	                                    		<img src="../image/logo.png">
 	                                    	<%}else{
-	                                    		//이미지가 있는 경우
-	                                    		String realFolder=getServletContext().getRealPath("/upload"); 												
+	                                    													
 	                                    		%>
-	                                    		<img src="../image/<%=realFolder%><%=dto.getImage()%>">
+	                                    		<img src="../image/<%=myPhoto%>">
 	                                    		
 	                                    	<%}%>
 	                                    	</div>
