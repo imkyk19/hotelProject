@@ -217,37 +217,39 @@
 				int g_num = Integer.parseInt(gdto.getG_num());
 				
 				boolean t = rdao.isReservationCheck(g_num, checkin_date, checkout_date);
-				if(t){
+				if(!t){
 					%>
-					$("#myModal").modal();
-					$("#btnProceed").click(function() {
-						$.ajax({
-							type: "post",
-							dataType: "html",
-							url: "reservation/insertreservationaction.jsp",
-							data: data,
-							success: function(data){
-								alert("예약 성공!!!");
-								location.href = "main.jsp?go=reservecheck/reservecheckpage.jsp";
-							}
-						});
+					$.ajax({
+						type: "post",
+						dataType: "html",
+						url: "reservation/insertreservationaction.jsp",
+						data: data,
+						success: function(data){
+							alert("예약 성공!!!");
+							location.href = "main.jsp?go=reservecheck/reservecheckpage.jsp";
+						}
 					});
 					
-					$("#btnCancel").click(function() {
-						location.href = "main.jsp?go=reservation/bookingform.jsp";
-					});
 					<%
 				}else{
 				%>
-				$.ajax({
-					type: "post",
-					dataType: "html",
-					url: "reservation/insertreservationaction.jsp",
-					data: data,
-					success: function(data){
-						alert("예약 성공!!!");
-						location.href = "main.jsp?go=reservecheck/reservecheckpage.jsp";
-					}
+				
+				$("#myModal").modal();
+				$("#btnProceed").click(function() {
+					$.ajax({
+						type: "post",
+						dataType: "html",
+						url: "reservation/insertreservationaction.jsp",
+						data: data,
+						success: function(data){
+							alert("예약 성공!!!");
+							location.href = "main.jsp?go=reservecheck/reservecheckpage.jsp";
+						}
+					});
+				});
+				
+				$("#btnCancel").click(function() {
+					location.href = "main.jsp?go=reservation/bookingform.jsp";
 				});
 				<%
 				}
