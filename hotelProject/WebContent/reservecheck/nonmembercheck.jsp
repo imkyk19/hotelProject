@@ -186,7 +186,7 @@ List<NonMemberReservationDto> list=dao.getReservationList(num);
 						<td><%=dto.getHp()%></td>
 						<td><%=dto.getAddr()%></td>
 
-						<td> 
+						<td>   
 						
 					<a href="main.jsp?go=reservecheck/nonmembercancel.jsp?num=<%=dto.getNum()%>&pageNum=<%=currentPage%>"
 							style="text-decoration: none; color:black;">예약취소</a>

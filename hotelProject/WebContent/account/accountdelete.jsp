@@ -13,7 +13,7 @@ request.setCharacterEncoding("utf-8");
 	GuestDao dao=new GuestDao();
 	  
 	String newpass=dao.getPass(id);
-	
+	  
 	boolean b=dao.isPassCheck(id, pass);  
 	
 	

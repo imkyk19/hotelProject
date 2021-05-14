@@ -258,7 +258,7 @@ DbConnect db=new DbConnect();
          String sql = "delete from guest where g_num=?";
          
          conn = db.getCommonConnection();
-         try {
+         try {  
             pstmt = conn.prepareStatement(sql);
             //System.out.println("a");
             pstmt.setString(1, g_num);

@@ -12,7 +12,7 @@
 	String guest_name=request.getParameter("name");
 	String hp=request.getParameter("hp");
 	String addr=request.getParameter("addr");
-	String room_num=request.getParameter("room_num");
+	String room_num=request.getParameter("room_num");  
 	String booking_qty=request.getParameter("booking_qty");
 	String guest_qty=request.getParameter("guest_qty");
 	String checkin_date=request.getParameter("checkin_date");

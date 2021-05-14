@@ -191,7 +191,7 @@ if(id!=null &&loginok!=null){
 <div class="reservecheckmain">
 
 
-
+ 
 	<h2 style="font-size: 1.8em;color:#8C4C27;"> 예약 확인/취소</h2>
 	<hr style="border:2px solid black;width:720px;margin-right:600px;">
 
