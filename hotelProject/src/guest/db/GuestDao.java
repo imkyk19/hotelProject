@@ -259,7 +259,7 @@ DbConnect db=new DbConnect();
          
          conn = db.getCommonConnection();
          try {  
-            pstmt = conn.prepareStatement(sql);
+            pstmt = conn.prepareStatement(sql);  
             //System.out.println("a");
             pstmt.setString(1, id);
             

@@ -9,7 +9,7 @@ request.setCharacterEncoding("utf-8");
 
 	String id=session.getAttribute("id").toString();
 
-	String pass=request.getParameter("Pw");
+	String pass=request.getParameter("Pw");  
 
 	GuestDao dao=new GuestDao();
 	  
