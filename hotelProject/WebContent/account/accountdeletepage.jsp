@@ -105,9 +105,7 @@ String id=session.getAttribute("id").toString();
 		<tr>
 			<td style="background-color:#fff7e8;">아이디</td>
 			<td>
-			<input type="text" name="id" style="width: 150px;"
-			class="form-control input-sm"
-			 required="required" readonly="readonly" value="<%=dto.getId()%>">
+			<%=dto.getId()%>
 			 </td>
 		</tr>	
 		<tr>

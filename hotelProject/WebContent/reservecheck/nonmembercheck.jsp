@@ -3,21 +3,14 @@
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
 <meta charset="UTF-8">
-
 <title>Insert title here</title>
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style>   
 	div.nonmembermain{
@@ -39,21 +32,19 @@
 
 
 </style>
-
 </head>
-
 <body>
-
 
 
 <% 
 NonMemberReservationDao dao=new NonMemberReservationDao();
-String num=request.getParameter("num");
+
 String guest_name=request.getParameter("guest_name");
 String hp=request.getParameter("hp");
-
+String num=request.getParameter("num");
 boolean t=dao.isReserveCheck(guest_name);
 NonMemberReservationDto dto=dao.getData(guest_name);
+String numb=dao.getData(guest_name).getNum();
 
 int totalCount=dao.getTotalCount(num);//전체개수 구하기
 int totalPage;//전체 페이지
@@ -103,25 +94,26 @@ List<NonMemberReservationDto> list=dao.getReservationList(num);
 	%>
 	
 
-<form action="reservecheck/nonmemberaction.jsp" method="post">
+<form action="#" method="post">
 <div class="nonmembermain">
 
 	<h2 style="font-size: 1.8em;color:#8C4C27;"> 비회원 예약 확인/취소</h2>
 	<hr style="border:2px solid black;width:720px;margin-right:600px;">
 
 
-	<table style="width:700px;">
+	<table style="width:700px;margin-left: 200px;">
 	<tr>
 		<tr>
-			<td style="width:70px;background-color:#fff7e8;text-align: center;">성명</td>
+			<td style="width:70px;text-align: center;color:#8C4C27;">성명</td>
 			<td>
 				<input type="text" class="form-control input-sm"
 					style="width: 150px;"
 					 id="name" name="name" required="required">			
 			</td>
 		</tr>
+		<br>
 		<tr>
-			<td style="width:70px;background-color:#fff7e8;text-align: center;">휴대전화</td>
+			<td style="width:70px;text-align: center;color:#8C4C27;">휴대전화</td>
 			<td>
 
 	 		<input type="text" class="form-control input-sm"
@@ -130,9 +122,10 @@ List<NonMemberReservationDto> list=dao.getReservationList(num);
 	 		</td>  
 		</tr>
 	 </table>
-	 	<button type="submit" style="color:white; width: 200px;"
+	 <br>
+	 	<button type="button" style="color:white; width: 220px;margin-left: 200px;"
 
-	  		  id="btnsubmit">조회</button>
+	  		  id="btnsearch">조회</button>
 	
 		<h2 style="font-size: 1.2em;font-weight: bold;">객실/패키지예약</h2>
 		<%
@@ -146,7 +139,7 @@ List<NonMemberReservationDto> list=dao.getReservationList(num);
 	  <hr style="border:1px solid black;width:700px;margin-left:0px;">
 </div>
 </form>	
-<form="nonmembercheck">
+
 <div class="nonmembercheck">
 <table class="table table-bordered" style="width: 700px;">
 	<tr style=background-color:#fff7e8;"  >
@@ -161,6 +154,7 @@ List<NonMemberReservationDto> list=dao.getReservationList(num);
 		<th style="text-align:center;">휴대전화</th>
 		<th style="text-align:center;">주소</th>
 		<th style="text-align:center;">예약취소하기</th>
+		
 	</tr>
 	<%
 		if(totalCount==0){
@@ -199,9 +193,76 @@ List<NonMemberReservationDto> list=dao.getReservationList(num);
 	%>
 </table>
 </div>
-</form>
-</body>		
 
+</body>		
+<script type="text/javascript">
+$("#btnsearch").click(function() {
+	var name=$("#name").val();
+	var hp=$("#hp").val();
+
+	$.ajax({
+		type:"get",
+		dataType:"xml",
+		url:"reservecheck/nonmemberaction.jsp",
+		data:{"name":name,"hp":hp},
+		success:function(data){
+			$("#name").val("");	
+			$("#hp").val("");
+			var s="";
+			s+='<table class="table table-bordered" style="width: 700px;">';
+			s+='<caption><b>'+name+'님의 예약현황</b></caption>';
+			s+='<tr style=background-color:#fff7e8;"  >';
+			s+='<th style="text-align:center;">객실번호</th>';
+			s+='<th style="text-align: center;" >객실수</th>';
+			s+='<th style="text-align: center;">인원수</th>';
+			s+='<th style="text-align: center;" >체크인</th>';			
+			s+='<th  style="text-align: center;" >체크아웃</th>';			
+			s+='<th  style="text-align: center;" >가격</th>';			
+			s+='<th  style="text-align: center;" >성함</th>';
+			s+='<th  style="text-align: center;" >휴대전화</th>';
+			s+='<th  style="text-align: center;" >주소</th>';
+			s+='<th  style="text-align: center;" >예약취소하기</th>';
+			s+='</tr>';
+			$(data).find("answer").each(function(i, element) {
+				var n=$(this);
+				
+				//속성으로 넣은 값 attr로 얻기, 컬럼으로 넣은 값 find로 찾기
+				var num=n.attr("num");
+				var roomnum=n.find("roomnum").text();
+				var booking=n.find("booking").text();
+				var guest=n.find("guest").text();
+				var checkin=n.find("checkin").text();
+				var checkout=n.find("checkout").text();
+				var price=n.find("price").text();
+				var name=n.find("name").text();
+				var hp=n.find("hp").text();
+				var addr=n.find("addr").text();
+				var cancel='<a style="text-decoration: none; color:black;" href="main.jsp?go=reservecheck/reservecancel.jsp?num='+num+'">예약취소</a>';
+				
+					s+='<tr align="center">';
+					s+='<td>'+roomnum+'</td>';	
+					s+='<td>'+booking+'</td>';
+					s+='<td>'+guest+'</td>';
+					s+='<td>'+checkin+'</td>';
+					s+='<td>'+checkout+'</td>';
+					s+='<td>'+price+'</td>';
+					s+='<td>'+name+'</td>';
+					s+='<td>'+hp+'</td>';
+					s+='<td>'+addr+'</td>';
+					s+='<td>'+cancel+'</td>';
+					s+='</tr>';
+					
+					s+='</table>';
+					//div에 html로 출력
+					$("div.nonmembercheck").html(s);
+			});
+			
+			
+		}
+	});
+	
+});
+</script>
 	
 
 </html>

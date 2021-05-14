@@ -1,34 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<%@page import="java.util.List"%>
 <%@page import="reservation.db.NonMemberReservationDao"%>
 <%@page import="reservation.db.NonMemberReservationDto"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/xml; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<data>
 <%    
 
 	request.setCharacterEncoding("utf-8");
-	
-	NonMemberReservationDto dto=new NonMemberReservationDto();
-	NonMemberReservationDao dao=new NonMemberReservationDao();
-	
+
+	//list출력을 위한 dao선언
+	NonMemberReservationDao dao=new NonMemberReservationDao();	
+
 	String guest_name=request.getParameter("name");
 	String hp=request.getParameter("hp");
-	String addr=request.getParameter("addr");
-	String room_num=request.getParameter("room_num");  
-	String booking_qty=request.getParameter("booking_qty");
-	String guest_qty=request.getParameter("guest_qty");
-	String checkin_date=request.getParameter("checkin_date");
-	String checkout_date=request.getParameter("checkout_date");
-	String total_price=request.getParameter("total_price");
+	String num=dao.getData(guest_name).getNum();
 	
-	
-	boolean b=dao.isReserveCheck(guest_name, hp);
-	
-	if(b==true)
-		dao.insertReservation2(dto);
-	
-	
+	//검색 정렬 메서드 호출
+	List<NonMemberReservationDto> list=dao.getSearchList(num);
 
-
+	
+	
+	//데이터 출력
+		for(NonMemberReservationDto dto:list){
+			%>
+			<answer num="<%=dto.getNum()%>">
+				<roomnum><%=dto.getRoom_num()%></roomnum>
+				<booking><%=dto.getBooking_qty()%></booking>
+				<guest><%=dto.getGuest_qty()%></guest>
+				<checkin><%=dto.getCheckin_date()%></checkin>
+				<checkout><%=dto.getCheckout_date()%></checkout>
+				<price><%=dto.getTotal_price()%></price>
+				<name><%=dto.getGuest_name()%></name>
+				<hp><%=dto.getHp()%></hp>
+				<addr><%=dto.getAddr()%></addr>
+			</answer>
+			<%
+	}
 	%>
-
- 
-    
+	</data>

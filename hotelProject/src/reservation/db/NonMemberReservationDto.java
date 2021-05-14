@@ -1,7 +1,7 @@
 package reservation.db;
 
 public class NonMemberReservationDto {
-	private int num;
+	private String num;
 	private String guest_name;
 	private String hp;
 	private String addr;
@@ -12,10 +12,10 @@ public class NonMemberReservationDto {
 	private String checkin_date;
 	private String checkout_date;
 	
-	public int getNum() {
+	public String getNum() {
 		return num;
 	}
-	public void setNum(int num) {
+	public void setNum(String num) {
 		this.num = num;
 	}
 	public String getGuest_name() {

@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import guest.db.GuestDto;
 import oracle.db.DbConnect;
+import review.db.reveiwDto;
 
 public class NonMemberReservationDao {
 	DbConnect db = new DbConnect();
@@ -62,7 +63,7 @@ public class NonMemberReservationDao {
 	            if(rs.next())
 
 	            {
-	            	dto.setNum(rs.getInt("num"));
+	            	dto.setNum(rs.getString("num"));
 					dto.setGuest_name(rs.getString("guest_name"));
 					dto.setHp(rs.getString("hp"));
 					dto.setAddr(rs.getString("addr"));
@@ -135,7 +136,7 @@ public class NonMemberReservationDao {
 				
 				NonMemberReservationDto dto=new NonMemberReservationDto();
 				
-				dto.setNum(rs.getInt("num"));
+				dto.setNum(rs.getString("num"));
 				dto.setGuest_name(rs.getString("guest_name"));
 				dto.setHp(rs.getString("hp"));
 				dto.setAddr(rs.getString("addr"));
@@ -211,6 +212,71 @@ public class NonMemberReservationDao {
 		}
 		
 	}
+	//검색 정렬 리스트
+			public List<NonMemberReservationDto> getSearchList(String num) {
+				
+				List<NonMemberReservationDto> list=new Vector<NonMemberReservationDto>();
+				
+				Connection conn=null;
+				PreparedStatement pstmt=null;
+				ResultSet rs=null;
+				
+				conn=db.getCommonConnection();
+				String sql="select * from reservation2 where num=? order by num desc";
+				
+				try {
+					pstmt=conn.prepareStatement(sql);
+					//바인딩
+					pstmt.setString(1, num);
+					//실행
+					rs=pstmt.executeQuery();
+					//데이터 넣기
+					while(rs.next()) {
+						NonMemberReservationDto dto=new NonMemberReservationDto();
+						
+						dto.setNum(rs.getString("num"));
+						dto.setGuest_name(rs.getString("guest_name"));
+						dto.setHp(rs.getString("hp"));
+						dto.setAddr(rs.getString("addr"));
+						dto.setGuest_qty(rs.getInt("guest_qty"));
+						dto.setBooking_qty(rs.getInt("booking_qty"));
+						dto.setTotal_price(rs.getInt("total_price"));
+						dto.setRoom_num(rs.getInt("room_num"));
+						dto.setCheckin_date(rs.getString("checkin_date"));
+						dto.setCheckout_date(rs.getString("checkout_date"));
+						//list에 추가
+						list.add(dto);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					db.dbColse(rs, pstmt, conn);
+				}
+				return list;
+			}
+			
+			
+			//예약취소
+			public void deleteReservation(String num) {
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				conn = db.getCommonConnection();
+				String sql = "delete from reservation2 where num=?";
+				try {
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, num);
+					pstmt.execute();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					db.dbColse(pstmt, conn);
+				}
+			}
+			
+	}
+
 	
 
-}
+
