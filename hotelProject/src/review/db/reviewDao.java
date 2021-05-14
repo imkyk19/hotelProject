@@ -367,7 +367,7 @@ public class reviewDao {
 			conn=db.getCommonConnection();
 			String sql="select h_num,type,name,id,subject,content,readcount,likes,review.writeday as writeday,review.g_num as g_num,image\r\n"
 					+ "from guest, review\r\n"
-					+ "where guest.g_num=review.g_num";
+					+ "where guest.g_num=review.g_num order by review.writeday desc";
 			
 			try {
 				pstmt=conn.prepareStatement(sql);

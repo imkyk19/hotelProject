@@ -46,6 +46,7 @@
 	</style>
 <script type="text/javascript">
 	$(function(){
+		window.reload();
 		//한 줄을 클릭했을 때 내용 보기
 		$("tr.showcontent").click(function(){
 			var num=$(this).attr("num");
