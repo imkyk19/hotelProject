@@ -190,7 +190,7 @@
           <h3 class="modal-title">예약 안내</h3>
         </div>
         <div class="modal-body">
-          <b>회원님께서 동일한 시기에 예약을 하신 이력이 있습니다. 이대로 결제 진행 하시겠습니까?</b>
+          <b>회원님께서 동일한 기간으로 예약을 하신 이력이 있습니다. 이대로 결제 진행 하시겠습니까?</b>
         </div>
         <div class="modal-footer">
         	<button style="background-color: #008ee0; width:50px; color: white;" type="button" class="btn-btn-default" id = "btnProceed">결제</button>
