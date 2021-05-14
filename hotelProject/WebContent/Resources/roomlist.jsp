@@ -78,15 +78,14 @@
 		 					var capacity=$("input.capacity").val();
 		 					var price=$("input.price").val();
 		 					var text=$("textarea.text").text();
-		 					alert(text);
-		 					
+		 		
 		 					$.ajax({
 		 						type:"get",
 		 				 		dataType:"html",
 		 				 		url:"updateroom.jsp",
 		 				 		data:{"room_num":room_num,"capacity":capacity,"price":price,"text":text,"num":num},
 		 				 		success:function(){
-		 				 			
+		 				 			location.reload();
 		 				 		}
 		 				 			
 		 				 		
@@ -449,8 +448,7 @@
                                         <tr>
                                         	 <th style="width: 80px;">no</th>
                                             <th>호수</th>
-                                            <th>가격</th>
-                                            <th>상태</th>
+                                            <th>가격</th>                                            
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -458,7 +456,6 @@
                                              <th>no</th>
                                             <th>호수</th>
                                             <th>가격</th>
-                                            <th>상태</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -474,7 +471,7 @@
                                             <th><%= ++no %></th>
                                             <th num="<%=d.getRoomNum()%>" ><%= d.getRoomNum() %>호</th>
                                             <th><%= d.getPrice() %></th>
-                                           	<th><%= d.getStatus()%></th>
+
                                         </tr>		
                                     	<%}
                                     %>

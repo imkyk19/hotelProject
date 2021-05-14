@@ -19,12 +19,13 @@
 div.loginform{
 	width: 30%;
 	margin-left: 35%;
-	z-index: 1;
+	
 }
 
 
 table{
-	border-collapse: collapse;
+	border-width: 0;
+	margin-bottom: 20px;
 }
 </style>
 <script type="text/javascript">
@@ -58,8 +59,7 @@ else
 	<form action="login/loginaction.jsp" name="lfrm">
 	<table class="joinform table table-bordered">
 		<tr style="height: 30px; text-align: center; ">
-			<th style="text-align: center; width: 140px;">회원 <hr style="background: #BF8975;height: 7px;"></th>
-			<th style="text-align: center; width: 100px;">비회원</th>
+			<th style="text-align: center; width: 140px;" colspan="2">회원 <hr style="background: #BF8975;height: 7px;"></th>
 		</tr>
 		<tr style="height: 30px;" bgcolor="#F2DAC4">
 			<td style="text-align: right;"><input type="text"  placeholder="아이디 입력" class="input" name="id" 

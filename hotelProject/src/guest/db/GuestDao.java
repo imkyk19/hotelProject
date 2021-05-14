@@ -70,7 +70,7 @@ DbConnect db=new DbConnect();
                Connection conn=null;
                PreparedStatement pstmt=null;
                ResultSet rs=null;
-               String sql="select * from guest order by g_num";
+               String sql="select * from guest order by g_num desc";
                conn=db.getCommonConnection();
                
                try {

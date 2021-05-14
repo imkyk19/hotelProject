@@ -197,7 +197,7 @@ public class QuestionDao {
 			ResultSet rs=null;
 			
 			conn=db.getCommonConnection();
-			String sql="select * from question order by num";
+			String sql="select * from question order by writeday desc";
 			
 			try {
 				pstmt=conn.prepareStatement(sql);

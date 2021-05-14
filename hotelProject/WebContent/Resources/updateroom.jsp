@@ -11,14 +11,17 @@
 	String text=request.getParameter("text");
 	
 	
- 	RoomDto dto=new RoomDto();
+ 	
 	RoomDao dao=new RoomDao();
+	RoomDto dto=dao.getRoomInfo(room_num);
 	dto.setCapacity(capacity);
 	dto.setNum(num);
 	dto.setPrice(price);
 	dto.setText(text);
 	dto.setRoomNum(room_num);
+
 	dao.updateRoom(dto); 
+	System.out.println(room);
 	
 
 %>

@@ -431,10 +431,10 @@
 	                                    	<div>
 	                                    	<%if(dto.getImage()==null){
 	                                    		//이미지가 없는 경우%>
-	                                    		
+	                                    		<img src="../image/logo.png">
 	                                    	<%}else{
 	                                    		//이미지가 있는 경우%>
-	                                    		<img src="../image/<%=dto.getImage()==null?" ":dto.getImage()%>">
+	                                    		<img src="../image/<%=dto.getImage()%>">
 	                                    	<%}%>
 	                                    	</div>
                                     	
@@ -509,9 +509,10 @@
         <div class="modal-body">  
         <form action="updatereview.jsp">      
           	<table class="table table-bordered">
-          		<input type="hidden" name="num" value="<%=dto.getH_num()%>">
+          		
           	<% %>
           		<tr>
+          			<input type="hidden" name="num" value="<%=dto.getH_num()%>">
           			<td style="width: 90px;">작성자(아이디)</td>
           			<td><%=dto.getName()+"("+dto.getId()+")" %></td>
           		</tr>
@@ -527,7 +528,7 @@
           				<div>
           				 	<%
           						if(dto.getImage()==null){%>
-          							<b></b>
+          							<img src="../image/<%=dto.getImage()%>" class="image" style="max-height: 300px;max-width: 300px;" >
           						<%}else{%>
           							<img src="../image/<%=dto.getImage()%>" class="image" style="max-height: 300px;max-width: 300px;" >
           						<%}
@@ -549,36 +550,36 @@
   </div>
   	<!-- modal끝 -->
   <script type="text/javascript">
-  
-	//수정하기
-	$("button.updatereview").click(function(){
 
-		$("#updatereviewModal").modal();
-		
-		//내용 가리기를 클릭했을 때
-		$("input[name=blind]").change(function(){
-			
-			    if($(this).is(":checked")){
-				//체크 됐을 때
-				$("textarea.content").val("관리자에 의해 규제된 내용입니다.");
-				$("input.subject").val("관리자에 의해 규제된 내용입니다.");
-				 $("img.image").attr("src","");
-				
-				
-				
-			}else{
-				//체크 풀었을 때
-				$("textarea.content").val("<%=dto.getContent()%>");
-				 $("input.subject").val("<%=dto.getSubject()%>"); 
-				 $("img.image").attr("src","../image/<%=dto.getImage()%>");
-				
-				
-			}    
-			
-		});
-		
-		
-		});
+  //수정하기
+  $("button.updatereview").click(function(){
+
+     $("#updatereviewModal").modal();
+     
+     //내용 가리기를 클릭했을 때
+     $("input[name=blind]").change(function(){
+        
+            if($(this).is(":checked")){
+           //체크 됐을 때
+           $("textarea.content").val("관리자에 의해 규제된 내용입니다.");
+           $("input.subject").val("관리자에 의해 규제된 내용입니다.");
+            $("img.image").attr("src","../image/logo.png");
+           
+           
+           
+        }else{
+           //체크 풀었을 때
+           $("textarea.content").val("<%=dto.getContent()%>");
+            $("input.subject").val("<%=dto.getSubject()%>"); 
+            $("img.image").attr("src","../image/<%=dto.getImage()%>");
+           
+           
+        }    
+        
+     });
+     
+     
+     });
 	
 	
   </script>     
