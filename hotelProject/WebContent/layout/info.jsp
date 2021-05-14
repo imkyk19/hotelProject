@@ -84,7 +84,7 @@
 		</tr>
 	</table>
 </div>
-<div class="bottomInfo" align="left" style="background-color: white; color: gary; font-size: 0.8em; ">
+<div class="bottomInfo" align="left" style="background-color: white; color: gary; font-size: 0.8em; height: 20px;">
 <p>(주) 그레이스호텔 서울특별시 서초구 강남대로 459 (서울특별시 서초구 서초동 1303-34) 사업자등록번호 123-45-78912</p>
 <p>호스팅서비스제공자 비트캠프</p>
 <p>Copyright(C) HOTEL CO.,LTD. ALL Rights Reserved.</p>

@@ -22,7 +22,8 @@
 	List<RoomDto> list = dao.getVacantRoom(capacity, checkin_date, checkout_date);
 	
 	for(RoomDto dto : list){
-		%>
+		 
+		%> 
 		<room num = "<%=dto.getNum()%>">
 			<room_num><%=dto.getRoomNum()%></room_num>
 			<capacity><%=dto.getCapacity() %></capacity> 
@@ -31,7 +32,8 @@
 			<text><%=dto.getText() %></text>
 		</room>
 		<%
-	}
-
+		}
+	
+	
 %>
 </data>

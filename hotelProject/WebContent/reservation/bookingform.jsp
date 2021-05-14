@@ -86,6 +86,10 @@
 			//data: {"capacity":capacity, "checkin_date":checkin_date, "checkout_date":checkout_date},
 			data:data,
 			success: function(data){
+				if($(data).find("room").length == 0){
+					alert("그 기간은 예약이 다 찼습니다");
+				}
+				
 				var s = "";
 				$(data).find("room").each(function(i, element) {
 					var r = $(this);
