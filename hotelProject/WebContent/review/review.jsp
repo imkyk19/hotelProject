@@ -32,7 +32,6 @@
 	
 	div.check{
 	width: 900px;
-	height: 300px;
 	margin-top: 70px;
 	margin-left: 650px;
 	
@@ -80,7 +79,7 @@
 	int start;//각 페이지의 시작번호
 	int end;//각 페이지의 끝번호
 	int no;//각 페이지에서 출력을 시작할 번호
-	int perPage=5;//한페이지에 보여질 글의 개수
+	int perPage=15;//한페이지에 보여질 글의 개수
 	int perBlock=5;//한 블럭에 보여질 페이지의 개수
 	int currentPage;//현재 페이지
 	

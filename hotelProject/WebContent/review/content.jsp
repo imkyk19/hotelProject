@@ -188,7 +188,7 @@ if(loginok!=null && id.equals(gdto.getId())){
 }
 %>
 
-
+ 
 <br><br><br><br><br>
 
 </body>
