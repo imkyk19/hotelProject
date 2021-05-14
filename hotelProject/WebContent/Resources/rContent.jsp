@@ -433,8 +433,11 @@
 	                                    		//이미지가 없는 경우%>
 	                                    		<img src="../image/logo.png">
 	                                    	<%}else{
-	                                    		//이미지가 있는 경우%>
-	                                    		<img src="../image/<%=dto.getImage()%>">
+	                                    		//이미지가 있는 경우
+	                                    		String realFolder=getServletContext().getRealPath("/upload"); 												
+	                                    		%>
+	                                    		<img src="../image/<%=realFolder%><%=dto.getImage()%>">
+	                                    		
 	                                    	<%}%>
 	                                    	</div>
                                     	

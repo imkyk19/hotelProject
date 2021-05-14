@@ -27,9 +27,12 @@
 	String id=request.getParameter("idsel");	
 	String pass=request.getParameter("pass");
 	String google=request.getParameter("google");
-	if(google==null)
+	System.out.println(google);
+	 if(google.equals("")){
 		google="no";
+	} 
 	
+
 
 	GuestDto dto=new GuestDto();
 	dto.setAddr(addr);
@@ -44,7 +47,6 @@
 	GuestDao dao=new GuestDao();
 	
 	dao.insertGuest(dto);
-	request.setCharacterEncoding("utf-8");
 	response.sendRedirect("../main.jsp?go=member/join.jsp?name="+dto.getName()+"&id="+id);
 %>
 
