@@ -40,7 +40,7 @@ ul>li>a{
 	
 div.accountdelete{
 	position:absolute;
-	left:600px;
+	left:650px;
 	top:50px;
 
 }

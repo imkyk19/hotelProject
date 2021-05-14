@@ -41,7 +41,7 @@ ul>li>a{
 
 div.passwordupdate{
 	position:absolute;
-	left:600px;
+	left:650px;
 	top:50px;
 
 }
