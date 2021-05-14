@@ -48,9 +48,10 @@
 
 <% 
 NonMemberReservationDao dao=new NonMemberReservationDao();
+String num=request.getParameter("num");
 String guest_name=request.getParameter("guest_name");
 String hp=request.getParameter("hp");
-String num=request.getParameter("num");
+
 boolean t=dao.isReserveCheck(guest_name);
 NonMemberReservationDto dto=dao.getData(guest_name);
 

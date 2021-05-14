@@ -20,18 +20,10 @@
 	String total_price=request.getParameter("total_price");
 	
 	
-	dto.getGuest_name();
-	dto.getHp();
-	dto.getAddr();
-	dto.getRoom_num();
-	dto.getBooking_qty();
-	dto.getGuest_qty();
-	dto.getCheckin_date();
-	dto.getCheckout_date();
-	dto.getTotal_price();
+	boolean b=dao.isReserveCheck(guest_name, hp);
 	
-
-
+	if(b==true)
+		dao.insertReservation2(dto);
 	
 	
 

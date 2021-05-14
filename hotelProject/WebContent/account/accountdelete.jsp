@@ -5,6 +5,7 @@
 request.setCharacterEncoding("utf-8");
 	
 	String g_num=request.getParameter("g_num");
+	String google= request.getParameter("google");
 
 	String id=session.getAttribute("id").toString();
 
@@ -25,9 +26,12 @@ request.setCharacterEncoding("utf-8");
 	location.href="../main.jsp";
 	</script>
 	
-	<% dao.deleteGuest(g_num);
+	<% dao.deleteGuest(id);
 	session.removeAttribute("loginok");
 	session.removeAttribute("id");
+	session.removeAttribute("google");
+	
+	
 	//String go="../main.jsp";
 	//response.sendRedirect(go);
 	
