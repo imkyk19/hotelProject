@@ -85,11 +85,11 @@ String num=request.getParameter("num");
 			if(t){
 				$.ajax({
 					type:"get",
-					data:{"num":num},
+					data:{"num":<%=num%>},
 					dataType:"html",
 					url:"delguest.jsp",
 					success:function(){
-						location.reload();						
+						location.href="guestlist.jsp";					
 					}
 				});
 			}
