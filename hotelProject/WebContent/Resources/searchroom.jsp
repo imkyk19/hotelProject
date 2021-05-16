@@ -15,7 +15,7 @@
 	RoomDao dao=new RoomDao();
 	List<RoomDto> list=dao.getVacantRoom(Integer.parseInt(capacity), chi, cho);
 	if(list.size()==0){%>
-		<room>값이 없습니다</room>
+		<room num="0"></room>
 	<% }else{
 		for(RoomDto d:list){%>
 		<room num="<%=d.getNum()%>">

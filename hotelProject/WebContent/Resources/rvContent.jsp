@@ -108,6 +108,11 @@ ReservationDto dto=dao.getData(num);
 					url:"searchroom.jsp",
 					success:function(data){
 						var s="";
+						if($(data).find("room").attr("num")==0){
+							s="<h6 style='text-align:center;'>조건에 맞는 객실이 없습니다. 다시 선택해주세요.</h6>";
+						}else{
+							
+						
 						$(data).find("room").each(function(i) {
 							var n=$(this);
 							var num=n.attr("num");
@@ -135,6 +140,8 @@ ReservationDto dto=dao.getData(num);
 							
 						
 						});
+						
+						}
 						$("div.searchroom").html(s);
 						
 					}
@@ -171,6 +178,24 @@ ReservationDto dto=dao.getData(num);
 			});
 		});
 		
+		//예약 취소 버튼
+		$("span.delreservation").click(function(){
+			var t=confirm("정말 취소하시겠습니까?");
+			if(t){
+				$.ajax({
+					type:"get",
+					data:{"num":<%=num%>},
+					dataType:"html",
+					url:"delreservation.jsp",
+					success:function(){
+						location.href="reservationlist.jsp";
+					}
+					
+				});
+			}
+			
+			
+		});
 		
 	});
 </script>
@@ -187,7 +212,7 @@ ReservationDto dto=dao.getData(num);
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.jsp">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="guestlist.jsp">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -199,7 +224,7 @@ ReservationDto dto=dao.getData(num);
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.jsp">
+                <a class="nav-link" href="guestlist.jsp">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -498,7 +523,7 @@ ReservationDto dto=dao.getData(num);
                             
                             <div style="text-align: right;">
                             	<span class="updatereservation"><i class="fas fa-edit"></i>수정</span>
-                            	<span class="delreservation"><i class="fas fa-ban"></i>취소</span>                           	
+                            	<span class="delreservation"><i class="fas fa-ban"></i>예약 취소</span>                           	
                             </div>
                                 <table class="table table-bordered" id="dataTable"  cellspacing="0">                                  	
 	                                 

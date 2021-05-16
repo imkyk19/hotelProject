@@ -92,7 +92,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.jsp">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="guestlist.jsp">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -104,7 +104,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.jsp">
+                <a class="nav-link" href="guestlist.jsp">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -400,6 +400,8 @@
                         <div class="card-body" style="width: 800px;">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable"  cellspacing="0">   
+                                	<thead></thead>
+                                	<tbody>
 	                                <%
 	                                	reviewDao dao=new reviewDao();
 	                                	reveiwDto dto=dao.getData(num);
@@ -432,7 +434,7 @@
                                      <tr>
                                     	<th style="height: 300px;">내용</th>
                                     	<td colspan="3">
-	                                    	<div></div><span style="width: 500px;height: 300px;"><%=dto.getContent() %></span></div>
+	                                    	<div></div><span style="width: 500px;height: 300px;"><%=dto.getContent().replace("\n", "<br>") %></span></div>
 	                                    	<div>
 	                                    	<%if(myPhoto==null){
 	                                    		//이미지가 없는 경우%>
@@ -446,7 +448,9 @@
 	                                    	</div>
                                     	
                                     	</td>
-                                    </tr>                                     
+                                    </tr>  
+                                    </tbody>
+                                    <tfoot></tfoot>                                   
                                 </table>
                                 <div style="text-align: center;"><span>                               
                                 <button type="button" class="btn btn-info" onclick="history.back()">이전</button>
@@ -516,13 +520,13 @@
         <div class="modal-body">  
         <form action="updatereview.jsp">      
           	<table class="table table-bordered">
-          		
-          	<% %>
-          		<tr>
-          			<input type="hidden" name="num" value="<%=dto.getH_num()%>">
+          	<thead>
+          		<input type="hidden" name="num" value="<%=dto.getH_num()%>">
+          	</thead>
+          		<tbody>
+          		<tr>       			
           			<td style="width: 90px;">작성자(아이디)</td>
           			<td><%=dto.getName()+"("+dto.getId()+")" %></td>
-          		</tr>
           		</tr>
           			<tr>
           			<td>제목</td>
@@ -534,16 +538,18 @@
           				<div><textarea class="input content" style="width: 400px;height: 200px;" name="content" ><%=dto.getContent() %></textarea></div>
           				<div>
           				 	<%
-          						if(dto.getImage()==null){%>
-          							<img src="../image/<%=dto.getImage()%>" class="image" style="max-height: 300px;max-width: 300px;" >
+          						if(myPhoto==null){%>
+          							<img src="../image/logo.png" class="image" style="max-height: 300px;max-width: 300px;" >
           						<%}else{%>
-          							<img src="../image/<%=dto.getImage()%>" class="image" style="max-height: 300px;max-width: 300px;" >
+          							<img src="../image/<%=myPhoto%>" class="image" style="max-height: 300px;max-width: 300px;" >
           						<%}
           					%> 
           				</div>
           				<div><input type="checkbox" class="blind" name="blind">내용 가리기</div>
           			</td>
           		</tr>
+          		</tbody>
+          		<tfoot></tfoot>
           	</table>  
           	<div style="text-align: center;"><button type="submit" class="btn btn-warning">수정하기</button></div>  
           	</form>     	
@@ -576,9 +582,9 @@
            
         }else{
            //체크 풀었을 때
-           $("textarea.content").val("<%=dto.getContent()%>");
+           $("textarea.content").val('<%=dto.getContent().replace("\n", "<br>")%>');
             $("input.subject").val("<%=dto.getSubject()%>"); 
-            $("img.image").attr("src","../image/<%=dto.getImage()%>");
+            $("img.image").attr("src","../image/<%=myPhoto==null?"logo.png":myPhoto%>");
            
            
         }    

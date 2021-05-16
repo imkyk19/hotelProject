@@ -77,7 +77,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.jsp">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="guestlist.jsp">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -89,7 +89,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.jsp">
+                <a class="nav-link" href="guestlist.jsp">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -529,7 +529,7 @@
 			success:function(d){
 				var answer=d.answer;
 				var t=prompt("정말 수정하시겠습니까?",answer );
-				if(t!=answer){
+				if(t){
 				
 					$.ajax({
 						data:{"idx":idx,"answer":t},

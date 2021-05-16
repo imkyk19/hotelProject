@@ -16,7 +16,7 @@
 		session.setAttribute("mana", id);
 		session.setAttribute("id", id);
 		session.setAttribute("loginok", "yes");
-		response.sendRedirect("index.jsp?mana="+id);
+		response.sendRedirect("guestlist.jsp?mana="+id);
 	}else{
 		//불일치하는 경우%>
 		<script type="text/javascript">

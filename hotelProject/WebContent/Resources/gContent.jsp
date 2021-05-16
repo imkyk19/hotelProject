@@ -1,3 +1,5 @@
+<%@page import="reservation.db.ReservationDto"%>
+<%@page import="reservation.db.ReservationDao"%>
 <%@page import="java.io.File"%>
 <%@page import="review.db.reveiwDto"%>
 <%@page import="review.db.reviewDao"%>
@@ -61,6 +63,9 @@
 			cursor: pointer;
 		}
 		tr.goreview{
+			cursor: pointer;
+		}
+		span.reservationlist{
 			cursor: pointer;
 		}
 	
@@ -171,7 +176,7 @@ String num=request.getParameter("num");
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.jsp">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="guestlist.jsp">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -183,7 +188,7 @@ String num=request.getParameter("num");
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.jsp">
+                <a class="nav-link" href="guestlist.jsp">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -745,6 +750,52 @@ String num=request.getParameter("num");
 						<th><%=sdf.format(d.getWriteday()) %></th>
 						<th><%=d.getLikes() %></th>
 						<th><%=d.getReadcount() %></th>
+						</tr>
+					<%}
+				}
+				%>
+          	</table>         	
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  	<!-- modal끝 -->
+  	
+  	<!-- Modal reservation-->
+  <div class="modal fade" id="reservationModal" role="dialog" >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header" >
+        <h4 class="modal-title imgname"><%=dto.getName() %>님의 예약 내역 내역</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">        
+          	<table class="table table-hover">
+          		<tr>
+          			<td>no</td><td>객실</td><td>인원</td><td>체크인</td><td>체크아웃</td>
+          		</tr>
+          		<%
+				ReservationDao rvdao=new ReservationDao();
+				List<ReservationDto>rlist =rvdao.getReservationList(num);
+				
+				int rno=0;
+				if(rlist.size()==0){%>
+					<tr><th colspan="6" style="text-align: center;">예약 내역이 없습니다.</th></tr>
+				<%}else{
+					
+				
+					for(ReservationDto d:rlist){%>
+						<tr num="<%=d.getNum()%>" class="goreservation">
+						<th><%=++rno %></th>
+						<th><%=d.getRoomNum()%>호</th>
+						<th><%=d.getGuestQty()%></th>
+						<th><%=d.getCheckInDate() %></th>
+						<th><%=d.getCheckOutDate() %></th>
 						</tr>
 					<%}
 				}
