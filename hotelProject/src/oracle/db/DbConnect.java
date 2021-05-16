@@ -26,7 +26,7 @@ public class DbConnect {
 	public Connection getConnection() {
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection(suhyeonUrl, "hotel", "a1234");
+			conn = DriverManager.getConnection(susuUrl, "hotel", "a1234");
 			
 
 			
