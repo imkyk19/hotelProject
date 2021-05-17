@@ -43,7 +43,7 @@ public class DbConnect {
 		
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection(susuUrl, "hotel", "a1234");
+			conn = DriverManager.getConnection(suhyeonUrl, "hotel", "a1234");
 			
 
 			

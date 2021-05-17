@@ -27,6 +27,9 @@ table{
 	border-width: 0;
 	margin-bottom: 20px;
 }
+table.joinform{
+	border-width: 0;
+}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -62,9 +65,9 @@ else
 			<th style="text-align: center; width: 140px;" colspan="2">회원 <hr style="background: #BF8975;height: 7px;"></th>
 		</tr>
 		<tr style="height: 30px;" bgcolor="#F2DAC4">
-			<td style="text-align: right;"><input type="text"  placeholder="아이디 입력" class="input" name="id" 
+			<td style="text-align: right;height: 30px;"><input type="text"  placeholder="아이디 입력" class="input" name="id" 
 			value="<%= b?id:"" %>"></td>
-			<td rowspan="2" align="left"><button type="submit" class="button" style="width: 120px; height: 50px;color: white;">로그인</button></td>
+			<td rowspan="2" align="left" ><button type="submit" class="button" style="width: 120px; height: 50px;color: white;">로그인</button></td>
 			
 		</tr>
 		<tr style="height: 30px;" bgcolor="#F2DAC4">
@@ -83,9 +86,9 @@ else
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" >
+			<td colspan="2" style="text-align: center;">
 				<br>
-				<div class="g-signin2" data-onsuccess="onSignIn" style="margin-left: 250px;"></div>			
+				<div class="g-signin2" onclick="onSignIn()" style="margin-left: 200px;"></div>			
 				<br>
 			</td>
 		</tr>
@@ -105,65 +108,60 @@ else
 
 			 }
 	
-	/* 	Kakao.init('01888666f60f258d702fb52e5eb58bb0'); //발급받은 키 중 javascript키를 사용해준다.
-		console.log(Kakao.isInitialized());
-		function kakaoLogin() {
-		    Kakao.Auth.login({
-		      success: function (response) {
-		        Kakao.API.request({
-		          url: '/v2/user/me',
-		          success: function (response) {
-		        	  console.log(response)
-		          },
-		          fail: function (error) {
-		            console.log(error)
-		          },
-		        })
-		      },
-		      fail: function (error) {
-		        console.log(error)
-		      },
-		    })
-		  }
- */
+
 
 		//구글 프로필 정보 얻기
-		function onSignIn(googleUser) {
-		  var profile = googleUser.getBasicProfile();
+		function onSignIn() {
+		  var auth2=gapi.auth2.getAuthInstance();
+		  if (auth2.isSignedIn.get()) {
+			  var profile = auth2.currentUser.get().getBasicProfile();
+			  //var profile = googleUser.getBasicProfile();
+			  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			  console.log('Name: ' + profile.getName());
+			  console.log('Image URL: ' + profile.getImageUrl());
+			  console.log('Email: ' + profile.getEmail()); 
+			  
+			  var google= profile.getId().toString();
+			  var name=profile.getName();
+			  var email=profile.getEmail()
+			  
+			  
+			   //구글아이디로 로그인한 적이 있는 지 체크
+			  $.ajax({
+				 type:"get",
+				 dataType:"json",
+				 url:"login/goocheckid.jsp",
+				 data:{"google":google},
+				 success:function(d){
+					 var googleok=d.googleok;
+		
+					 if(googleok=="no"){
+						//아이디가 없을 경우 회원가입 창으로
+						 location.href="main.jsp?go=member/memberform.jsp?google="+google+"&email="+email+"&name="+name+"&ech=yes";
+						
+					 }else if(googleok=="yes"){
+						 //아이디가 있을 경우 로그인					
+						 location.href="login/googleloginaction.jsp?google="+google;
+						 
+					 }
+					
+					
+				 }
+				 
+				 
+			  }); 
+		  }
+		  /*  var profile = googleUser.getBasicProfile();
 		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 		  console.log('Name: ' + profile.getName());
 		  console.log('Image URL: ' + profile.getImageUrl());
-		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.		  
+		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.		   
 		  
 		  var google= profile.getId().toString();
 		  var name=profile.getName();
-		  var email=profile.getEmail();
+		  var email=profile.getEmail(); */
 			
-		  
-		   //구글아이디로 로그인한 적이 있는 지 체크
-		  $.ajax({
-			 type:"get",
-			 dataType:"json",
-			 url:"login/goocheckid.jsp",
-			 data:{"google":google},
-			 success:function(d){
-				 var googleok=d.googleok;
-	
-				 if(googleok=="no"){
-					//아이디가 없을 경우 회원가입 창으로
-					 location.href="main.jsp?go=member/memberform.jsp?google="+google+"&email="+email+"&name="+name+"&ech=yes";
-					
-				 }else if(googleok=="yes"){
-					 //아이디가 있을 경우 로그인					
-					 location.href="login/googleloginaction.jsp?google="+google;
-					 
-				 }
-				
-				
-			 }
-			 
-			 
-		  }); 
+		
 		  
 }
 </script>

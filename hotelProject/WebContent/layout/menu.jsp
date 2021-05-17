@@ -61,7 +61,7 @@
 							
 							//관리자일 경우 관리페이지, 일반 회원일 경우 예약 확인 페이지
 							if(mana!=null){%>
-								<td><a href="Resources/index.jsp?mana=<%= mana %>">관리자 페이지</a></td>
+								<td><a href="Resources/guestlist.jsp?mana=<%= mana %>">관리자 페이지</a></td>
 							<%}else{%>
 								<td><a href="main.jsp?go=reservecheck/reservecheckpage.jsp">예약확인</a></td>
 							<%}
